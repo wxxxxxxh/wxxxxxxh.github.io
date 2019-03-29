@@ -7,6 +7,13 @@
     </url>
     
     <url>
+        <loc>http://wangxuehui.site/about/</loc>
+        <lastmod>2019-03-29T02:14:20.033Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
         <loc>http://wangxuehui.site/tags/</loc>
         <lastmod>2019-03-26T07:26:52.377Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -16,13 +23,6 @@
     <url>
         <loc>http://wangxuehui.site/archive/</loc>
         <lastmod>2019-03-26T07:25:19.069Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>http://wangxuehui.site/about/</loc>
-        <lastmod>2019-03-26T07:09:11.614Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
