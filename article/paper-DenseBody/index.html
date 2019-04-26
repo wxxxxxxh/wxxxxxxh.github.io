@@ -3,7 +3,7 @@
 
 <!-- Head tag -->
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,13 +60,13 @@
     <![endif]-->
 
     <!-- ga & ba script hoook -->
-    <script></script>
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-	<!-- Modified by Yu-Hsuan Yen -->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
@@ -102,7 +102,7 @@
                         <h1>[论文阅读]DenseBody: Directly Regressing Dense 3D Human Pose and Shape From a Single Color Image</h1>
                         <h2 class="subheading">小小阅读笔记，关于人体姿态估计与人体形状估计，使用了单目图像直接端到端生成。</h2>
                         <span class="meta">
-                            Posted by 王雪辉 on
+                            Posted by Xuehui Wang on
                             2019-03-29
                         </span>
                     </div>
@@ -150,14 +150,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -220,73 +220,52 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h3 id="摘要">摘要</h3>
-<h4 id="之前工作">之前工作</h4>
-<ul>
-<li>
-<p>依赖于中间结果，比如身体分割，2D/3D的关节点，以及人体的轮廓掩码等，讲一个大任务分解为各种小任务，这样可以使用更多的2D标注数据。</p>
+                <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><h4 id="之前工作"><a href="#之前工作" class="headerlink" title="之前工作"></a>之前工作</h4><ul>
+<li><p>依赖于中间结果，比如身体分割，2D/3D的关节点，以及人体的轮廓掩码等，讲一个大任务分解为各种小任务，这样可以使用更多的2D标注数据。</p>
 </li>
-<li>
-<p>之前大多数的工作是建立一个带有学习参数的人体形状模型，在低维的空间中来预测这些参数，从而来表示人体。</p>
+<li><p>之前大多数的工作是建立一个带有学习参数的人体形状模型，在低维的空间中来预测这些参数，从而来表示人体。</p>
 </li>
 </ul>
-<h4 id="本文的优势吧">本文的优势吧</h4>
-<ul>
-<li>
-<p>利用CNN直接从单张彩色图像中获取三维人体网格（3D human mesh）。</p>
+<h4 id="本文的优势吧"><a href="#本文的优势吧" class="headerlink" title="本文的优势吧"></a>本文的优势吧</h4><ul>
+<li><p>利用CNN直接从单张彩色图像中获取三维人体网格（3D human mesh）。</p>
 </li>
-<li>
-<p>利用编解码器神经网络来学习获得一种高效的3D人体形态和姿势的表达方式。</p>
+<li><p>利用编解码器神经网络来学习获得一种高效的3D人体形态和姿势的表达方式。</p>
 </li>
-<li>
-<p>在各个3D人体数据集上都有非常好的表现。</p>
+<li><p>在各个3D人体数据集上都有非常好的表现。</p>
 </li>
 </ul>
-<h3 id="introduction">Introduction</h3>
-<ul>
-<li>过去这些年里，很多方法都被提出来来解决人体姿态、形状估计这个问题。有联合式的[1,2,3],也有分离式的[4,5,6]。但是这篇文章使用了端到端的方法，直接从单目图像中利用CNN获得人体3D几何信息。</li>
+<h3 id="introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><ul>
+<li>过去这些年里，很多方法都被提出来来解决人体姿态、形状估计这个问题。有联合式的[1,2,3],也有分离式的[4,5,6]。但是这篇文章使用了端到端的方法，直接从单目图像中利用CNN获得人体3D几何信息。<blockquote>
+<p>[1]G. Varol, D. Ceylan, B. Russell, J. Yang, E. Yumer, I. Laptev, and C. Schmid. Bodynet: Volumetric inference of 3d human body shapes. In The European Conference on Computer Vi- sion (ECCV), September 2018.<br>[2]3G. Varol, J. Romero, X. Martin, N. Mahmood, M. J. Black, I. Laptev, and C. Schmid. Learning from synthetic humans. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 109–117, 2017.<br>[3]A. Kanazawa, M. J. Black, D. W. Jacobs, and J. Malik. End- to-end recovery of human shape and pose. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 7122–7131, 2018.</p>
+</blockquote>
+</li>
 </ul>
 <blockquote>
-<p>[1]G. Varol, D. Ceylan, B. Russell, J. Yang, E. Yumer, I. Laptev, and C. Schmid. Bodynet: Volumetric inference of 3d human body shapes. In The European Conference on Computer Vi- sion (ECCV), September 2018.<br>
-[2]3G. Varol, J. Romero, X. Martin, N. Mahmood, M. J. Black, I. Laptev, and C. Schmid. Learning from synthetic humans. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 109–117, 2017.<br>
-[3]A. Kanazawa, M. J. Black, D. W. Jacobs, and J. Malik. End- to-end recovery of human shape and pose. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 7122–7131, 2018.</p>
-</blockquote>
-<blockquote>
-<p>[4]A. S. Jackson, C. Manafas, and G. Tzimiropoulos. 3d hu- man body reconstruction from a single image via volumetric regression. In European Conference on Computer Vision, pages 64–77. Springer, 2018. 1, 3<br>
-[5]G. Pavlakos, X. Zhou, K. G. Derpanis, and K. Daniilidis. Coarse-to-fine volumetric prediction for single-image 3d hu- man pose. In Proceedings of the IEEE Conference on Com- puter Vision and Pattern Recognition, pages 7025–7034, 2017. 1, 6<br>
-[6]G. Rogez, P. Weinzaepfel, and C. Schmid. Lcr-net++: Multi- person 2d and 3d pose detection in natural images. IEEE Transactions on Pattern Analysis and Machine Intelligence, 01 2019. 1</p>
+<p>[4]A. S. Jackson, C. Manafas, and G. Tzimiropoulos. 3d hu- man body reconstruction from a single image via volumetric regression. In European Conference on Computer Vision, pages 64–77. Springer, 2018. 1, 3<br>[5]G. Pavlakos, X. Zhou, K. G. Derpanis, and K. Daniilidis. Coarse-to-fine volumetric prediction for single-image 3d hu- man pose. In Proceedings of the IEEE Conference on Com- puter Vision and Pattern Recognition, pages 7025–7034, 2017. 1, 6<br>[6]G. Rogez, P. Weinzaepfel, and C. Schmid. Lcr-net++: Multi- person 2d and 3d pose detection in natural images. IEEE Transactions on Pattern Analysis and Machine Intelligence, 01 2019. 1</p>
 </blockquote>
 <ul>
-<li>2015年提出的SMPL是很多后续方法的基础，他们通过对3D人体姿态拟合到2D观测视角（比如2D关键节点或者轮廓）进行不断的迭代优化来估计姿态和形状.但是有比较大的缺点，就是他们需要比较长的运行时间来进行迭代优化。  当深度学习火爆起来以后，也有很多人使用CNN这种端到端的方式来解决这个姿态估计问题，但是直接预测人体三维网格极具挑战，因为需要非常多的3D监督数据。  现在的CNN方法预测SMPL参数的时候一般是通过预测一些中间的2D表达来进行的。这种方法将从2D单目图像到3D 网格的过程分割为两个步骤
+<li><p>2015年提出的SMPL是很多后续方法的基础，他们通过对3D人体姿态拟合到2D观测视角（比如2D关键节点或者轮廓）进行不断的迭代优化来估计姿态和形状.但是有比较大的缺点，就是他们需要比较长的运行时间来进行迭代优化。  当深度学习火爆起来以后，也有很多人使用CNN这种端到端的方式来解决这个姿态估计问题，但是直接预测人体三维网格极具挑战，因为需要非常多的3D监督数据。  现在的CNN方法预测SMPL参数的时候一般是通过预测一些中间的2D表达来进行的。这种方法将从2D单目图像到3D 网格的过程分割为两个步骤</p>
 <ul>
 <li>第一就是获得一些2D的表达方式，比如节点热点图，轮廓图，甚至二维的分割。</li>
-<li>第二就是从这些中间结果来预测模型的参数。<br>
-这种方式的效果很大程度取决于中间部件的选择，比如数量或者这些结果的质量优劣。最近，也有人[7,8]提出了一种更好的表达方式，那就是volumetric reperesentation</li>
-</ul>
+<li>第二就是从这些中间结果来预测模型的参数。<br>这种方式的效果很大程度取决于中间部件的选择，比如数量或者这些结果的质量优劣。最近，也有人[7,8]提出了一种更好的表达方式，那就是volumetric reperesentation<blockquote>
+<p>[7]A. S. Jackson, C. Manafas, and G. Tzimiropoulos. 3d hu- man body reconstruction from a single image via volumetric regression. In European Conference on Computer Vision, pages 64–77. Springer, 2018. 1, 3<br>[8]G. Varol, D. Ceylan, B. Russell, J. Yang, E. Yumer, I. Laptev, and C. Schmid. Bodynet: Volumetric inference of 3d human body shapes. In The European Conference on Computer Vi- sion (ECCV), September 2018. 1, 3, 4, 5, 6, 8</p>
+</blockquote>
 </li>
 </ul>
-<blockquote>
-<p>[7]A. S. Jackson, C. Manafas, and G. Tzimiropoulos. 3d hu- man body reconstruction from a single image via volumetric regression. In European Conference on Computer Vision, pages 64–77. Springer, 2018. 1, 3<br>
-[8]G. Varol, D. Ceylan, B. Russell, J. Yang, E. Yumer, I. Laptev, and C. Schmid. Bodynet: Volumetric inference of 3d human body shapes. In The European Conference on Computer Vi- sion (ECCV), September 2018. 1, 3, 4, 5, 6, 8</p>
-</blockquote>
-<ul>
-<li>该文章提出了使用UV姿势图（UV position map)来作为人体表达方式，以及通过具有编解码结构的神经网络来预测人体姿态和形状。这种方式使得我们可以获得3D网格，而不需要依赖于任何的中间件的表达。UV图的生产过程可以概括为：将3D网格图转换到与二维图像对齐，然后生成UV position map</li>
+</li>
+<li><p>该文章提出了使用UV姿势图（UV position map)来作为人体表达方式，以及通过具有编解码结构的神经网络来预测人体姿态和形状。这种方式使得我们可以获得3D网格，而不需要依赖于任何的中间件的表达。UV图的生产过程可以概括为：将3D网格图转换到与二维图像对齐，然后生成UV position map</p>
+</li>
 </ul>
 <img src="/article/paper-DenseBody/uv-position-map.png" title="UV position map">
-<h3 id="proposed-method">Proposed method</h3>
-<p>作者将如何表达人体作为人体姿态与外形估计问题的首要任务。因此这部分的行文顺序为：</p>
+<h3 id="proposed-method"><a href="#Proposed-method" class="headerlink" title="Proposed method"></a>Proposed method</h3><p>作者将如何表达人体作为人体姿态与外形估计问题的首要任务。因此这部分的行文顺序为：</p>
 <ol>
 <li>介绍3D人体表达方式。在这种表达方式的基础上，提出了一种利用编解码器网络来直接学习如何将2D图像投影到人体外形的框架。</li>
 <li>介绍了网络的细节以及对应的loss。</li>
 <li>解释了实现这个网络的细节</li>
 <li>描述了他们的拟合过程。</li>
 </ol>
-<h4 id="3d-body-representation">3D body representation</h4>
-<p>近来的一些方法都是在预测人体外形模型的参数。但是从输入图像到这些低维参数的映射是高度非线性的，这就导致了难以仅仅依靠参数的loss来训练网络，因此也有一些方法增加其他的loss来协同使用。（详细的可以看volumetric representation和voxel的文章）。考虑到人体的表面是包含着人体形状的绝大部分信息这一点，同时CNN在2D图像中也表现的很好，因此作者提出了在UV空间中通过记录身体表面来作为人体几何表达方式的办法。<br>
-大多数的3D数据集提供了将人体分为10部分的SMPL模型参数，DensePose则提供了更多，达到了24部分。在作者的实验中，他将两者进行了结合，也就是10部分的和24部分的都使用了，实验效果确实比较好。<br>
-首先，作者将在世界坐标系中的SMPL模型转换到相机坐标系中。然后使用正投影将3D模型对齐到对应的2D图像上，这样可以使得3D人体姿态模型在映射到图像平面上的时候匹配。对于3D中的每一个顶点，他的xy对应的就是2D图像上的xy，他的z对应着在2D图像中所记录下来的相对于根点（root point，e.g. hip point）的深度信息，在二维图像上这三个值（x,y,z）就当做像素点的rgb值记录下来。这样就形成了uv map。具体的过程就如上图所示。<br>
-要注意的是，因为SMPL的一些顶点在这张uv map里是可以通过重采样得到的，为了降低重采样的错误率，那对于uv map的分辨率就需要明确一下到底使用多大的。因此，作者在多个不同分辨率的uv map下进行了多组随机采样，然后来计算error。统计结果如下图所示。考虑到state-of-the-art的方法的人体表面和人体关节的错误在10毫米左右，作者就选取了256作为uv map的分辨率。此时作者这种转换的错误率大概是1-2mm，不足为错。</p>
-<img src="/article/paper-DenseBody/map-resolution.png" title="UV map-resolution">
+<h4 id="3d-body-representation"><a href="#3D-body-representation" class="headerlink" title="3D body representation"></a>3D body representation</h4><p>近来的一些方法都是在预测人体外形模型的参数。但是从输入图像到这些低维参数的映射是高度非线性的，这就导致了难以仅仅依靠参数的loss来训练网络，因此也有一些方法增加其他的loss来协同使用。（详细的可以看volumetric representation和voxel的文章）。考虑到人体的表面是包含着人体形状的绝大部分信息这一点，同时CNN在2D图像中也表现的很好，因此作者提出了在UV空间中通过记录身体表面来作为人体几何表达方式的办法。<br>大多数的3D数据集提供了将人体分为10部分的SMPL模型参数，DensePose则提供了更多，达到了24部分。在作者的实验中，他将两者进行了结合，也就是10部分的和24部分的都使用了，实验效果确实比较好。<br>首先，作者将在世界坐标系中的SMPL模型转换到相机坐标系中。然后使用正投影将3D模型对齐到对应的2D图像上，这样可以使得3D人体姿态模型在映射到图像平面上的时候匹配。对于3D中的每一个顶点，他的xy对应的就是2D图像上的xy，他的z对应着在2D图像中所记录下来的相对于根点（root point，e.g. hip point）的深度信息，在二维图像上这三个值（x,y,z）就当做像素点的rgb值记录下来。这样就形成了uv map。具体的过程就如上图所示。<br>要注意的是，因为SMPL的一些顶点在这张uv map里是可以通过重采样得到的，为了降低重采样的错误率，那对于uv map的分辨率就需要明确一下到底使用多大的。因此，作者在多个不同分辨率的uv map下进行了多组随机采样，然后来计算error。统计结果如下图所示。考虑到state-of-the-art的方法的人体表面和人体关节的错误在10毫米左右，作者就选取了256作为uv map的分辨率。此时作者这种转换的错误率大概是1-2mm，不足为错。<br><img src="/article/paper-DenseBody/map-resolution.png" title="UV map-resolution"></p>
+
                 
 
                 <hr>
@@ -351,7 +330,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#摘要"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">&#x6458;&#x8981;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#之前工作"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">&#x4E4B;&#x524D;&#x5DE5;&#x4F5C;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#本文的优势吧"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">&#x672C;&#x6587;&#x7684;&#x4F18;&#x52BF;&#x5427;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#introduction"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Introduction</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#proposed-method"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Proposed method</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3d-body-representation"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">3D body representation</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#摘要"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#&#x6458;&#x8981;" class="headerlink" title="&#x6458;&#x8981;"></a>&#x6458;&#x8981;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#之前工作"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><a href="#&#x4E4B;&#x524D;&#x5DE5;&#x4F5C;" class="headerlink" title="&#x4E4B;&#x524D;&#x5DE5;&#x4F5C;"></a>&#x4E4B;&#x524D;&#x5DE5;&#x4F5C;</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#本文的优势吧"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><a href="#&#x672C;&#x6587;&#x7684;&#x4F18;&#x52BF;&#x5427;" class="headerlink" title="&#x672C;&#x6587;&#x7684;&#x4F18;&#x52BF;&#x5427;"></a>&#x672C;&#x6587;&#x7684;&#x4F18;&#x52BF;&#x5427;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#introduction"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#proposed-method"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><a href="#Proposed-method" class="headerlink" title="Proposed method"></a>Proposed method</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#3d-body-representation"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text"><a href="#3D-body-representation" class="headerlink" title="3D body representation"></a>3D body representation</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -507,7 +486,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 王雪辉 2019 
+                    Copyright &copy; Xuehui Wang 2019 
                     <br>
                     Theme by <a href="http://www.huweihuang.com">胡伟煌</a> 
                     <span style="display: inline-block; margin: 0 5px;">
@@ -638,6 +617,22 @@
 <img src="http://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

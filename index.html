@@ -3,7 +3,7 @@
 
 <!-- Head tag -->
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,13 +60,13 @@
     <![endif]-->
 
     <!-- ga & ba script hoook -->
-    <script></script>
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-	<!-- Modified by Yu-Hsuan Yen -->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
@@ -138,14 +138,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -223,20 +223,15 @@
             一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
         </h3>
         <div class="post-content-preview">
-            Deep Learning for Image Super-resolution: A Survey
-3 监督式SR
-3.1 SR框架
-3.1.1 先上采样SR
-3.1.2 后上采样SR
-
+            Deep Learning for Image Super-resolution: A Survey3 监督式SR3.1 SR框架3.1.1 先上采样SR3.1.2 后上采样SR
 目的：解决先上采样SR存在的计算效率问题，以及更多的利用DL的能力。
 做法：在取代先上采样操作，在低维空间进行mapping操作，然后在最后放置一个端到端可学习的上采样层。
-好处：具有巨大计算量的利用非线......
+好处：具有巨大计算量的利用非线性卷积进行......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
-            Posted by 王雪辉 on
+            Posted by Xuehui Wang on
             2019-04-26
         </p>
         <div class="tags">
@@ -263,15 +258,14 @@
             也是首次兼职代购的一日游，应该说一直在购，没有游
         </h3>
         <div class="post-content-preview">
-            乱七八糟
-因为一点点自己的私事吧，感觉是有必要去一趟香港的，于是约了实验室的汉子（这一天还跟着他给他的小外甥买了两大包的纸尿裤！）就在清明节假期的第一天出发了！
-其实现在过关什么的真的很方便了，包括最开始我的港澳通行证其实是已经没有次数的，而且还是非广州办理，于是先去了出入境大厅办理首次异地再次签注，这个耗了一些时间，但是也比我第一次办理通行证时候快多了，前后大概一周左右。
-随后就是准备了八......
+            乱七八糟因为一点点自己的私事吧，感觉是有必要去一趟香港的，于是约了实验室的汉子（这一天还跟着他给他的小外甥买了两大包的纸尿裤！）就在清明节假期的第一天出发了！  
+其实现在过关什么的真的很方便了，包括最开始我的港澳通行证其实是已经没有次数的，而且还是非广州办理，于是先去了出入境大厅办理首次异地再次签注，这个耗了一些时间，但是也比我第一次办理通行证时候快多了，前后大概一周左右。    
+随后就......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
-            Posted by 王雪辉 on
+            Posted by Xuehui Wang on
             2019-04-10
         </p>
         <div class="tags">
@@ -294,28 +288,21 @@
             小小阅读笔记，关于人体姿态估计与人体形状估计，使用了单目图像直接端到端生成。
         </h3>
         <div class="post-content-preview">
-            摘要
-之前工作
-
-
+            摘要之前工作
 依赖于中间结果，比如身体分割，2D/3D的关节点，以及人体的轮廓掩码等，讲一个大任务分解为各种小任务，这样可以使用更多的2D标注数据。
-
 
 之前大多数的工作是建立一个带有学习参数的人体形状模型，在低维的空间中来预测这些参数，从而来表示人体。
 
 
 本文的优势吧
-
-
 利用CNN直接从单张彩色图像中获取三维人体网格（3D human mesh）。
 
-
-利用编解码器神经网络来学习......
+利用编解码器神经网络来学习获得一种高效的......
         </div>
     </a>
     
         <p class="post-meta" style="margin: 10px 0;">
-            Posted by 王雪辉 on
+            Posted by Xuehui Wang on
             2019-03-29
         </p>
         <div class="tags">
@@ -550,7 +537,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 王雪辉 2019 
+                    Copyright &copy; Xuehui Wang 2019 
                     <br>
                     Theme by <a href="http://www.huweihuang.com">胡伟煌</a> 
                     <span style="display: inline-block; margin: 0 5px;">
@@ -681,6 +668,22 @@
 <img src="http://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

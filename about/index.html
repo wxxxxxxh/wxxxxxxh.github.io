@@ -3,7 +3,7 @@
 
 <!-- Head tag -->
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,13 +60,13 @@
     <![endif]-->
 
     <!-- ga & ba script hoook -->
-    <script></script>
+    <script></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-	<!-- Modified by Yu-Hsuan Yen -->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
@@ -138,14 +138,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -210,29 +210,21 @@
                 post-container
             ">
             
-                <h3 id="一句话">一句话</h3>
-<blockquote>
+                <h3 id="一句话"><a href="#一句话" class="headerlink" title="一句话"></a>一句话</h3><blockquote>
 <p>中山大学 CS 研一狗</p>
 </blockquote>
-<h3 id="关于我">关于我</h3>
-<blockquote>
+<h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><blockquote>
 <p>不纯粹的工科男，喜好思考人生，小到事情得失，大到人生路途，一直在追求自己的道</p>
-</blockquote>
-<blockquote>
 <p>道之所在，虽千万人吾往矣</p>
 </blockquote>
-<h3 id="研究方向">研究方向</h3>
-<blockquote>
-<p>计算机视觉（Computer Vision）<br>
-深度学习(DeepLearning)</p>
+<h3 id="研究方向"><a href="#研究方向" class="headerlink" title="研究方向"></a>研究方向</h3><blockquote>
+<p>计算机视觉（Computer Vision）<br>深度学习(DeepLearning)</p>
 </blockquote>
-<h3 id="参与社区">参与社区</h3>
-<blockquote>
+<h3 id="参与社区"><a href="#参与社区" class="headerlink" title="参与社区"></a>参与社区</h3><blockquote>
 <p>Github:<a href="https://github.com/wxxxxxxh" target="_blank" rel="noopener">https://github.com/wxxxxxxh</a></p>
 </blockquote>
-<h3 id="联系我">联系我</h3>
-<blockquote>
-<p>Email: <a href="mailto:wangxh228@mail2.sysu.edu.cn" target="_blank" rel="noopener">wangxh228@mail2.sysu.edu.cn</a></p>
+<h3 id="联系我"><a href="#联系我" class="headerlink" title="联系我"></a>联系我</h3><blockquote>
+<p>Email: wangxh228@mail2.sysu.edu.cn</p>
 </blockquote>
 
 
@@ -492,7 +484,7 @@
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 王雪辉 2019 
+                    Copyright &copy; Xuehui Wang 2019 
                     <br>
                     Theme by <a href="http://www.huweihuang.com">胡伟煌</a> 
                     <span style="display: inline-block; margin: 0 5px;">
@@ -623,6 +615,22 @@
 <img src="http://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>
