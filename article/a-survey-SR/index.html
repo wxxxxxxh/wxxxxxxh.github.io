@@ -157,14 +157,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/tags/">Tags</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/tags/">Tags</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -242,11 +242,25 @@
 <li>缺点：对back-projection的设计标准并不明确，结构很复杂，需要手动设计。有很大的探索与改进空间。</li>
 </ul>
 <h3 id="32-上采样方法"><a href="#3-2-上采样方法" class="headerlink" title="3.2 上采样方法"></a>3.2 上采样方法</h3><p>除了在哪里放置上采样之外，如何进行上采样也很重要。</p>
-<h4 id="321-基于插值的上采样"><a href="#3-2-1-基于插值的上采样" class="headerlink" title="3.2.1 基于插值的上采样"></a>3.2.1 基于插值的上采样</h4><p>图像插值其实就是图像缩放，常见的插值方法有最近邻插值，双线性插值，双三次插值，Sinc and Lanczos重采样等。<br><strong>1. 最近邻插值</strong><br>选择距离需要被插值的位置的最近的像素点的值<br><strong>2. 双线性插值</strong><br>首先在一个方向轴进行线性插值，然后再另一个轴执行同样操作。虽然每一步都是线性的，但综合来看是一个涉及 <script type="math/tex">2 \times 2</script> 区域大小的二次插值。速度快，效果比最近邻还好。<br><strong>3. 双三次插值</strong><br>和双线性插值很像，在两个维度上进行三次插值，涉及了 <script type="math/tex">4 \times 4</script> 的区域，效果更加平滑，但是速度慢点，这种方法也广泛用于构建SR数据集（也就是从HR到LR的生产）以及应用于先上采样SR框架。</p>
+<h4 id="321-基于插值的上采样"><a href="#3-2-1-基于插值的上采样" class="headerlink" title="3.2.1 基于插值的上采样"></a>3.2.1 基于插值的上采样</h4><p><img src="http://hexo.wangxuehui.site/a-survey-SR/interpolation-based-method.png" alt="fig-3-interpolation-based"> </p>
+<center>图三 基于插值的上采样方法。灰色方格是像素点的坐标系，蓝色是初始的像素点，黄色是插值的像素点，绿色是最终的像素点。</center>
+
+<p>图像插值其实就是图像缩放，常见的插值方法有最近邻插值，双线性插值，双三次插值，Sinc and Lanczos重采样等。<br><strong>1. 最近邻插值</strong><br>选择距离需要被插值的位置的最近的像素点的值<br><strong>2. 双线性插值</strong><br>首先在一个方向轴进行线性插值，然后再另一个轴执行同样操作。虽然每一步都是线性的，但综合来看是一个涉及 <script type="math/tex">2 \times 2</script> 区域大小的二次插值。速度快，效果比最近邻还好。<br><strong>3. 双三次插值</strong><br>和双线性插值很像，在两个维度上进行三次插值，涉及了 <script type="math/tex">4 \times 4</script> 的区域，效果更加平滑，但是速度慢点，这种方法也广泛用于构建SR数据集（也就是从HR到LR的生产）以及应用于先上采样SR框架。</p>
 <p>总的来说，基于插值的方法都是在原内容上进行的，没有带来更多的信息。同时也有一些隐藏的影响，比如说计算复杂度，噪声的倍增，模糊的结果等。</p>
-<h4 id="322基于学习的上采样"><a href="#3-2-2基于学习的上采样" class="headerlink" title="3.2.2基于学习的上采样"></a>3.2.2基于学习的上采样</h4><p>为了能实现一种可学习的端到端的上采样操作，加入了反卷积层与亚像素层(subpixel layer)<br><strong>1. 反卷积层</strong><br>反卷积就是常规卷积的对立。也就是根据卷积操作输出的feature map来预测输入。它通过对图像插入0值以及卷积来提高分辨率。为了简洁说明，图4展示了如何使用 $3 \times 3$ 的卷积核来获得两倍的上采样。首先对原图扩大两倍，新增的像素点设置为0，然后利用一个 $3\times3$ 的卷积核(padding=1，stride=1)来执行卷积操作，这样新生成的值较原图来说最多只涉及 $2 \times 2$ 个。<br>因为反卷积可以以一种端到端的方式扩大图像分辨率同时还保持着与vanilla convolution相兼容的连通模式，所以它在SR中广泛使用。但他很容易在每个轴上造成不平整的叠加(uneven overlapping),两轴相乘的结果就会造成一种在数量级上有差异的独特的像西洋跳棋盘一样的模式。<br><strong>2. 亚像素层</strong><br>也是一种端到端可学习的层。通过卷积生成大量的通道，然后reshape他们，以此来达到上采样。像Fig5一样。过程为：先利用常规卷积对输入通道生成  <script type="math/tex">s^2</script> 个通道，<script type="math/tex">s</script> 是缩放倍数。如果输入大小为 <script type="math/tex">h \times w \times c</script> 那输出就是 <script type="math/tex">h \times w \times s^2c</script> 。然后通过reshape（也叫做shuffle）操作把<script type="math/tex">s^2c</script> 个通道组合成<script type="math/tex">c</script> 个，<script type="math/tex">h,w</script> 变成了<script type="math/tex">sw, sh</script>。这种操作最多只涉及原来的 <script type="math/tex">3 \times 3</script> 个元素。<br>亚像素层相对于反卷积层最大的优势就是感受野变大了。这样可以提供更多的上下文信息。但是也存在着反卷积层的不平整的问题，在边界处也会出现问题。(感觉是因为边界处的卷积都只涉及到了同一个像素点，所以卷积出来的效果也是一样)</p>
+<h4 id="322基于学习的上采样"><a href="#3-2-2基于学习的上采样" class="headerlink" title="3.2.2基于学习的上采样"></a>3.2.2基于学习的上采样</h4><p>为了能实现一种可学习的端到端的上采样操作，加入了反卷积层与亚像素层(subpixel layer)<br><strong>1. 反卷积层</strong> </p>
+<p><img src="http://hexo.wangxuehui.site/a-survey-SR/fig-4-transposed-layer.png" alt=""></p>
+<center>图四 反卷积层</center>
+
+<p>反卷积就是常规卷积的对立。也就是根据卷积操作输出的feature map来预测输入。它通过对图像插入0值以及卷积来提高分辨率。为了简洁说明，图4展示了如何使用 $3 \times 3$ 的卷积核来获得两倍的上采样。首先对原图扩大两倍，新增的像素点设置为0，然后利用一个 $3\times3$ 的卷积核(padding=1，stride=1)来执行卷积操作，这样新生成的值较原图来说最多只涉及 $2 \times 2$ 个。<br>因为反卷积可以以一种端到端的方式扩大图像分辨率同时还保持着与vanilla convolution相兼容的连通模式，所以它在SR中广泛使用。但他很容易在每个轴上造成不平整的叠加(uneven overlapping),两轴相乘的结果就会造成一种在数量级上有差异的独特的像西洋跳棋盘一样的模式。<br><strong>2. 亚像素层</strong></p>
+<p><img src="http://hexo.wangxuehui.site/a-survey-SR/fig-5-subpixel-layer.png" alt=""></p>
+<center>图五 亚像素层(sub-pixel layer)</center>
+
+<p>也是一种端到端可学习的层。通过卷积生成大量的通道，然后reshape他们，以此来达到上采样。像Fig5一样。过程为：先利用常规卷积对输入通道生成  <script type="math/tex">s^2</script> 个通道，<script type="math/tex">s</script> 是缩放倍数。如果输入大小为 <script type="math/tex">h \times w \times c</script> 那输出就是 <script type="math/tex">h \times w \times s^2c</script> 。然后通过reshape（也叫做shuffle）操作把<script type="math/tex">s^2c</script> 个通道组合成<script type="math/tex">c</script> 个，<script type="math/tex">h,w</script> 变成了<script type="math/tex">sw, sh</script>。这种操作最多只涉及原来的 <script type="math/tex">3 \times 3</script> 个元素。<br>亚像素层相对于反卷积层最大的优势就是感受野变大了。这样可以提供更多的上下文信息。但是也存在着反卷积层的不平整的问题，在边界处也会出现问题。(感觉是因为边界处的卷积都只涉及到了同一个像素点，所以卷积出来的效果也是一样)</p>
 <p>这两种层在后上采样SR中应用非常广泛。通常用在最后对低维图像进行处理得到HR图像。</p>
-<h3 id="33-网络设计"><a href="#3-3-网络设计" class="headerlink" title="3.3 网络设计"></a>3.3 网络设计</h3><p>目前对于学习网络的设计已经是深度学习中很重要的一件事了。在SR领域中，研究人员也尝试了非常多的网络设计策略(比如残差学习，密集连接等)。</p>
+<h3 id="33-网络设计"><a href="#3-3-网络设计" class="headerlink" title="3.3 网络设计"></a>3.3 网络设计</h3><p><img src="http://hexo.wangxuehui.site/a-survey-SR/fig-6-network-design.png" alt=""></p>
+<center>图6 各类网络设计策略</center>
+
+<p>目前对于学习网络的设计已经是深度学习中很重要的一件事了。在SR领域中，研究人员也尝试了非常多的网络设计策略(比如残差学习，密集连接等)。</p>
 <h4 id="331-残差学习"><a href="#3-3-1-残差学习" class="headerlink" title="3.3.1 残差学习"></a>3.3.1 残差学习</h4><p>在何凯明大佬提出学习残差而不是整个彻底的映射之前，SR已经开始广泛的利用残差了。如Fig6.可以看出残差学习可以分为两类：全局式，局部式。<br><strong>1. 全局式</strong><br>因为SR任务是一种从一张图到另一张相似图的转变任务，所以没必要全学，只需要学习残差特征即可，这就是全局式的残差学习。这样就避免了复杂的转换，取而代之的是用残差特征去恢复一些细节。因为残差在很多地方是接近于0的，所以这种方式可以降低学习难度。这种方式广泛应用于先上采样SR。<br><strong>2. 全局式</strong><br>很像Resnet，可以减轻网络深度过深带来的退化问题。进而提高学习能力，也是广泛应用于SR领域。</p>
 <p>以上两种方式都是通过捷径连接和元素级操作实现的。他们之间的不同在于：前一个（全局式）直接把输入图像连接到了输出图像，而后一个(局部式)是将多个不同深度的连接在层与层之间。</p>
 <h4 id="332-循环学习"><a href="#3-3-2-循环学习" class="headerlink" title="3.3.2 循环学习"></a>3.3.2 循环学习</h4>
