@@ -1,0 +1,15 @@
+# hexo robots.txt
+User-agent: *
+Allow: /
+Allow: /article/
+Allow: /about/
+Allow: /tags/
+Allow: /archives/
+
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+
+Sitemap: https://wangxuehui.site/sitemap.xml
+Sitemap: https://wangxuehui.site/baidusitemap.xml
