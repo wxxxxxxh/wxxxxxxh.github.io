@@ -2,17 +2,17 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <sitemap>
-        <loc>http://wangxuehui.site/post-sitemap.xml</loc>
+        <loc>https://wangxuehui.site/post-sitemap.xml</loc>
         <lastmod>2019-04-27T07:21:44.041Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://wangxuehui.site/page-sitemap.xml</loc>
+        <loc>https://wangxuehui.site/page-sitemap.xml</loc>
         <lastmod>2019-04-24T13:55:30.033Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>http://wangxuehui.site/tag-sitemap.xml</loc>
+        <loc>https://wangxuehui.site/tag-sitemap.xml</loc>
         <lastmod>2019-04-26T08:40:58.841Z</lastmod>
     </sitemap>
 
