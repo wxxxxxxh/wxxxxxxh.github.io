@@ -150,14 +150,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -220,7 +220,10 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="deep-learning-for-image-super-resolution-a-survey"><a href="#Deep-Learning-for-Image-Super-resolution-A-Survey" class="headerlink" title="Deep Learning for Image Super-resolution: A Survey"></a><center>Deep Learning for Image Super-resolution: A Survey</center></h1><h2 id="3-监督式sr"><a href="#3-监督式SR" class="headerlink" title="3 监督式SR"></a>3 监督式SR</h2><h3 id="31-sr框架"><a href="#3-1-SR框架" class="headerlink" title="3.1 SR框架"></a>3.1 SR框架</h3><h4 id="311-先上采样sr"><a href="#3-1-1-先上采样SR" class="headerlink" title="3.1.1 先上采样SR"></a>3.1.1 先上采样SR</h4><h4 id="312-后上采样sr"><a href="#3-1-2-后上采样SR" class="headerlink" title="3.1.2 后上采样SR"></a>3.1.2 后上采样SR</h4><ul>
+                <h1 id="deep-learning-for-image-super-resolution-a-survey"><a href="#Deep-Learning-for-Image-Super-resolution-A-Survey" class="headerlink" title="Deep Learning for Image Super-resolution: A Survey"></a><center>Deep Learning for Image Super-resolution: A Survey</center></h1><h2 id="3-监督式sr"><a href="#3-监督式SR" class="headerlink" title="3 监督式SR"></a>3 监督式SR</h2><h3 id="31-sr框架"><a href="#3-1-SR框架" class="headerlink" title="3.1 SR框架"></a>3.1 SR框架</h3><p><img src="http://hexo.wangxuehui.site/a-survey-SR/fig-2-framework.png" alt="Frameworks"></p>
+<center>图二 监督式SR的常用框架结构</center> 
+
+<h4 id="311-先上采样sr"><a href="#3-1-1-先上采样SR" class="headerlink" title="3.1.1 先上采样SR"></a>3.1.1 先上采样SR</h4><h4 id="312-后上采样sr"><a href="#3-1-2-后上采样SR" class="headerlink" title="3.1.2 后上采样SR"></a>3.1.2 后上采样SR</h4><ul>
 <li>目的：解决先上采样SR存在的计算效率问题，以及更多的利用DL的能力。</li>
 <li>做法：在取代先上采样操作，在低维空间进行mapping操作，然后在最后放置一个端到端可学习的上采样层。</li>
 <li>好处：具有巨大计算量的利用非线性卷积进行特征提取的过程只在低维空间发生，分辨率只在最后才扩增，所以对时间的消耗以及对空间的占用都会减小，也会加快训练与推理过程。</li>
