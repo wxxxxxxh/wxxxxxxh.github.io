@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wangxuehui.site/about/index.html</loc>
+    
+    <lastmod>2019-05-06T17:36:15.677Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://wangxuehui.site/article/a-survey-SR/</loc>
     
-    <lastmod>2019-04-29T15:51:17.763Z</lastmod>
+    <lastmod>2019-04-30T03:20:41.159Z</lastmod>
     
   </url>
   
@@ -26,13 +33,6 @@
     <loc>https://wangxuehui.site/archive/index.html</loc>
     
     <lastmod>2019-04-24T13:54:52.325Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/about/index.html</loc>
-    
-    <lastmod>2019-04-24T13:54:11.319Z</lastmod>
     
   </url>
   
