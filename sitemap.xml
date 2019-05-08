@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wangxuehui.site/about/index.html</loc>
+    
+    <lastmod>2019-05-08T08:58:32.261Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://wangxuehui.site/cv-en/index.html</loc>
     
     <lastmod>2019-05-07T18:18:06.172Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://wangxuehui.site/cv-zh/index.html</loc>
     
     <lastmod>2019-05-07T18:17:26.029Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/about/index.html</loc>
-    
-    <lastmod>2019-05-06T17:44:45.417Z</lastmod>
     
   </url>
   
