@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          Tags - 王雪辉 | Blog
+          [论文阅读]PointNet: Deep Learning on Point Sets for 3D Classfication and Segmentation - 王雪辉 | Blog
         
     </title>
 
-    <link rel="canonical" href="https://wangxuehui.site/tags/">
+    <link rel="canonical" href="https://wangxuehui.site/article/PointNet/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -89,8 +89,8 @@
 <style type="text/css">
     header.intro-header{
         
-            background-image: url('http://hexo.wangxuehui.site/tags.jpg')
-            /*page*/
+            background-image: url('http://hexo.wangxuehui.site/default.jpg')
+            /*post*/
         
     }
     
@@ -107,10 +107,22 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 
-                    <div class="site-heading">
-                        <h1>Tags</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">Hey, this is Tags.</span>
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
+                            
+                              <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
+                            
+                              <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                            
+                        </div>
+                        <h1>[论文阅读]PointNet: Deep Learning on Point Sets for 3D Classfication and Segmentation</h1>
+                        <h2 class="subheading">PointNet是一个比较经典的将点云输入深度神经网络来进行分割，分类的模型，对于无序化的点云有了自己的处理手段。</h2>
+                        <span class="meta">
+                            Posted by Xuehui Wang on
+                            2019-05-15
+                        </span>
                     </div>
                 
 
@@ -198,258 +210,212 @@
 
 
     <!-- Main Content -->
-    <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 标签云 -->
-            <div id='tag_cloud' class="tags">
-                
-                    <a href="#Computer Vision" title="Computer Vision" rel="3">Computer Vision</a>
-                
-                    <a href="#Papers" title="Papers" rel="3">Papers</a>
-                
-                    <a href="#DeepLearning" title="DeepLearning" rel="3">DeepLearning</a>
-                
-                    <a href="#Hexo" title="Hexo" rel="0">Hexo</a>
-                
-                    <a href="#Travel" title="Travel" rel="1">Travel</a>
-                
-            </div>
+    <!-- Modify by Yu-Hsuan Yen -->
 
-            <!-- 标签列表 -->
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Computer Vision">
-                    <span class="tag-text">Computer Vision</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/PointNet/">
-                        <h2 class="post-title">
-                            [论文阅读]PointNet: Deep Learning on Point Sets for 3D Classfication and Segmentation
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                PointNet是一个比较经典的将点云输入深度神经网络来进行分割，分类的模型，对于无序化的点云有了自己的处理手段。
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/paper-DenseBody/">
-                        <h2 class="post-title">
-                            [论文阅读]DenseBody: Directly Regressing Dense 3D Human Pose and Shape From a Single Color Image
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                小小阅读笔记，关于人体姿态估计与人体形状估计，使用了单目图像直接端到端生成。
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/a-survey-SR/">
-                        <h2 class="post-title">
-                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Papers">
-                    <span class="tag-text">Papers</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/PointNet/">
-                        <h2 class="post-title">
-                            [论文阅读]PointNet: Deep Learning on Point Sets for 3D Classfication and Segmentation
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                PointNet是一个比较经典的将点云输入深度神经网络来进行分割，分类的模型，对于无序化的点云有了自己的处理手段。
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/paper-DenseBody/">
-                        <h2 class="post-title">
-                            [论文阅读]DenseBody: Directly Regressing Dense 3D Human Pose and Shape From a Single Color Image
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                小小阅读笔记，关于人体姿态估计与人体形状估计，使用了单目图像直接端到端生成。
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/a-survey-SR/">
-                        <h2 class="post-title">
-                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="DeepLearning">
-                    <span class="tag-text">DeepLearning</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/PointNet/">
-                        <h2 class="post-title">
-                            [论文阅读]PointNet: Deep Learning on Point Sets for 3D Classfication and Segmentation
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                PointNet是一个比较经典的将点云输入深度神经网络来进行分割，分类的模型，对于无序化的点云有了自己的处理手段。
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/paper-DenseBody/">
-                        <h2 class="post-title">
-                            [论文阅读]DenseBody: Directly Regressing Dense 3D Human Pose and Shape From a Single Color Image
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                小小阅读笔记，关于人体姿态估计与人体形状估计，使用了单目图像直接端到端生成。
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/a-survey-SR/">
-                        <h2 class="post-title">
-                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Hexo">
-                    <span class="tag-text">Hexo</span>
-                </span>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Travel">
-                    <span class="tag-text">Travel</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview">
-                     <a href="/article/travel-to-hk/">
-                        <h2 class="post-title">
-                            [Travel]清明假期香港一日游
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                也是首次兼职代购的一日游，应该说一直在购，没有游
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
+                <h3 id="abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>点云，是一种无序的三维表达方式，之前的方法通常是将点云做变换为规则的3D体素（voxel）或者图像的集合来输入CNN等网络，但作者比较嫌弃之前的方法，因为这些方法很繁琐并且可能会造成某些问题，所以作者提出了直接利用点云的PointNet。实验证明这种方法是高效并且鲁棒的。作者对此作了一些理论分析。</p>
+<h3 id="introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>PointNet是一个统一性的框架，其直接将点云作为了输入，输出是对整幅图像点云的分类结果，或者对一部分(甚至单个)点云的label标注结果。从论文阐述来看，他们的网络非常简单(论文中说是surprisingly simple)即在最开始的阶段，每一个点云都被独立且给予相同的处理。在最基础的设置中，每一个点云仅需使用它的坐标 $(x, y, z)$ 来表示，当然论文也说可以增加一些更多的维度，比如法向量或者其他的全局or局部的特征，我觉得这是对该模型的一种可拓展性的说明。</p>
+<p>论文中说明，PointNet的关键是使用了单对称的函数-最大池化(max pooling)。这使得网络可以有效的学习一系列优化函数，这可以调出感兴趣或者有信息含量的point，然后进行编码。最后网络的全连接层将学到的最优参数聚集在用来预测点云label或者图形的全局的描述子中。</p>
+<p>同时，PointNet的输入很容易使用刚体或者仿射变换，因为每一个点云都是单独进行变换的。因此可以增加一个数据独立的空间变换网络，这样可以在PointNet处理前将点云做一个规范化的转换，这样可以提高最终的结果。</p>
+<p>论文不仅仅提供了实验测试结果，还做了一些理论分析。最有趣，也是最重要的，实验结果显示PointNet学会了通过一些关键的点云来概括整个输入点云，根据可视化结果这些关键点几乎都对应着目标的大致骨架。之后的理论分析也说明了PointNet为何比较具有鲁棒性，也就是对于输入点云的微小扰动或者一些错误点可以做到抗干扰。</p>
+<p>综上所述，这篇论文的contribution有以下几个：</p>
+<blockquote>
+<ol>
+<li>设计了一个可以应对无序3D点云的深度学习网络框架</li>
+<li>展示了如何来训练这个网络以应对classification以及segmentation问题</li>
+<li>对于方法本身的稳定性以及高效性做了基于经验以及理论上的分析</li>
+<li>对节选的一些神经节点计算出的3D特征做了说明，并且对他的性能做了直觉上的解释</li>
+</ol>
+</blockquote>
 
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/a-survey-SR/" data-toggle="tooltip" data-placement="top" title="[论文阅读]Deep Learning for Image Super-Resolution: A Survey">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                    <div class="reward">
+                        <div class="reward-button">赏 <span class="reward-code"> 
+                            <span class="alipay-code"> <img class="alipay-img" src="http://hexo.wangxuehui.site/alipay.JPG"><b>支付宝打赏</b></span> 
+                            <span class="wechat-code"> <img class="wechat-img" src="http://hexo.wangxuehui.site/wechat.JPG"><b>微信打赏</b> </span>
+                            </span></div>
+                        <p class="reward-notice">赞赏一下</p>
+                    </div>
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+                    <!-- disqus 评论框 start -->
+                    <div class="comment">
+                        <div id="lv-container" data-id="city" data-uid="MTAyMC80MzM4OS8xOTkzMA=="></div>
+                    </div>
+                    <!-- disqus 评论框 end -->
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#abstract"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#introduction"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
+                        
+                          <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
+                        
+                          <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.csdn.net/huwh_" target="_blank">CSDN Blog 胡伟煌</a></li>
+                    
+                        <li><a href="http://www.carlib.net" target="_blank">无人系统研究所</a></li>
+                    
+                </ul>
+                
+            </div>
         </div>
     </div>
-</div>
+</article>
+
+
+
+
+
+
+    <!-- 来必力City版公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+    
+           if (typeof LivereTower === 'function') { return; }
+    
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+    
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- 来必力City版 公共JS代码 end -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
 
 
     <!-- Footer -->
