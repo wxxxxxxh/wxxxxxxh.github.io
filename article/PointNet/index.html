@@ -237,6 +237,23 @@
 <li>对节选的一些神经节点计算出的3D特征做了说明，并且对他的性能做了直觉上的解释</li>
 </ol>
 </blockquote>
+<h3 id="problem-statement"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</h3><p>在本论文中，作者说如果没有特别的说明，仅使用 $(x, y, z)$ 作为每个点云的channel，而不考虑颜色、向量等信息。实际上这些都可以是每一个点(point)的特征量。</p>
+<p>对于目标分类这种任务，输入的点云是点云集中采样出来的一个形状区域(比如扣一个长方体出来)或者预先分割出来的一块区域，也就是位置直接给定了，网络负责识别类别即可，Point的输出是对 $k$ 个类别的打分。对于语义分割，输入的点云可以是一个单物体区域，来识别该物体的不同部分，或者是一个三维场景，用来识别不同的物体。输出的就是一个 $n \times m$ 的打分，其中n就是$n$个点云，$m$就是类别。</p>
+<h3 id="deep-learning-on-point-sets"><a href="#Deep-Learning-on-Point-Sets" class="headerlink" title="Deep Learning on Point Sets"></a>Deep Learning on Point Sets</h3><h4 id="properties-of-the-point-sets-in-realsn"><a href="#Properties-of-the-Point-Sets-in-reals-n" class="headerlink" title="Properties of the Point Sets in $\reals^n$"></a>Properties of the Point Sets in $\reals^n$</h4><p>作者说到，PointNet这个想法的主要灵感来源于点云的以下几个性质：</p>
+<ul>
+<li>无序。它不像图片的像素或者立方体的体素那样是方方正正规则的排列，点云是一些无特定顺序的点的集合，换句话说，一个网络要来处理点云的话，需要应对 $N!$ 种干扰。</li>
+<li>点与点之间是有相互关系的。这些点来源于带有距离度量的一个空间，这意味着这些点不是独立或者说相互隔离的，相邻的点可以构成一个有意义的子集。因此网络需要能够捕捉相近点的局部结构，以及这些局部结构之间组合的相互关系（应该是说这些局部结构如何组合成一个物体）。</li>
+<li>应对变换的不变性。作为一个几何物体，学习到点云表达应该对变换具有不变性的特点。比如旋转或者平移等，都不应该改变全局点云的类别以及他们的分割结果。(就是你再咋变换，初心不能变！原来是啥现在就是啥)。</li>
+</ul>
+<h4 id="pointnet-architecture"><a href="#PointNet-Architecture" class="headerlink" title="PointNet Architecture"></a>PointNet Architecture</h4><p><img src="http://hexo.wangxuehui.site/PointNet/architecture.png" alt="architecture"></p>
+<p>先看一下PointNet的框架,包含了两个大的部分，一个是分类网络，一个是分割网络。分割网络将n个点云作为输入，然后做输入变换和特征变换，最后使用最大池化得到点云的特征。分割网络是对分类网络的一个拓展，他聚合了全局和局部特征以及每一个点云分数的输出。mlp代表着多层感知机，括号里的数字是每一个layer的size。这样来看，他的框架里包括了一个最大池化作为对称函数来聚合信息，包括一个局部和全局的信息整合模块，包括两个联合对齐网络，可以用来对输入点云和点云特征进行对齐操作。</p>
+<p><strong>Sysmetry Function for Unordered Input</strong>. 论文阐述为了使得模型对于输入的抖动具有不变性，设置了以下三个策略：</p>
+<ul>
+<li>将输入排列为有序的</li>
+<li>将输入看做序列来训练RNN，但同时也通过引入不同类型的抖动来增强训练数据</li>
+<li>使用一个简单的对称函数来对每一个点云进行信息聚合。</li>
+</ul>
+<p>对称函数是指对于向量 $n$ 作为输入然后输出新的向量，且输出是与输入的次序无关的（即不会因为输入次序的不同而产生变化），比如 $+$ 和 $*$ 操作。 </p>
 <p>未完待续……</p>
 
                 
@@ -311,7 +328,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#abstract"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#introduction"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#abstract"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#introduction"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#problem-statement"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><a href="#Problem-Statement" class="headerlink" title="Problem Statement"></a>Problem Statement</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#deep-learning-on-point-sets"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><a href="#Deep-Learning-on-Point-Sets" class="headerlink" title="Deep Learning on Point Sets"></a>Deep Learning on Point Sets</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#properties-of-the-point-sets-in-realsn"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text"><a href="#Properties-of-the-Point-Sets-in-reals-n" class="headerlink" title="Properties of the Point Sets in $\reals^n$"></a>Properties of the Point Sets in $\reals^n$</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#pointnet-architecture"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text"><a href="#PointNet-Architecture" class="headerlink" title="PointNet Architecture"></a>PointNet Architecture</span></a></li></ol></li></ol>
         
         </div>
       </aside>
