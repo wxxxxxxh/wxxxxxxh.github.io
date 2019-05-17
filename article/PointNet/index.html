@@ -110,9 +110,9 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
-                            
                               <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
+                            
+                              <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
                             
                               <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
                             
@@ -247,13 +247,23 @@
 </ul>
 <h4 id="pointnet-architecture"><a href="#PointNet-Architecture" class="headerlink" title="PointNet Architecture"></a>PointNet Architecture</h4><p><img src="http://hexo.wangxuehui.site/PointNet/architecture.png" alt="architecture"></p>
 <p>先看一下PointNet的框架,包含了两个大的部分，一个是分类网络，一个是分割网络。分割网络将n个点云作为输入，然后做输入变换和特征变换，最后使用最大池化得到点云的特征。分割网络是对分类网络的一个拓展，他聚合了全局和局部特征以及每一个点云分数的输出。mlp代表着多层感知机，括号里的数字是每一个layer的size。这样来看，他的框架里包括了一个最大池化作为对称函数来聚合信息，包括一个局部和全局的信息整合模块，包括两个联合对齐网络，可以用来对输入点云和点云特征进行对齐操作。</p>
-<p><strong>Sysmetry Function for Unordered Input</strong>. 论文阐述为了使得模型对于输入的抖动具有不变性，设置了以下三个策略：</p>
+<p><strong>Sysmetry Function for Unordered Input</strong>. </p>
+<p>论文阐述为了使得模型对于输入的抖动具有不变性，设置了以下三个策略：</p>
 <ul>
 <li>将输入排列为有序的</li>
 <li>将输入看做序列来训练RNN，但同时也通过引入不同类型的抖动来增强训练数据</li>
 <li>使用一个简单的对称函数来对每一个点云进行信息聚合。</li>
 </ul>
 <p>对称函数是指对于向量 $n$ 作为输入然后输出新的向量，且输出是与输入的次序无关的（即不会因为输入次序的不同而产生变化），比如 $+$ 和 $*$ 操作。 </p>
+<p>随后，论文阐述了在现有的维度空间中，没有很稳定的排序方式。作者认为这也很容易使用矛盾法来证明，即如果这里存在一种排序策略使得高维空间和一个一维的实线相对应的话，如果要求排序方式对于点的扰动是稳定的话就等同于说要求这种对应关系在维度下降的时候依然能够保证空间的近似度，很明显这是不现实的。所以排序并没有解决点云的序列问题，这使得网络很难学习得到一个从输入到输出的一致性映射。</p>
+<p>使用RNN来认为点云是一个顺序信号并且寄希望于通过随机排列顺序来训练RNN可能会对输入顺序具有不变性特征。但是在一些文章，有作者证明输入顺序是重要的，无法被忽视。尽管RNN对于一些短的输入序列有相对鲁棒的性能，但是在处理成千上万的点云的时候还是不太行啊。在这篇论文中，作者也证明了RNN的方法不如他们的方法。</p>
+<p>论文是通过在变换部分使用一个对称函数来大约估计出一个定义在点集上的通用函数。这个基础的模块非常的简单，作者通过多层感知机来得到 $h$ ,通过一个单变量函数（我觉得应该就是指Relu）和一个最大池化函数的组合来得到 $g$ ，通过不同的 $h$ ，可以学到一系列的 $f$ 来捕捉点集不同的性质。</p>
+<p><strong>Local and Global Information Aggregation</strong></p>
+<p>通过上一部分后，可以得到一个全局特征的向量 $[f_1,…, f_K]$ ，对于分类任务，可以利用这个向量做SVM或者多层感知机的运算得到分类结果。但对于分割任务，则需要加入一下局部特征。这篇论文利用了一个特别粗鲁的方式，即直接拼接在一起。</p>
+<p>在Architecture图中的segmentation network中可以看到，在得到全局点云特征向量 $[1024]$ 后，将其和前边的局部特征 $[n \times 64]$ 拼接在一起得到了一个 $[n \times 1088]$ 大小的综合特征(猜测是将1024拓展为 $n$个1024，然后直接把局部的64加在尾部，这样每个点都是1088个特征，其中1024个都是一样的，剩下64是各自的局部特征)，这样这个综合特征就包括了局部信息也包括了全局信息。</p>
+<p>这样的改变使得网络可以依赖于局部几何和全局语义预测每一个点的性质。比如可以预测每一个点的向量，这证明了 网络能从点的局部临近点归纳更多信息。在论文的实验中也证明了在图形的分割和场景的分割中获得最好的效果。</p>
+<p><strong>Joint Alignment Network</strong></p>
+<p>每一个点云的语义标签其实不应该随着对点做几何变换(比如刚体变换)而发生改变的，因此论文的方法也希望对于变换，最后的表达结果是不变的。</p>
 <p>未完待续……</p>
 
                 
@@ -348,9 +358,9 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
-                        
                           <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
+                        
+                          <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
                         
                           <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
                         
