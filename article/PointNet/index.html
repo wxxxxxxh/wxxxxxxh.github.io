@@ -110,11 +110,11 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
-                            
                               <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
                             
                               <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                            
+                              <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
                             
                         </div>
                         <h1>[论文阅读]PointNet: Deep Learning on Point Sets for 3D Classfication and Segmentation</h1>
@@ -263,7 +263,8 @@
 <p>在Architecture图中的segmentation network中可以看到，在得到全局点云特征向量 $[1024]$ 后，将其和前边的局部特征 $[n \times 64]$ 拼接在一起得到了一个 $[n \times 1088]$ 大小的综合特征(猜测是将1024拓展为 $n$个1024，然后直接把局部的64加在尾部，这样每个点都是1088个特征，其中1024个都是一样的，剩下64是各自的局部特征)，这样这个综合特征就包括了局部信息也包括了全局信息。</p>
 <p>这样的改变使得网络可以依赖于局部几何和全局语义预测每一个点的性质。比如可以预测每一个点的向量，这证明了 网络能从点的局部临近点归纳更多信息。在论文的实验中也证明了在图形的分割和场景的分割中获得最好的效果。</p>
 <p><strong>Joint Alignment Network</strong></p>
-<p>每一个点云的语义标签其实不应该随着对点做几何变换(比如刚体变换)而发生改变的，因此论文的方法也希望对于变换，最后的表达结果是不变的。</p>
+<p>每一个点云的语义标签其实不应该随着对点做几何变换(比如刚体变换)而发生改变的，因此论文的方法也希望对于变换而言最后的表达结果是不变的。</p>
+<p>一个想当然的方法就是在做特征提取前把这些输入排列（或者说对齐？？）到一个特定且稳定的空间。这个想法来源于在二维图像中通过采样来达到空间变换的目的。</p>
 <p>未完待续……</p>
 
                 
@@ -271,6 +272,10 @@
                 <hr>
                 <!-- Pager -->
                 <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/article/conference-list/" data-toggle="tooltip" data-placement="top" title="[整理2020]2019年下半年起计算机视觉&人工智能&机器人相关方向顶级会议整理">&larr; Previous Post</a>
+                        </li>
                     
                     
                         <li class="next">
@@ -358,11 +363,11 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
-                        
                           <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
                         
                           <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                        
+                          <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
                         
                     </div>
                 </section>
