@@ -112,9 +112,9 @@
                             
                               <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
                             
-                              <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
-                            
                               <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                            
+                              <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
                             
                         </div>
                         <h1>[论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets</h1>
@@ -289,6 +289,13 @@
 </ul>
 </li>
 </ul>
+<h3 id="集合分割任务中点特征的传递问题"><a href="#集合分割任务中点特征的传递问题" class="headerlink" title="集合分割任务中点特征的传递问题"></a>集合分割任务中点特征的传递问题</h3><ul>
+<li>想解决的是在分割问题中，需要对每一个点都作出label的预测，但是set abstraction level是一种降采样。一种解决方式是将每一个点都当做一个中心点，但是这种方式对于计算资源的开销是巨大的。另一种方式是从降采样后的点中将特征传递到原始点集中。</li>
+<li>so提出了一种带有基于插值距离以及层级跳跃连接的分层的传播策略。<ul>
+<li>在特诊传递层中，会将特征从$N_l \times (d+C)$的点传递到$N_{l-1}$的点，其中$N_l$是set abstraction level $l$的输出点集size，$N_{l-1}$是输入点集size。通过将$N_l$的特征值$f$插值到$N_{l-1}$的坐标中来完成传播过程。</li>
+</ul>
+</li>
+</ul>
 
                 
 
@@ -362,7 +369,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#从pointnet起源的反思"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;" class="headerlink" title="&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;"></a>&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-提出的背景"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#PointNet-&#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;" class="headerlink" title="PointNet++ &#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;"></a>PointNet++ &#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-的设计简述"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><a href="#PointNet-&#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;" class="headerlink" title="PointNet++ &#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;"></a>PointNet++ &#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet的设计思路"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><a href="#PointNet-&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;" class="headerlink" title="PointNet++&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;"></a>PointNet++&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-详细"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"><a href="#PointNet-&#x8BE6;&#x7EC6;" class="headerlink" title="PointNet++ &#x8BE6;&#x7EC6;"></a>PointNet++ &#x8BE6;&#x7EC6;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分层特征学习"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text"><a href="#&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;" class="headerlink" title="&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;"></a>&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于非均匀采样密度的鲁棒性解决方案"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text"><a href="#&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#从pointnet起源的反思"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;" class="headerlink" title="&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;"></a>&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-提出的背景"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#PointNet-&#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;" class="headerlink" title="PointNet++ &#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;"></a>PointNet++ &#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-的设计简述"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><a href="#PointNet-&#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;" class="headerlink" title="PointNet++ &#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;"></a>PointNet++ &#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet的设计思路"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><a href="#PointNet-&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;" class="headerlink" title="PointNet++&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;"></a>PointNet++&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-详细"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"><a href="#PointNet-&#x8BE6;&#x7EC6;" class="headerlink" title="PointNet++ &#x8BE6;&#x7EC6;"></a>PointNet++ &#x8BE6;&#x7EC6;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分层特征学习"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text"><a href="#&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;" class="headerlink" title="&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;"></a>&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于非均匀采样密度的鲁棒性解决方案"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text"><a href="#&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#集合分割任务中点特征的传递问题"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text"><a href="#&#x96C6;&#x5408;&#x5206;&#x5272;&#x4EFB;&#x52A1;&#x4E2D;&#x70B9;&#x7279;&#x5F81;&#x7684;&#x4F20;&#x9012;&#x95EE;&#x9898;" class="headerlink" title="&#x96C6;&#x5408;&#x5206;&#x5272;&#x4EFB;&#x52A1;&#x4E2D;&#x70B9;&#x7279;&#x5F81;&#x7684;&#x4F20;&#x9012;&#x95EE;&#x9898;"></a>&#x96C6;&#x5408;&#x5206;&#x5272;&#x4EFB;&#x52A1;&#x4E2D;&#x70B9;&#x7279;&#x5F81;&#x7684;&#x4F20;&#x9012;&#x95EE;&#x9898;</span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -384,9 +391,9 @@
                        
                           <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
                         
-                          <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
-                        
                           <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                        
+                          <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
                         
                     </div>
                 </section>
