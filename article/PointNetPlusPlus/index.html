@@ -232,7 +232,8 @@
 <li>PointNet没有捕捉度量空间中点与点之间的局部结构信息，限制了模型对于细粒度部分的识别以及对复杂环境的泛化能力。</li>
 <li>其实感觉就是整合了全局的信息，但是对于点与点之间的关系没有做过多的相关性联结。</li>
 </ul>
-<h2 id="pointnet-的设计简述"><a href="#PointNet-的设计简述" class="headerlink" title="PointNet++ 的设计简述"></a>PointNet++ 的设计简述</h2><ul>
+<h2 id="pointnet-的设计简述"><a href="#PointNet-的设计简述" class="headerlink" title="PointNet++ 的设计简述"></a>PointNet++ 的设计简述</h2><p><img src="http://hexo.wangxuehui.site/PointNetPlusPlus/architecture.png" alt=""></p>
+<ul>
 <li>是一种分层网络。它可以将PointNet网络递归的在嵌套分隔的点云集上使用，通过对度量空间距离的使用，可以学习带有上下文尺度信息的局部特征。</li>
 <li>同时还注意到了点集经常是不同密度的抽样结果，这种方式大幅度的降低了网络在统一密度点集上的训练效果，因此也提出了一种先进的集合学习层(set learning layer)来自适应的结合不同尺度的特征。</li>
 <li>所以要解决两个问题：<ul>
@@ -279,7 +280,10 @@
 </blockquote>
 </li>
 </ul>
-<h3 id="对于非均匀采样密度的鲁棒性解决方案"><a href="#对于非均匀采样密度的鲁棒性解决方案" class="headerlink" title="对于非均匀采样密度的鲁棒性解决方案"></a>对于非均匀采样密度的鲁棒性解决方案</h3><ul>
+<h3 id="对于非均匀采样密度的鲁棒性解决方案"><a href="#对于非均匀采样密度的鲁棒性解决方案" class="headerlink" title="对于非均匀采样密度的鲁棒性解决方案"></a>对于非均匀采样密度的鲁棒性解决方案</h3><p><img src="http://hexo.wangxuehui.site/PointNetPlusPlus/samplemethod.png" alt=""></p>
+<center>a是multi-scale grouping，b是multi-resolution grouping</center>
+
+<ul>
 <li>问题来源于点云在不同区域密度不同，即非均匀采样。在密集的区域中学到的特征可能对稀疏区域无法泛化，这样就会使得在稀疏点云中模型无法识别到精细的局部结构。</li>
 <li>最理想的当然是在密集区域可以尽可能的得到最精细的细节，但在采样不足的区域就是天方夜谭。因此比较好的方法就是扩大采集的尺度。</li>
 <li>所以本文提出了一种密度自适应的PointNet层，可以在输入的采样密度改变的时候学会结合区域多尺度下的特征，即是PointNet++。</li>
