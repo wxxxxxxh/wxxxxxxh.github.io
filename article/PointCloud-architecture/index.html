@@ -378,8 +378,53 @@
 <li>因此在文中为了捕捉这种关系，他把卷积参数$w_i$换成了$w_{ij}$，这个值是通过对相关性特征$h_{ij}$加一个映射$\mathcal{M}$得到的，比如说关于$x_i$和$x_j$之间的预定义的几何先验。$h_{ij}$是一个低维的相关性特征。也就是说$\mathcal{T}(x_j)$变成了：<script type="math/tex">\mathcal{T}(f_{x_j})=w_{ij} \cdot f_{x_j}=\mathcal{M}(h_{ij}) \cdot f_{x_j}</script> 。使用$\mathcal{M}$的目的就是将两点之间低层次的相关性特征进行提取，这样相当于对空间布局进行编码。在这篇论文中，这个$\mathcal{M}$使用MLP来实现的。同时，此时的$w_{ij}$在求导时也是和$w_i$与$w_j$都有关系。并且这个$M$也是可以对所有点进行共享的，保证了刚体变换的不变性。所以最开始的$f_{P_{sub}}$变成了<script type="math/tex">f_{P_{sub}}=\sigma(\mathcal{A}({\mathcal{M}(h_{ij}) \cdot f_{x_j}, \forall x_j})), d_{ij} < r \forall x_j \in \mathcal{N}(x_i)</script> 。这其实将$x_i$和他一个子集内的所有点的关系都连接了起来，可以生成有区别性的几何意识。</li>
 <li>对于$h_{ij}$的确定（本质是一个几何先验），论文论证了多种方案，最基础的就是两点之间的欧距3D-Ed，也可以再加上其他维度，也取得了多个实验结果：</li>
 </ul>
-<p>| model | low-level relation $h$                  | channels | acc. |<br>| :—-: | :——————————————————— | :———: | :—: |<br>|   A   | (3D-Ed)                                 |    1     | 92.5 |<br>|   B   | (3D-Ed, $x_i-x_j$)                      |    4     | 93.0 |<br>|   C   | (3D-Ed, $x_i-x_j, x_i, x_j$)            |    10    | 93.6 |<br>|   D   | (3D-cosd, $x^{nor}_i, x^{nor}_j$)       |    7     | 92.8 |<br>|   E   | (2D-Ed, $x^undefined_j, x^undefined_j$) |    10    | 92.2 |</p>
 </li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">model</th>
+<th style="text-align:left">low-level relation $h$</th>
+<th style="text-align:center">channels</th>
+<th style="text-align:center">acc.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:left">(3D-Ed)</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">92.5</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:left">(3D-Ed, $x_i-x_j$)</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">93.0</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:left">(3D-Ed, $x_i-x_j, x_i, x_j$)</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">93.6</td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td style="text-align:left">(3D-cosd, $x^{nor}_i, x^{nor}_j$)</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">92.8</td>
+</tr>
+<tr>
+<td style="text-align:center">E</td>
+<td style="text-align:left">(2D-Ed, $x^undefined_j, x^undefined_j$)</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">92.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
 <li><p><strong>总结</strong></p>
 <p>首先，选择合适的几何先验表达方式，论文里选择了上文的C方案，也就是一个$h_{ij}$是一个10通道的向量。</p>
 <p>然后，使用MLP作为$\mathcal{M}$作为映射函数，将这种几何关系映射到高维空间。</p>
@@ -442,7 +487,7 @@
 <li><p>以上的过程也可以用向量化来计算。对于第$i$个点来说，其影响因子map可表示为：</p>
 <script type="math/tex; mode=display">W_i=[w_{i1}, w_{i2},…,w_{iM}]</script><p>他是一个$C \times M$ 的矩阵，即$M$个点，每个$C$通道。那$f_{mod}$就可以表示为：</p>
 <script type="math/tex; mode=display">f_{mod}(F_i, \mathbb{F})=(W_i \bigodot {\mathbb{F}}^{(i)}_{diff})e</script><p>其中$\bigodot$是逐元素相乘，其中的${\mathbb{F}}^{(i)}_{diff}$定义为:</p>
-<script type="math/tex; mode=display">{\mathbb{F}}^{(i)}_{diff}=[F_1-F_i],…,F_i,…,F_M-F_i</script></li>
+<script type="math/tex; mode=display">{\mathbb{F}}^{(i)}_{diff}=[F_1-F_i,…,F_i,…,F_M-F_i]</script></li>
 </ul>
 </li>
 </ol>
