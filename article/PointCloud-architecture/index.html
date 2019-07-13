@@ -427,24 +427,21 @@
 <li><p>AFA模块。</p>
 <ul>
 <li><p>对于一个点$x_i$，首先先使用AFA模块来增强该点的特征，方式就是考虑其他点对该点特征的影响。可以把矫正后的特征$F’_i$ 定义为：</p>
-<p><script type="math/tex">F'_i = F_i + \Delta F_i</script>，其中$\Delta F_i = f_{mod}(F_i, \mathbb{F}), \forall F_i \in \mathbb{F}$</p>
-<p>也就是关键是找到这个$f_{mod}$，他计算了所有点对一个点的影响，也要注意，这个$F_i$也是包括在$\mathbb{F}$里边的。</p>
+<script type="math/tex; mode=display">F'_i = F_i + \Delta F_i</script><p>其中$\Delta F_i = f_{mod}(F_i, \mathbb{F}), \forall F_i \in \mathbb{F}$ ，也就是关键是找到这个$f_{mod}$，他计算了所有点对一个点的影响，也要注意，这个$F_i$也是包括在$\mathbb{F}$里边的。</p>
 </li>
 <li><p>本文核心就是自适应的学习$\mathbb{F}$ 对 $F_i$ 的的影响，表达为：</p>
 <script type="math/tex; mode=display">f_{mod}(F_i, \mathbb{F})=\sum_{j=1}^M f_{imp}(F_i,F_j) \cdot f_{rel}(F_i, F_j)</script><p>$f_{imp}$是学习到的在$F_j$和$F_i$之间的影响程度，而$f_{rel}$则是表示$F_j$ 如何影响 $F_i$ ，即到底是”拽过来”还是”推出去”。要注意到这个公式也包括了$F_i$对自己本身的影响。</p>
 </li>
 <li><p>定义$f_{imp}$。论文使用MLP来计算这一项。所以定义为 $w_{ij}=f_{imp}(F_i, F_j)=MLP(g(F_i,F_j))$。其中$g$是一个用来combine $F_i$和 $F_j$的函数，用$w_{ij}$来表示$F_j$对$F_i$的影响因子。$g$的定义变成了关注点，直接拼合的话，一半儿的通道都是无用的；直接相加的话，就变成了一种对称状态，$F_i$给$F_j$的和$F_j$给$F_i$的变成了一样的，最终选择了$g(F_i, F_j)=F_i - F_j$，表示为两个特征之间的差值。特殊情况是当$i=j$时，$g(F_i, F_j)=F_i$。所以最终:</p>
-<p>$w_{ij}=f_{imp}(F_i, F_j)=MLP(F_i-F_j)$</p>
-</li>
+<script type="math/tex; mode=display">w_{ij}=f_{imp}(F_i, F_j)=MLP(F_i-F_j)</script></li>
 <li><p>定义$f_{rel}$。一种方案是直接将得到的$w_{ij}$与$F_i$相乘，但是据实验证明效果不是最好的，我觉得可能因为直接相乘的话，变成了受$F_i$本身的影响方式，不是其他点给$i$的。随后，文章也确实换了一种，使用：</p>
 <script type="math/tex; mode=display">f_{rel}(F_i, F_j)= \begin{cases} F_i-F_j &\text{if }  i \not = j \\ F_i & \text{if }i=j \end{cases}</script><p>所以$f_{mod}$变成了：</p>
 <script type="math/tex; mode=display">f_{mod}(F_i, \mathbb{F})=\sum_{j=1}^M MLP(F_i- F_j) \cdot f_{rel}(F_i, F_j)</script></li>
 <li><p>最终的$F’_i$变成了：</p>
 <script type="math/tex; mode=display">F'_i= F_i + \Delta F_i= F_i + f_{mod}(F_i, \mathbb{F})=F_i + \sum_{j=1}^M MLP(F_i- F_j) \cdot f_{rel}(F_i, F_j) \\     = F_i +F_i \cdot F_i + \sum_{j=1,j \not = i}^M MLP(F_i, F_j) \cdot (F_i- F_j) \\ = (1+F_i) \cdot F_i +  \sum_{j=1,j \not = i}^M MLP(F_i, F_j) \cdot (F_i- F_j)</script></li>
 <li><p>以上的过程也可以用向量化来计算。对于第$i$个点来说，其影响因子map可表示为：</p>
-<p>$W_i=[w_{i1}, w_{i2},…,w_{iM}]$   他是一个$C \times M$ 的矩阵，即$M$个点，每个$C$通道。</p>
-<p>那$f_{mod}$就可以表示为：</p>
-<p>$f_{mod}(F_i, \mathbb{F})=(W_i \bigodot {\mathbb{F}}^{(i)}_{diff})e$   其中$\bigodot$是逐元素相乘，其中的${\mathbb{F}}^{(i)}_{diff}$定义为:</p>
+<script type="math/tex; mode=display">W_i=[w_{i1}, w_{i2},…,w_{iM}]</script><p>他是一个$C \times M$ 的矩阵，即$M$个点，每个$C$通道。那$f_{mod}$就可以表示为：</p>
+<script type="math/tex; mode=display">f_{mod}(F_i, \mathbb{F})=(W_i \bigodot {\mathbb{F}}^{(i)}_{diff})e</script><p>其中$\bigodot$是逐元素相乘，其中的${\mathbb{F}}^{(i)}_{diff}$定义为:</p>
 <script type="math/tex; mode=display">{\mathbb{F}}^{(i)}_{diff}=[F_1-F_i],…,F_i,…,F_M-F_i</script></li>
 </ul>
 </li>
@@ -487,15 +484,13 @@
 <h2 id="做法"><a href="#做法：-3" class="headerlink" title="做法："></a>做法：</h2><ol>
 <li><p>点云中定义的核函数</p>
 <p>如果说$x_i$与$f_i$分别是点集$\mathcal{P} \in {\mathbb{R}}^{N \times 3}$与特征集$\mathcal F \in {\mathbb{R}}^{N \times D}$中的一个点云与其对应的特征($N$个点的集合)。那对于点云$x$特征的通用的卷积可以定义为：</p>
-<p>$(\mathcal{F}*g)(x)=\sum_{x_i \in {\mathcal{N}}_x} g(x_i-x)f_i$</p>
-<p>这意味着对于一个点$x$特征的卷积计算，是需要和其在一个子集内所有点的共同参与的。这里和二维不同的是，它先对一个点算出其在卷积过程中本身点的$C_in$个通道特征值与权重值的乘积结果，包括最后要变成几通道，然后全部$\mathcal{N}$ 集合中的向量再相加，得到最终$C_{out}$个通道的卷积值(二维里是先在单个通道求和3*3个值，然后求和$C_{in}$通道，再输出$C_{out}$组卷积核的结果，形成$C_{out}$个输出通道)</p>
+<script type="math/tex; mode=display">(\mathcal{F}*g)(x)=\sum_{x_i \in {\mathcal{N}}_x} g(x_i-x)f_i</script><p>这意味着对于一个点$x$特征的卷积计算，是需要和其在一个子集内所有点的共同参与的。这里和二维不同的是，它先对一个点算出其在卷积过程中本身点的$C_in$个通道特征值与权重值的乘积结果，包括最后要变成几通道，然后全部$\mathcal{N}$ 集合中的向量再相加，得到最终$C_{out}$个通道的卷积值(二维里是先在单个通道求和3*3个值，然后求和$C_{in}$通道，再输出$C_{out}$组卷积核的结果，形成$C_{out}$个输出通道)</p>
 <p>这篇论文同样也是以球体的方式划分点云变成若干子集。所以$\mathcal{N}_x=\{x_i \in \mathcal{P}||x_i-x|\le r\}$ ,也就是在一个半径为r的球体内取点。</p>
 <p>此时，核心就是如何定义核函数$g$，在二维中他就是一个规则的矩阵，与被卷积区域逐点相乘再相加。在本文中，$g$的输入是以$x$为中心的邻域位置为输入，方便起见取$y_i=x_i-x$。</p>
 <p>目的是想让$g$在在不同的区域给予不同的权重，这个区域有多种定义方式，最显而易见的就是直接用点去表示，因为很好定位。</p>
 <p>因此，定义$\{\tilde{x}_k | k &lt; K\} \subset \mathcal{B}_r^3$ 是核点云，以及$\{ W_k|k&lt;K\} \subset \mathbb{R}^{D_{in} \times D_{out}}$ 是对应每一个点的权重矩阵。很好理解的是在二维中，一个像素点对应的其实也是卷积核中该位置全部拿出来后的一个矩阵，大小就是$D_{in} \times D_{out}$。</p>
 <p>在论文中，作者将这个$g$定义为：</p>
-<p>$g(y_i)=\sum_{k&lt;K}h(y_i,\tilde{x}_k)W_k$</p>
-<p>我觉得这里很巧妙的就是，二维中，一个点他就对应了卷积核中一个位置，直接相乘即可，但是因为三维中的无序，无法选定到底是哪一个，那作者就把所有点都进行了一下融合，作为一个点所对应的权重值，融合方式就是根据核点云中所有点到该点距离的远近来量化核点云不同点的影响。所以，这个$h$的定义就很容了，文中使用了$h(y_i, \tilde{x}_k)=max(0,1-\frac{|y_i-\tilde{x}_k|}{\sigma})$ 来衡量核点云中每个点的影响程度，其中$\sigma$是核点云的影响范围距离，根据输入的密度来选择。</p>
+<script type="math/tex; mode=display">g(y_i)=\sum_{k<K}h(y_i,\tilde{x}_k)W_k</script><p>我觉得这里很巧妙的就是，二维中，一个点他就对应了卷积核中一个位置，直接相乘即可，但是因为三维中的无序，无法选定到底是哪一个，那作者就把所有点都进行了一下融合，作为一个点所对应的权重值，融合方式就是根据核点云中所有点到该点距离的远近来量化核点云不同点的影响。所以，这个$h$的定义就很容了，文中使用了$h(y_i, \tilde{x}_k)=max(0,1-\frac{|y_i-\tilde{x}_k|}{\sigma})$ 来衡量核点云中每个点的影响程度，其中$\sigma$是核点云的影响范围距离，根据输入的密度来选择。</p>
 </li>
 <li><p>固定的和可变的核</p>
 <p><img src="http://hexo.wangxuehui.site/deformable-kernel.png" alt=""></p>
@@ -504,10 +499,8 @@
 <p>核点云的位置很重要。论文说如果选择固定(rigid)方式，那核点云的排列规则性需要设置好，为了满足不同的情况，最好的方式就是对于任意大小$K$个核点云，都可以可变自适应的排列。所以提出了deformable kernel的解决方案。</p>
 <p>首先作者以一种让点相互排斥但是又组成一个球体的方式排列，选出其中一个点作为中心。设置这个球的半径为$1.5\sigma$，这样保证了点之间覆盖度一定的重叠。</p>
 <p>既然每一层都是一个点集$\tilde{x}_k$，为了让他自己可变，作者干脆取一个所有层的并集，组成了${\tilde{x}_k}$，可以适用于每一个卷积层。作者也说，这种方式相对于一个合适的规则排布来说可能不会带来性能的提升。论文通过设置一个相对于每个要求的点$x$的偏移量$\Delta (x)$的方式来构成可变KPConv。所以改写原来的卷积方程为：</p>
-<p>$(\mathcal{F}*g)(x)=\sum_{x_i \in {\mathcal{N}}_x} g_{deform}(x_i-x,\Delta(x))f_i$</p>
-<p>其中的$g_{deform}$可以定义为：</p>
-<p>$g(y_i)=\sum_{k&lt;K}h(y_i,\tilde{x}_k+\Delta_k(x))W_k$</p>
-<p>与之前的相比，其实就是对每个层的核点云位置进行了偏移。而这个偏移$\Delta _k(x)$论文中定义为了rigid Conv的一种输出，其计算方式就是将$D_{in}$ 映射到$3K$个值（$K$是核点云包含的点云数量），想想其实就是映射给每一个点云一个$xyz$的值，以此来作为偏移量。然后把这个偏移再加给rigid kernel每个点的位置$\tilde{x}_k$ 。就形成了一个可变的核点云。</p>
+<script type="math/tex; mode=display">(\mathcal{F}*g)(x)=\sum_{x_i \in {\mathcal{N}}_x} g_{deform}(x_i-x,\Delta(x))f_i</script><p>其中的$g_{deform}$可以定义为：</p>
+<script type="math/tex; mode=display">g(y_i)=\sum_{k<K}h(y_i,\tilde{x}_k+\Delta_k(x))W_k</script><p>与之前的相比，其实就是对每个层的核点云位置进行了偏移。而这个偏移$\Delta _k(x)$论文中定义为了rigid Conv的一种输出，其计算方式就是将$D_{in}$ 映射到$3K$个值（$K$是核点云包含的点云数量），想想其实就是映射给每一个点云一个$xyz$的值，以此来作为偏移量。然后把这个偏移再加给rigid kernel每个点的位置$\tilde{x}_k$ 。就形成了一个可变的核点云。</p>
 <p>之后，作者还加了几个正则化项，用来应对一些小问题。</p>
 </li>
 </ol>
