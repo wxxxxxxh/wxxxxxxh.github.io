@@ -375,7 +375,10 @@
 <li><p>作出改变：从关系中学习</p>
 <ul>
 <li>作者认为以上的问题（局限性）可以从关系学习中解决。论文主张在点云中一个点$x_i$与其周围的点有一定的几何关系，并且这种关系是一种关于点云空间布局明确的表达，这可以有区别性的反应出一些潜在的形状。</li>
-<li>因此在文中为了捕捉这种关系，他把卷积参数$w_i$换成了$w_{ij}$，这个值是通过对相关性特征$h_{ij}$加一个映射$\mathcal{M}$得到的，比如说关于$x_i$和$x_j$之间的预定义的几何先验。$h_{ij}$是一个低维的相关性特征。也就是说$\mathcal{T}(x_j)$变成了：<script type="math/tex">\mathcal{T}(f_{x_j})=w_{ij} \cdot f_{x_j}=\mathcal{M}(h_{ij}) \cdot f_{x_j}</script> 。使用$\mathcal{M}$的目的就是将两点之间低层次的相关性特征进行提取，这样相当于对空间布局进行编码。在这篇论文中，这个$\mathcal{M}$使用MLP来实现的。同时，此时的$w_{ij}$在求导时也是和$w_i$与$w_j$都有关系。并且这个$M$也是可以对所有点进行共享的，保证了刚体变换的不变性。所以最开始的$f_{P_{sub}}$变成了<script type="math/tex">f_{P_{sub}}=\sigma(\mathcal{A}({\mathcal{M}(h_{ij}) \cdot f_{x_j}, \forall x_j})), d_{ij} < r \forall x_j \in \mathcal{N}(x_i)</script> 。这其实将$x_i$和他一个子集内的所有点的关系都连接了起来，可以生成有区别性的几何意识。</li>
+<li><p>因此在文中为了捕捉这种关系，他把卷积参数$w_i$换成了$w_{ij}$，这个值是通过对相关性特征$h_{ij}$加一个映射$\mathcal{M}$得到的，比如说关于$x_i$和$x_j$之间的预定义的几何先验。$h_{ij}$是一个低维的相关性特征。也就是说$\mathcal{T}(x_j)$变成了：</p>
+<script type="math/tex; mode=display">\mathcal{T}(f_{x_j})=w_{ij} \cdot f_{x_j}=\mathcal{M}(h_{ij}) \cdot f_{x_j}</script><p>使用$\mathcal{M}$的目的就是将两点之间低层次的相关性特征进行提取，这样相当于对空间布局进行编码。在这篇论文中，这个$\mathcal{M}$使用MLP来实现的。同时，此时的$w_{ij}$在求导时也是和$w_i$与$w_j$都有关系。并且这个$M$也是可以对所有点进行共享的，保证了刚体变换的不变性。所以最开始的$f_{P_{sub}}$变成了：</p>
+<script type="math/tex; mode=display">f_{P_{sub}}=\sigma(\mathcal{A}({\mathcal{M}(h_{ij}) \cdot f_{x_j}, \forall x_j})), d_{ij} < r \forall x_j \in \mathcal{N}(x_i)</script><p>这其实将$x_i$和他一个子集内的所有点的关系都连接了起来，可以生成有区别性的几何意识。</p>
+</li>
 <li>对于$h_{ij}$的确定（本质是一个几何先验），论文论证了多种方案，最基础的就是两点之间的欧距3D-Ed，也可以再加上其他维度，也取得了多个实验结果：</li>
 </ul>
 </li>
@@ -477,7 +480,8 @@
 <li><p>本文核心就是自适应的学习$\mathbb{F}$ 对 $F_i$ 的的影响，表达为：</p>
 <script type="math/tex; mode=display">f_{mod}(F_i, \mathbb{F})=\sum_{j=1}^M f_{imp}(F_i,F_j) \cdot f_{rel}(F_i, F_j)</script><p>$f_{imp}$是学习到的在$F_j$和$F_i$之间的影响程度，而$f_{rel}$则是表示$F_j$ 如何影响 $F_i$ ，即到底是”拽过来”还是”推出去”。要注意到这个公式也包括了$F_i$对自己本身的影响。</p>
 </li>
-<li><p>定义$f_{imp}$。论文使用MLP来计算这一项。所以定义为 $w_{ij}=f_{imp}(F_i, F_j)=MLP(g(F_i,F_j))$。其中$g$是一个用来combine $F_i$和 $F_j$的函数，用$w_{ij}$来表示$F_j$对$F_i$的影响因子。$g$的定义变成了关注点，直接拼合的话，一半儿的通道都是无用的；直接相加的话，就变成了一种对称状态，$F_i$给$F_j$的和$F_j$给$F_i$的变成了一样的，最终选择了$g(F_i, F_j)=F_i - F_j$，表示为两个特征之间的差值。特殊情况是当$i=j$时，$g(F_i, F_j)=F_i$。所以最终:</p>
+<li><p>定义$f_{imp}$。论文使用MLP来计算这一项。所以定义为： </p>
+<script type="math/tex; mode=display">w_{ij}=f_{imp}(F_i, F_j)=MLP(g(F_i,F_j))</script><p>其中$g$是一个用来combine $F_i$和 $F_j$的函数，用$w_{ij}$来表示$F_j$对$F_i$的影响因子。$g$的定义变成了关注点，直接拼合的话，一半儿的通道都是无用的；直接相加的话，就变成了一种对称状态，$F_i$给$F_j$的和$F_j$给$F_i$的变成了一样的，最终选择了$g(F_i, F_j)=F_i - F_j$，表示为两个特征之间的差值。特殊情况是当$i=j$时，$g(F_i, F_j)=F_i$。所以最终:</p>
 <script type="math/tex; mode=display">w_{ij}=f_{imp}(F_i, F_j)=MLP(F_i-F_j)</script></li>
 <li><p>定义$f_{rel}$。一种方案是直接将得到的$w_{ij}$与$F_i$相乘，但是据实验证明效果不是最好的，我觉得可能因为直接相乘的话，变成了受$F_i$本身的影响方式，不是其他点给$i$的。随后，文章也确实换了一种，使用：</p>
 <script type="math/tex; mode=display">f_{rel}(F_i, F_j)= \begin{cases} F_i-F_j &\text{if }  i \not = j \\ F_i & \text{if }i=j \end{cases}</script><p>所以$f_{mod}$变成了：</p>
