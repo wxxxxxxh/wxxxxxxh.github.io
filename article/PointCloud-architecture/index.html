@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="记录生活与学习，半佛半火箭的研究僧，励志做一个牛哄哄的CV大佬">
+    <meta name="keyword"  content="日常与学习, 计算机视觉, 人工智能">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          [阅读总结]PointCloud Basic Architecture总结梳理 - 王雪辉 | Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://wangxuehui.site/article/PointCloud-architecture/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+
+    <!-- Baidu Tongji -->
+    
+    <script>
+        // dynamic User by Hux
+        var _baId = '4f2eccee1de0964665ba04749f9826e9';
+
+        // Originial
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?" + _baId;
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('http://hexo.wangxuehui.site/default.jpg')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('http://hexo.wangxuehui.site/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
+                            
+                              <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                            
+                        </div>
+                        <h1>[阅读总结]PointCloud Basic Architecture总结梳理</h1>
+                        <h2 class="subheading">对自己阅读的五种论文进行一下总结，也在总结中对于点云处理的基础深度学习框架有了透彻的理解，不得不说写出这些文章的真的好天才啊，星星眼！</h2>
+                        <span class="meta">
+                            Posted by Xuehui Wang on
+                            2019-07-13
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">王雪辉</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="pointnet"><a href="#PointNet" class="headerlink" title="PointNet"></a>PointNet</h1><p>下载链接：<a href="https://arxiv.org/pdf/1612.00593" target="_blank" rel="noopener">PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation</a></p>
+<h2 id="contribution"><a href="#contribution：" class="headerlink" title="contribution："></a>contribution：</h2><ol>
+<li>设计了一个可以应对无序3D点云的深度学习网络框架PointNet</li>
+<li>使用MLP作为连续函数的离散化模拟以及max pooling作为对称函数应对点云输入的置换不变性，二者的结合在理论上可以获得任意连续函数。</li>
+<li>提出了转换网络来应对刚体变换等。</li>
+</ol>
+<h2 id="做法"><a href="#做法：" class="headerlink" title="做法："></a>做法：</h2><p><img src="http://hexo.wangxuehui.site/PointNet/architecture.png" alt=""></p>
+<p>1.输入就是$n$个点，每个点有3个坐标作为特征，这样整体的输入就是$n \times 3$</p>
+<p>2.首先将输入点云送到输入变换网络中，这一步是学习一个$3 \times 3$的变换网络，将输入点云进行校准，在于旋转不变性。然后获得旋转角度校准后的$n \times 3$的矩阵。</p>
+<p>3.然后使用MLP进行特征的提取，MLP是通过共享权重的卷积实现的，并不是全连接，从每个点3维特征提升到每个点64维，因此得到了$n \times 64$的特征输出，同时记录下来。作者认为这个可以作为<strong>Point-wise特征</strong> 。</p>
+<p>4.（可选）同样的将点云映射到64维的冗余空间后，再对64维的点云特征做一次校对，只不过这次校对需要引入一个正则化惩罚项，希望其尽可能接近于一个正交矩阵</p>
+<p>5.随后使用MLP进行连续两次特征提取，映射到1024为空间，得到$n \times 1024$的输出，在使用max pooling进行整合，得到一个1024大小的向量，这就是<strong>全局特征</strong>。</p>
+<p>6.在<strong>分类任务</strong>中，这1024维向量通过全连接得到一个$k$维向量，加softmax，得到k个类别的预测程度。</p>
+<p>7.在<strong>分割任务</strong>中，作者把1024维的向量完全复制为$n \times 1024$,之后和之前记录的Point-wise特征$n \times 64$进行拼合得到$n \times 1088$。作者认为这样就是一个全局+Point-wise的综合特征，可以用来做分割。</p>
+<p>8.分割网络是将$n \times 1088$使用MLP提取得到$n \times 128$的特征，再用MLP提取得到$n \times m$的特征，m是语义分割的种类数，最后经过soft_max这样就是n个点，每个点有m种对应的种类。取最大即为对一个点的预测。</p>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>在modelNet40上分类的结果</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">accuracy avg.class</th>
+<th style="text-align:center">accuracy overall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">PointNet</td>
+<td style="text-align:center">86.2</td>
+<td style="text-align:center">89.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>同时，作者还对点云的鲁棒性进行了测试，就是在缺失60%的点云的时候，准确率也没有下降很多，通过研究是哪些点最大程度激活了神经元的值，论文发现，能够最大程度激活网络的点都是物体的<strong>主干点</strong> </p>
+<p><img src="http://hexo.wangxuehui.site/20190712143844.png" alt=""></p>
+<hr>
+<h1 id="pointnet"><a href="#PointNet-1" class="headerlink" title="PointNet++"></a>PointNet++</h1><p>下载链接：<a href="https://arxiv.org/pdf/1706.02413" target="_blank" rel="noopener">PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space</a></p>
+<h2 id="contributions"><a href="#contributions：" class="headerlink" title="contributions："></a>contributions：</h2><ul>
+<li>是一种分层网络。它可以将PointNet网络递归的在嵌套分隔的点云集上使用，通过对度量空间距离的使用，可以学习带有上下文尺度信息的局部特征，并使得越到后边的特征图感受野越大。</li>
+<li>同时还注意到了点集经常是不同密度的抽样结果，这种方式大幅度的降低了网络在统一密度点集上的训练效果，因此也提出了一种先进的集合学习层(set learning layer)来自适应的结合不同尺度的特征。</li>
+</ul>
+<h2 id="做法"><a href="#做法：-1" class="headerlink" title="做法："></a>做法：</h2><p><img src="http://hexo.wangxuehui.site/20190712145323.png" alt=""></p>
+<p>在PointNet++中，最主要的module变成了Set Abstraction Layers。</p>
+<p>一个Set Abstraction主要由三部分组成：</p>
+<ul>
+<li>Sampling：利用FPS（最远点采样）随机采样点</li>
+<li>Grouping：利用Ball Query划一个R为半径的圈，将每个圈里面的点云作为一簇</li>
+<li>PointNet： 对Sampling+Grouping以后的点云进行局部的全局特征提取</li>
+</ul>
+<h3 id="分层特征学习"><a href="#分层特征学习" class="headerlink" title="分层特征学习"></a>分层特征学习</h3><ul>
+<li><p>通过使用PointNet，将其作为一个特征提取器，使用分层的方式来迭代抽象出越来越大的区域</p>
+</li>
+<li><p>分层结构的主要组成部分是一堆集合抽象层(set abstraction layers)，处理 $N \times (d + C)$ 的矩阵，其中$N$是点云数量，$d$是每个点的坐标系维度，$C$是额外的点的特征维度（比如颜色，法向量，亮度）,输出$N’ \times (d+C’)$ 的矩阵，其中$N’$是经过该层下采样后得到的点云数量，$C’$是新的能概括局部信息的特征维度，每一层中的点都被抽象为下一层更少的点，就是卷积那种赶脚。一个抽象层分为三部分：</p>
+<ul>
+<li>采样层（Sampling）-从点集中选择出一个子集，子集中每一个点都是一个局部区域的中心</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>使用FPS方法得到一个点子集，每一个点都是距离子集中其他点最远的点。相比随机采样这种方法的收敛性更强，与CNN扫描（感受野）分布未知的向量空间相比，这种采样策略的感受野范围与数据是相互独立的，也就是不用在意数据的量。</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>分组层（Grouping）-对子集中的每一个点搜索他们的近邻点，这样就组成了一个个局部区域。可能相互之间会有重叠(overlap) </li>
+</ul>
+<blockquote>
+<blockquote>
+<p>输入是$N \times (d + C)$ 的数据和大小为$N’ \times d$ 的中心点的坐标($N’$应该就是子集的数量，$d$是每个中心点的坐标系维度)。输出是一组组的点集，大小为$N’ \times K \times (d+C)$,其中$K$是每一个中心点邻域范围内的点的数量，每一组对应一个局部区域，$K$在不同组中可能是不同的，但是不影响，因为PointNet模块对于输入数量没啥限制，反正都是输出一个特征向量。</p>
+<p>在卷积中，图像的局部区域是通过kernel的size范围来确定的，在点云的抽样中，一个点的邻域范围是通过度量空间得到的。(也就是这一簇是以度量后进行的group)</p>
+<p>分组方式是使用了球体选择(ball query)，也就是给定一个以中心点为体心的球，给半径，然后再这个半径组成的球体内取不超过$K_{max}$ 个点组成一组。另外有种代替方案是KNN，但是球体选择这种方案的好处就是得到的局部近邻保证了一个固定尺度的区域，这样使得这个局部区域的特征更加泛化，这对于局部识别任务（比如点云语义分割）更合适。</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>PointNet层(算是特征提取层)-使用一个mini-PointNet对局部区域进行编码得到一个特征向量</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>对于分组层的输出，PointNet层将每一个group的中心点以及其周围的局部特征(从邻域点编码而来)进行抽象得到一个整体的局部区域，所以输出是$N’ \times (d+C’)$</p>
+<p>在这一层中，进行抽象前首先将邻域点的坐标变成相对于中心点的相对坐标：$x_i^{(j)}=x_i^{(j)}-\hat{x}^{j}$ ，其中$i=1,2…,K$,$j=1,2…,d$ 。然后$\hat{x}$是中心点的坐标。这样之后就可以使用PointNet作为一个基础模块来对一个group进行抽象得到下一层的一个输入点。 </p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h3 id="对于非均匀采样密度的鲁棒性解决方案"><a href="#对于非均匀采样密度的鲁棒性解决方案" class="headerlink" title="对于非均匀采样密度的鲁棒性解决方案"></a>对于非均匀采样密度的鲁棒性解决方案</h3><p><img src="http://hexo.wangxuehui.site/PointNetPlusPlus/samplemethod.png" alt=""></p>
+<center>a是multi-scale grouping，b是multi-resolution grouping</center>
+
+<ul>
+<li>问题来源于点云在不同区域密度不同，即非均匀采样。在密集的区域中学到的特征可能对稀疏区域无法泛化，这样就会使得在稀疏点云中模型无法识别到精细的局部结构。</li>
+<li>最理想的当然是在密集区域可以尽可能的得到最精细的细节，但在采样不足的区域就是天方夜谭。因此比较好的方法就是扩大采集的尺度。</li>
+<li>所以本文提出了一种密度自适应的PointNet层，可以在输入的采样密度改变的时候学会结合区域多尺度下的特征，即是PointNet++。</li>
+<li>在PointNet++的set abstraction layers中，会提取多个尺度的局部点，然后把他们结合起来。为了group局部区域以及结合多个尺度的特征，提出了MSG和MRG两种方案。<ul>
+<li>Multi-scale grouping：最简单也有效的方式就是使用group layers来多次获得不同尺度的子集(也就是多个$N’$,但是每一个中心点对应有的$K$数量不同)，紧接着使用PointNet来提取多尺度子集的各自特征，然后把他们concat起来。形成了多尺度特征。</li>
+<li>Multi-resolution grouping：上边的方法是比较耗时的，因为对于每一种尺度PointNet layer都要对每个中心点进行处理一次。而中心点个数在特征层次比较低时数量是很多的，所以及其耗时。所以换一种又省时间，又可以根据点的分布特点来自适应的聚合信息的方法。即：在一些层$L_i$中，局部区域的特征是由两个特征拼合起来的。一个是对$L_{i-1}$层中几个中心点子集经过set abstraction layer得到的向量进行合并后的总特征向量，另一个是对这几个中心点集合的并集进行一起的PointNet得到的向量。比如在第1层中，1，2，3三个中心点集合在第2层中是一个集合，那第2层的输出特征就是1，2，3特征的汇总再加1，2，3三个集合所有点一起送入PointNet后得到的特征。 在点云稀疏时，第一个特征的依赖程度(或者说权重)应该低于第二个特征。因为第一个特征在计算时候点云很稀疏，抽样能力降低。而第二个特征因为是几个点集一起算，相当于在稀疏时扩大了区域。</li>
+</ul>
+</li>
+</ul>
+<h3 id="分割任务"><a href="#分割任务" class="headerlink" title="分割任务"></a>分割任务</h3><ul>
+<li>想解决的是在分割问题中，需要对每一个点都作出label的预测，但是set abstraction level是一种降采样。一种解决方式是将每一个点都当做一个中心点，但是这种方式对于计算资源的开销是巨大的。另一种方式是从降采样后的点中将特征传递到原始点集中。</li>
+<li>大致流程：</li>
+</ul>
+<p><img src="http://hexo.wangxuehui.site/20190712145732.png" alt=""></p>
+<ul>
+<li><p>当然最简单的就是简单的<strong>广播复制Broadcasting</strong>，即将每个点的附近的点的特征都变成和这个点一样，但是这样的方法会使得没有办法处理一些范围相冲突的点，或者范围没有覆盖到的点，如图。因此在论文中作者采用的是<strong>线性差值</strong>的方法。简单来说就是<strong>距离越远的点权重越小</strong>，最后对于每一个点的权重再做一个全局的<strong>归一化</strong>。</p>
+<p><img src="http://hexo.wangxuehui.site/20190712145919.png" alt=""></p>
+</li>
+</ul>
+<h2 id="实验结果"><a href="#实验结果-1" class="headerlink" title="实验结果"></a>实验结果</h2><p>在modelNet40上分类的结果</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th>accuracy avg.class</th>
+<th>accuracy overall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">PointNet++</td>
+<td>-</td>
+<td>90.7</td>
+</tr>
+<tr>
+<td style="text-align:center">PointNet++(with normal)</td>
+<td>-</td>
+<td>91.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在使用不同的非均匀点集多尺度抽样方法后，也对于点云的个数有鲁棒性：</p>
+<p><img src="http://hexo.wangxuehui.site/20190712150627.png" alt=""></p>
+<hr>
+<h1 id="rs-cnn"><a href="#RS-CNN" class="headerlink" title="RS-CNN"></a>RS-CNN</h1><p>下载链接：<a href="https://arxiv.org/pdf/1904.07601" target="_blank" rel="noopener">Relation-Shape Convolutional Neural Network for Point Cloud Analysis</a></p>
+<p>引入几何约束这种东西来探索点和点之间的联系，特征的提取依然使用MLP</p>
+<h2 id="contribution"><a href="#contribution：-1" class="headerlink" title="contribution："></a>contribution：</h2><ul>
+<li>提出了一个从关系中进行学习的卷积操作，即基于几何关系的卷积层。它可以对点云的几何关系进行编码。</li>
+<li>基于以上提出了一个多层的几何关系卷积网络，命名为RS-CNN，可以将在2D中规则的卷积应用到不规则的空间中，以此来实现在点云上基于上下文的图形化学习。</li>
+</ul>
+<h2 id="做法"><a href="#做法：-2" class="headerlink" title="做法："></a>做法：</h2><p><img src="http://hexo.wangxuehui.site/RS-CNN.png" alt=""></p>
+<ol>
+<li><p>建模：对于一个球形的点云子集$P_{sub}$ ,需要学习到他的归纳性表达$f_{P_{sub}}$这样可以将潜在的形状信息编码成不同的特征。</p>
+<script type="math/tex; mode=display">f_{P_{sub}}=\sigma(\mathcal{A}({\mathcal{T}(f_{x_j}), \forall x_j})), d_{ij} < r \forall x_j \in \mathcal{N}(x_i)</script><p>其中，$\mathcal{N}(x_i)$是以$x_i$为中心点的一个点云子集，$d_{ij}$是表示点$xi$ 与$x_j$之间的欧氏距离。$r$是球体的半径，首先将所有$\mathcal{N}(x_i)$ 中所有点的特征使用$\mathcal{T}$进行变换，然后使用函数$\mathcal{A}$进行聚合，最后再通过一个非线性激活函数$\sigma$。为了保持平移不变性，这里的$\mathcal{A}$只能取对称函数。</p>
+</li>
+<li><p>经典CNN中的局限性</p>
+<p>在经典CNN中，$\mathcal{T}$通常的实现方法是$\mathcal{T}(x_j)=w_j \cdot f_{x_j} $。$w_j$是学习到的权重。</p>
+<ul>
+<li>$w_j$无法对每个点云都共享，这会导致对于平移变换的不变性丧失， 无法处理不规则的点云集合(即每个点云集合中点的数量是不变的)。 </li>
+<li>在反向传播过程中$w_j$的的梯度仅仅和独立的$x_j$有关，会导致一个未知的学习策略，即无法获得更多的形状意识与鲁棒性。该问题可以通过数据增强或者增加卷积核的数量减缓。</li>
+</ul>
+</li>
+<li><p>作出改变：从关系中学习</p>
+<ul>
+<li>作者认为以上的问题（局限性）可以从关系学习中解决。论文主张在点云中一个点$x_i$与其周围的点有一定的几何关系，并且这种关系是一种关于点云空间布局明确的表达，这可以有区别性的反应出一些潜在的形状。</li>
+<li>因此在文中为了捕捉这种关系，他把卷积参数$w_i$换成了$w_{ij}$，这个值是通过对相关性特征$h_{ij}$加一个映射$\mathcal{M}$得到的，比如说关于$x_i$和$x_j$之间的预定义的几何先验。$h_{ij}$是一个低维的相关性特征。也就是说$\mathcal{T}(x_j)$变成了：<script type="math/tex">\mathcal{T}(f_{x_j})=w_{ij} \cdot f_{x_j}=\mathcal{M}(h_{ij}) \cdot f_{x_j}</script> 。使用$\mathcal{M}$的目的就是将两点之间低层次的相关性特征进行提取，这样相当于对空间布局进行编码。在这篇论文中，这个$\mathcal{M}$使用MLP来实现的。同时，此时的$w_{ij}$在求导时也是和$w_i$与$w_j$都有关系。并且这个$M$也是可以对所有点进行共享的，保证了刚体变换的不变性。所以最开始的$f_{P_{sub}}$变成了<script type="math/tex">f_{P_{sub}}=\sigma(\mathcal{A}({\mathcal{M}(h_{ij}) \cdot f_{x_j}, \forall x_j})), d_{ij} < r \forall x_j \in \mathcal{N}(x_i)</script> 。这其实将$x_i$和他一个子集内的所有点的关系都连接了起来，可以生成有区别性的几何意识。</li>
+<li>对于$h_{ij}$的确定（本质是一个几何先验），论文论证了多种方案，最基础的就是两点之间的欧距3D-Ed，也可以再加上其他维度，也取得了多个实验结果：</li>
+</ul>
+<p>| model | low-level relation $h$                  | channels | acc. |<br>| :—-: | :——————————————————— | :———: | :—: |<br>|   A   | (3D-Ed)                                 |    1     | 92.5 |<br>|   B   | (3D-Ed, $x_i-x_j$)                      |    4     | 93.0 |<br>|   C   | (3D-Ed, $x_i-x_j, x_i, x_j$)            |    10    | 93.6 |<br>|   D   | (3D-cosd, $x^{nor}_i, x^{nor}_j$)       |    7     | 92.8 |<br>|   E   | (2D-Ed, $x^undefined_j, x^undefined_j$) |    10    | 92.2 |</p>
+</li>
+<li><p><strong>总结</strong></p>
+<p>首先，选择合适的几何先验表达方式，论文里选择了上文的C方案，也就是一个$h_{ij}$是一个10通道的向量。</p>
+<p>然后，使用MLP作为$\mathcal{M}$作为映射函数，将这种几何关系映射到高维空间。</p>
+<p>其次，使用$\mathcal{A}$这个对称函数(比如max pooling，ave pooling)选出其中突出的相应</p>
+<p>再然后，使用非线性激活函数输出最终一个子集的特征$f_{P_{sub}}$。这就融合了点与点之间的关系。</p>
+<p>最后，可以用MLP将这个特征进行升维或者降维，用于不同的任务。</p>
+</li>
+</ol>
+<h2 id="实验结果"><a href="#实验结果-2" class="headerlink" title="实验结果"></a>实验结果</h2><p>在modelNet40上分类的结果：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">accuracy avg.class</th>
+<th style="text-align:center">accuracy overall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Relation-shape CNN</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">93.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h1 id="pointweb"><a href="#PointWeb" class="headerlink" title="PointWeb"></a>PointWeb</h1><p>下载链接：<a href="http://jiaya.me/papers/pointweb_cvpr19.pdf" target="_blank" rel="noopener">PointWeb: Enhancing Local Neighborhood Features for Point Cloud Processing</a></p>
+<p>同样也是在最开始阶段寻找点和点之间的联系，这篇文章侧重子集中所有点对于一个点$x_i$的影响因子，矫正一个点的特征，同样使用MLP来提取特征。</p>
+<h2 id="contributions"><a href="#contributions：-1" class="headerlink" title="contributions："></a>contributions：</h2><ul>
+<li>通过自创的AFA(adaptive feature adjustment)模块来使能点云之间本身内部的关系信息。这大大增强了学习到的点云特征的表达能力。</li>
+<li>提出了一个PointWeb网络，关键模块就是AFA。并以此实现了较好的实验效果。</li>
+</ul>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p><img src="http://hexo.wangxuehui.site/PointWeb-seg.png" alt="Architecture of PointWeb for semantic segmentation"></p>
+<center>用于语义分割的框架</center>
+
+<p><img src="http://hexo.wangxuehui.site/AFA.png" alt="AFA module"></p>
+<center>AFA模块的演示图</center>
+
+<ol>
+<li><p>定义。</p>
+<p>对于$R$域中的点，定义一个拥有$M$个点的点云集的特征为$\mathbb{F}=\{F_1, F_2,…,F_M\}$，其中$F_i \in {\reals}^C$,C是每一个点的特征的通道数(一般就是$xyz$三通道)。本文的目的就是获得一个这个集合的表达向量$F_{out} \in {\reals}^{C_{out}}$。PointNet++通过MLP和maxpooling来做，但是并没有考虑最开始点之间相互的影响。这篇论文则是将一个区域内的点都连接了起来，考虑他们之间的内在关系。这样可以获得邻域信息，增强局部表达能力。</p>
+</li>
+<li><p>AFA模块。</p>
+<ul>
+<li><p>对于一个点$x_i$，首先先使用AFA模块来增强该点的特征，方式就是考虑其他点对该点特征的影响。可以把矫正后的特征$F’_i$ 定义为：</p>
+<p><script type="math/tex">F'_i = F_i + \Delta F_i</script>，其中$\Delta F_i = f_{mod}(F_i, \mathbb{F}), \forall F_i \in \mathbb{F}$</p>
+<p>也就是关键是找到这个$f_{mod}$，他计算了所有点对一个点的影响，也要注意，这个$F_i$也是包括在$\mathbb{F}$里边的。</p>
+</li>
+<li><p>本文核心就是自适应的学习$\mathbb{F}$ 对 $F_i$ 的的影响，表达为：</p>
+<script type="math/tex; mode=display">f_{mod}(F_i, \mathbb{F})=\sum_{j=1}^M f_{imp}(F_i,F_j) \cdot f_{rel}(F_i, F_j)</script><p>$f_{imp}$是学习到的在$F_j$和$F_i$之间的影响程度，而$f_{rel}$则是表示$F_j$ 如何影响 $F_i$ ，即到底是”拽过来”还是”推出去”。要注意到这个公式也包括了$F_i$对自己本身的影响。</p>
+</li>
+<li><p>定义$f_{imp}$。论文使用MLP来计算这一项。所以定义为 $w_{ij}=f_{imp}(F_i, F_j)=MLP(g(F_i,F_j))$。其中$g$是一个用来combine $F_i$和 $F_j$的函数，用$w_{ij}$来表示$F_j$对$F_i$的影响因子。$g$的定义变成了关注点，直接拼合的话，一半儿的通道都是无用的；直接相加的话，就变成了一种对称状态，$F_i$给$F_j$的和$F_j$给$F_i$的变成了一样的，最终选择了$g(F_i, F_j)=F_i - F_j$，表示为两个特征之间的差值。特殊情况是当$i=j$时，$g(F_i, F_j)=F_i$。所以最终:</p>
+<p>$w_{ij}=f_{imp}(F_i, F_j)=MLP(F_i-F_j)$</p>
+</li>
+<li><p>定义$f_{rel}$。一种方案是直接将得到的$w_{ij}$与$F_i$相乘，但是据实验证明效果不是最好的，我觉得可能因为直接相乘的话，变成了受$F_i$本身的影响方式，不是其他点给$i$的。随后，文章也确实换了一种，使用：</p>
+<script type="math/tex; mode=display">f_{rel}(F_i, F_j)= \begin{cases} F_i-F_j &\text{if }  i \not = j \\ F_i & \text{if }i=j \end{cases}</script><p>所以$f_{mod}$变成了：</p>
+<script type="math/tex; mode=display">f_{mod}(F_i, \mathbb{F})=\sum_{j=1}^M MLP(F_i- F_j) \cdot f_{rel}(F_i, F_j)</script></li>
+<li><p>最终的$F’_i$变成了：</p>
+<script type="math/tex; mode=display">F'_i= F_i + \Delta F_i= F_i + f_{mod}(F_i, \mathbb{F})=F_i + \sum_{j=1}^M MLP(F_i- F_j) \cdot f_{rel}(F_i, F_j) \\     = F_i +F_i \cdot F_i + \sum_{j=1,j \not = i}^M MLP(F_i, F_j) \cdot (F_i- F_j) \\ = (1+F_i) \cdot F_i +  \sum_{j=1,j \not = i}^M MLP(F_i, F_j) \cdot (F_i- F_j)</script></li>
+<li><p>以上的过程也可以用向量化来计算。对于第$i$个点来说，其影响因子map可表示为：</p>
+<p>$W_i=[w_{i1}, w_{i2},…,w_{iM}]$   他是一个$C \times M$ 的矩阵，即$M$个点，每个$C$通道。</p>
+<p>那$f_{mod}$就可以表示为：</p>
+<p>$f_{mod}(F_i, \mathbb{F})=(W_i \bigodot {\mathbb{F}}^{(i)}_{diff})e$   其中$\bigodot$是逐元素相乘，其中的${\mathbb{F}}^{(i)}_{diff}$定义为:</p>
+<script type="math/tex; mode=display">{\mathbb{F}}^{(i)}_{diff}=[F_1-F_i],…,F_i,…,F_M-F_i</script></li>
+</ul>
+</li>
+</ol>
+<ol>
+<li><p>带有局部特征模块的PointWeb</p>
+<p>整体是嵌套在PointNet++上的。也就是作者觉得PointNet++对特征的聚合仅仅使用了max pooling，不是很靠谱，所以在提取特征前，Grouping layer后，加一个AFA模块。作者也说这项工作可以被看做是一个特征变换模块。</p>
+</li>
+</ol>
+<h2 id="实验结果"><a href="#实验结果-3" class="headerlink" title="实验结果"></a>实验结果</h2><p>在modelNet40上分类的结果：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">accuracy avg.class</th>
+<th style="text-align:center">accuracy overall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Relation-shape CNN</td>
+<td style="text-align:center">89.4</td>
+<td style="text-align:center">92.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h1 id="kpconv"><a href="#KPConv" class="headerlink" title="KPConv"></a>KPConv</h1><p>下载链接：<a href="https://arxiv.org/pdf/1904.08889" target="_blank" rel="noopener">KPConv: Flexible and Deformable Convolution for Point Clouds</a></p>
+<p>这是CVPR2019的一个Oral文章。感觉他的理念确实还是很有料的，对一些问题的处理也非常微妙，他与之前的几种方法不同的是，他没有直接用MLP去做特征提取，而是选择了继承2D中卷积核的概念来做。仔细想想确实是一种正宗的卷积。</p>
+<p><img src="http://hexo.wangxuehui.site/KPConv.png" alt=""></p>
+<center>图像卷积与KPConv卷积的对比，在KPConv中，被卷积点和卷积核的点是不对齐的，所以使用了所有点根据相关关系来进行计算。</center>
+
+<h2 id="contributions"><a href="#contributions：-2" class="headerlink" title="contributions："></a>contributions：</h2><ul>
+<li>提出一种新的点云卷积操作，叫做Kernel Point Convolution，即KPConv。概念来自于2D中的卷积，使用一系列的kernel points来定义在哪里应用核权重。</li>
+<li>也同样提出了一种可变的卷积版本，通过学习局部的偏移来应用在kernel points上，这样在不同层产生不同的偏移，因此可以自适应在不同的层上。</li>
+<li>同时为了适应点云的几何以及避免空的子集，还使用了Effective Receptive Field（ERF）来进行处理。</li>
+</ul>
+<h2 id="做法"><a href="#做法：-3" class="headerlink" title="做法："></a>做法：</h2><ol>
+<li><p>点云中定义的核函数</p>
+<p>如果说$x_i$与$f_i$分别是点集$\mathcal{P} \in {\mathbb{R}}^{N \times 3}$与特征集$\mathcal F \in {\mathbb{R}}^{N \times D}$中的一个点云与其对应的特征($N$个点的集合)。那对于点云$x$特征的通用的卷积可以定义为：</p>
+<p>$(\mathcal{F}*g)(x)=\sum_{x_i \in {\mathcal{N}}_x} g(x_i-x)f_i$</p>
+<p>这意味着对于一个点$x$特征的卷积计算，是需要和其在一个子集内所有点的共同参与的。这里和二维不同的是，它先对一个点算出其在卷积过程中本身点的$C_in$个通道特征值与权重值的乘积结果，包括最后要变成几通道，然后全部$\mathcal{N}$ 集合中的向量再相加，得到最终$C_{out}$个通道的卷积值(二维里是先在单个通道求和3*3个值，然后求和$C_{in}$通道，再输出$C_{out}$组卷积核的结果，形成$C_{out}$个输出通道)</p>
+<p>这篇论文同样也是以球体的方式划分点云变成若干子集。所以$\mathcal{N}_x=\{x_i \in \mathcal{P}||x_i-x|\le r\}$ ,也就是在一个半径为r的球体内取点。</p>
+<p>此时，核心就是如何定义核函数$g$，在二维中他就是一个规则的矩阵，与被卷积区域逐点相乘再相加。在本文中，$g$的输入是以$x$为中心的邻域位置为输入，方便起见取$y_i=x_i-x$。</p>
+<p>目的是想让$g$在在不同的区域给予不同的权重，这个区域有多种定义方式，最显而易见的就是直接用点去表示，因为很好定位。</p>
+<p>因此，定义$\{\tilde{x}_k | k &lt; K\} \subset \mathcal{B}_r^3$ 是核点云，以及$\{ W_k|k&lt;K\} \subset \mathbb{R}^{D_{in} \times D_{out}}$ 是对应每一个点的权重矩阵。很好理解的是在二维中，一个像素点对应的其实也是卷积核中该位置全部拿出来后的一个矩阵，大小就是$D_{in} \times D_{out}$。</p>
+<p>在论文中，作者将这个$g$定义为：</p>
+<p>$g(y_i)=\sum_{k&lt;K}h(y_i,\tilde{x}_k)W_k$</p>
+<p>我觉得这里很巧妙的就是，二维中，一个点他就对应了卷积核中一个位置，直接相乘即可，但是因为三维中的无序，无法选定到底是哪一个，那作者就把所有点都进行了一下融合，作为一个点所对应的权重值，融合方式就是根据核点云中所有点到该点距离的远近来量化核点云不同点的影响。所以，这个$h$的定义就很容了，文中使用了$h(y_i, \tilde{x}_k)=max(0,1-\frac{|y_i-\tilde{x}_k|}{\sigma})$ 来衡量核点云中每个点的影响程度，其中$\sigma$是核点云的影响范围距离，根据输入的密度来选择。</p>
+</li>
+<li><p>固定的和可变的核</p>
+<p><img src="http://hexo.wangxuehui.site/deformable-kernel.png" alt=""></p>
+<center>可变卷积核在2D点云上的演示，注意那个Local shifts就是偏移</center>
+
+<p>核点云的位置很重要。论文说如果选择固定(rigid)方式，那核点云的排列规则性需要设置好，为了满足不同的情况，最好的方式就是对于任意大小$K$个核点云，都可以可变自适应的排列。所以提出了deformable kernel的解决方案。</p>
+<p>首先作者以一种让点相互排斥但是又组成一个球体的方式排列，选出其中一个点作为中心。设置这个球的半径为$1.5\sigma$，这样保证了点之间覆盖度一定的重叠。</p>
+<p>既然每一层都是一个点集$\tilde{x}_k$，为了让他自己可变，作者干脆取一个所有层的并集，组成了${\tilde{x}_k}$，可以适用于每一个卷积层。作者也说，这种方式相对于一个合适的规则排布来说可能不会带来性能的提升。论文通过设置一个相对于每个要求的点$x$的偏移量$\Delta (x)$的方式来构成可变KPConv。所以改写原来的卷积方程为：</p>
+<p>$(\mathcal{F}*g)(x)=\sum_{x_i \in {\mathcal{N}}_x} g_{deform}(x_i-x,\Delta(x))f_i$</p>
+<p>其中的$g_{deform}$可以定义为：</p>
+<p>$g(y_i)=\sum_{k&lt;K}h(y_i,\tilde{x}_k+\Delta_k(x))W_k$</p>
+<p>与之前的相比，其实就是对每个层的核点云位置进行了偏移。而这个偏移$\Delta _k(x)$论文中定义为了rigid Conv的一种输出，其计算方式就是将$D_{in}$ 映射到$3K$个值（$K$是核点云包含的点云数量），想想其实就是映射给每一个点云一个$xyz$的值，以此来作为偏移量。然后把这个偏移再加给rigid kernel每个点的位置$\tilde{x}_k$ 。就形成了一个可变的核点云。</p>
+<p>之后，作者还加了几个正则化项，用来应对一些小问题。</p>
+</li>
+</ol>
+<h2 id="实验结果"><a href="#实验结果：" class="headerlink" title="实验结果："></a>实验结果：</h2><p>在modelNet40上分类的结果：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">accuracy avg.class</th>
+<th style="text-align:center">accuracy overall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">KPConv(rigid)</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">92.9</td>
+</tr>
+<tr>
+<td style="text-align:center">KPConv(deform)</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">92.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h1 id="五种方法的对比"><a href="#五种方法的对比" class="headerlink" title="五种方法的对比"></a>五种方法的对比</h1><p>都在modelNet40上做了实验。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">model</th>
+<th style="text-align:center">accuracy avg.class</th>
+<th style="text-align:center">accuracy overall</th>
+<th style="text-align:center">Feature extraction style</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">PointNet</td>
+<td style="text-align:center">86.2</td>
+<td style="text-align:center">89.2</td>
+<td style="text-align:center">MLP</td>
+</tr>
+<tr>
+<td style="text-align:center">PointNet++</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">90.7</td>
+<td style="text-align:center">MLP</td>
+</tr>
+<tr>
+<td style="text-align:center">PointNet++(with normal)</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">91.9</td>
+<td style="text-align:center">MLP</td>
+</tr>
+<tr>
+<td style="text-align:center">RS-CNN</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center"><strong>93.6</strong></td>
+<td style="text-align:center">MLP</td>
+</tr>
+<tr>
+<td style="text-align:center">PointWeb</td>
+<td style="text-align:center">89.4</td>
+<td style="text-align:center">92.2</td>
+<td style="text-align:center">MLP</td>
+</tr>
+<tr>
+<td style="text-align:center">KPConv(rigid)</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">92.9</td>
+<td style="text-align:center">Kernel Point</td>
+</tr>
+<tr>
+<td style="text-align:center">KPConv(deform)</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">92.7</td>
+<td style="text-align:center">Kernel Point</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/PointNetPlusPlus/" data-toggle="tooltip" data-placement="top" title="[论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                    <div class="reward">
+                        <div class="reward-button">赏 <span class="reward-code"> 
+                            <span class="alipay-code"> <img class="alipay-img" src="http://hexo.wangxuehui.site/alipay.JPG"><b>支付宝打赏</b></span> 
+                            <span class="wechat-code"> <img class="wechat-img" src="http://hexo.wangxuehui.site/wechat.JPG"><b>微信打赏</b> </span>
+                            </span></div>
+                        <p class="reward-notice">赞赏一下</p>
+                    </div>
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+                    <!-- disqus 评论框 start -->
+                    <div class="comment">
+                        <div id="lv-container" data-id="city" data-uid="MTAyMC80MzM4OS8xOTkzMA=="></div>
+                    </div>
+                    <!-- disqus 评论框 end -->
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#pointnet"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#PointNet" class="headerlink" title="PointNet"></a>PointNet</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#contribution"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><a href="#contribution&#xFF1A;" class="headerlink" title="contribution&#xFF1A;"></a>contribution&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#做法"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><a href="#&#x505A;&#x6CD5;&#xFF1A;" class="headerlink" title="&#x505A;&#x6CD5;&#xFF1A;"></a>&#x505A;&#x6CD5;&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实验结果"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><a href="#&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;" class="headerlink" title="&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;"></a>&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#pointnet"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#PointNet-1" class="headerlink" title="PointNet++"></a>PointNet++</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#contributions"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"><a href="#contributions&#xFF1A;" class="headerlink" title="contributions&#xFF1A;"></a>contributions&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#做法"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"><a href="#&#x505A;&#x6CD5;&#xFF1A;-1" class="headerlink" title="&#x505A;&#x6CD5;&#xFF1A;"></a>&#x505A;&#x6CD5;&#xFF1A;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分层特征学习"><span class="toc-nav-number">2.2.1.</span> <span class="toc-nav-text"><a href="#&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;" class="headerlink" title="&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;"></a>&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于非均匀采样密度的鲁棒性解决方案"><span class="toc-nav-number">2.2.2.</span> <span class="toc-nav-text"><a href="#&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分割任务"><span class="toc-nav-number">2.2.3.</span> <span class="toc-nav-text"><a href="#&#x5206;&#x5272;&#x4EFB;&#x52A1;" class="headerlink" title="&#x5206;&#x5272;&#x4EFB;&#x52A1;"></a>&#x5206;&#x5272;&#x4EFB;&#x52A1;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实验结果"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text"><a href="#&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;-1" class="headerlink" title="&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;"></a>&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#rs-cnn"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><a href="#RS-CNN" class="headerlink" title="RS-CNN"></a>RS-CNN</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#contribution"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text"><a href="#contribution&#xFF1A;-1" class="headerlink" title="contribution&#xFF1A;"></a>contribution&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#做法"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text"><a href="#&#x505A;&#x6CD5;&#xFF1A;-2" class="headerlink" title="&#x505A;&#x6CD5;&#xFF1A;"></a>&#x505A;&#x6CD5;&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实验结果"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text"><a href="#&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;-2" class="headerlink" title="&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;"></a>&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#pointweb"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><a href="#PointWeb" class="headerlink" title="PointWeb"></a>PointWeb</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#contributions"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text"><a href="#contributions&#xFF1A;-1" class="headerlink" title="contributions&#xFF1A;"></a>contributions&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#做法"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text"><a href="#&#x505A;&#x6CD5;" class="headerlink" title="&#x505A;&#x6CD5;"></a>&#x505A;&#x6CD5;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实验结果"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text"><a href="#&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;-3" class="headerlink" title="&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;"></a>&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#kpconv"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"><a href="#KPConv" class="headerlink" title="KPConv"></a>KPConv</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#contributions"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text"><a href="#contributions&#xFF1A;-2" class="headerlink" title="contributions&#xFF1A;"></a>contributions&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#做法"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text"><a href="#&#x505A;&#x6CD5;&#xFF1A;-3" class="headerlink" title="&#x505A;&#x6CD5;&#xFF1A;"></a>&#x505A;&#x6CD5;&#xFF1A;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实验结果"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text"><a href="#&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;&#xFF1A;" class="headerlink" title="&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;&#xFF1A;"></a>&#x5B9E;&#x9A8C;&#x7ED3;&#x679C;&#xFF1A;</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#五种方法的对比"><span class="toc-nav-number">6.</span> <span class="toc-nav-text"><a href="#&#x4E94;&#x79CD;&#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x6BD4;" class="headerlink" title="&#x4E94;&#x79CD;&#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x6BD4;"></a>&#x4E94;&#x79CD;&#x65B9;&#x6CD5;&#x7684;&#x5BF9;&#x6BD4;</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
+                        
+                          <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://blog.csdn.net/huwh_" target="_blank">CSDN Blog 胡伟煌</a></li>
+                    
+                        <li><a href="http://www.carlib.net" target="_blank">无人系统研究所</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+    <!-- 来必力City版公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+    
+           if (typeof LivereTower === 'function') { return; }
+    
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+    
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- 来必力City版 公共JS代码 end -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/sduuuu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/5364025234">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/wxxxxxxh">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Xuehui Wang 2019 
+                    <br>
+                    Theme by <a href="http://www.huweihuang.com">胡伟煌</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://wangxuehui.site">王雪辉</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huweihuang&repo=hexo-theme-huweihuang&type=star&count=true" >
+                    </iframe>
+                    <br>
+                    <span class="post-meta-item-icon">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    本站总访问量 
+                    <span id="busuanzi_value_site_pv">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </span> 
+                    次，
+                    总访问人数
+                    <span id="busuanzi_value_site_uv">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </span> 
+                    人
+
+                </p>
+                
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://wangxuehui.site/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- busuanzi -->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+
+</html>
