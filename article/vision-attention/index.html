@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          [论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets - 王雪辉 | Blog
+          [计算机视觉]计算机视觉中注意力(Attention)机制原理及其模型发展和应用 - 王雪辉 | Blog
         
     </title>
 
-    <link rel="canonical" href="https://wangxuehui.site/article/PointNetPlusPlus/">
+    <link rel="canonical" href="https://wangxuehui.site/article/vision-attention/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -110,18 +110,14 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
-                            
                               <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
                             
-                              <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
-                            
                         </div>
-                        <h1>[论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets</h1>
-                        <h2 class="subheading">PointNet++是PointNet的进化版，解决了点局部特征的获取问题，提出的set abstraction level很有意思，也竭尽可能的整理好整理清楚这种开山之作</h2>
+                        <h1>[计算机视觉]计算机视觉中注意力(Attention)机制原理及其模型发展和应用</h1>
+                        <h2 class="subheading">在微信公众号上看到的一篇关于Attention机制在视觉领域应用的小白科普文。</h2>
                         <span class="meta">
                             Posted by Xuehui Wang on
-                            2019-06-01
+                            2019-08-03
                         </span>
                     </div>
                 
@@ -223,83 +219,77 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2 id="从pointnet起源的反思"><a href="#从PointNet起源的反思" class="headerlink" title="从PointNet起源的反思"></a>从PointNet起源的反思</h2><ul>
-<li>PointNet最基本的想法：将点集中的每一个点进行空间编码，然后将所有的点的特征进行聚合，这样就可以得到一个全局的特征。</li>
-<li>所以缺点就是并没有考虑度量空间中点与点之间的局部结构关系，这样就导致可以从全局大概的推断一个点集的类别或者分割，但是对于细节的把握就很欠缺了。</li>
-<li>局部结构是很重要的，这些结构在不同尺度下可以层次性聚合的性质在2D的CNN中就证实了其可以对于未知的case有更好的泛化能力。</li>
-</ul>
-<h2 id="pointnet-提出的背景"><a href="#PointNet-提出的背景" class="headerlink" title="PointNet++ 提出的背景"></a>PointNet++ 提出的背景</h2><ul>
-<li>PointNet没有捕捉度量空间中点与点之间的局部结构信息，限制了模型对于细粒度部分的识别以及对复杂环境的泛化能力。</li>
-<li>其实感觉就是整合了全局的信息，但是对于点与点之间的关系没有做过多的相关性联结。</li>
-</ul>
-<h2 id="pointnet-的设计简述"><a href="#PointNet-的设计简述" class="headerlink" title="PointNet++ 的设计简述"></a>PointNet++ 的设计简述</h2><p><img src="http://hexo.wangxuehui.site/PointNetPlusPlus/architecture.png" alt=""></p>
-<ul>
-<li>是一种分层网络。它可以将PointNet网络递归的在嵌套分隔的点云集上使用，通过对度量空间距离的使用，可以学习带有上下文尺度信息的局部特征。</li>
-<li>同时还注意到了点集经常是不同密度的抽样结果，这种方式大幅度的降低了网络在统一密度点集上的训练效果，因此也提出了一种先进的集合学习层(set learning layer)来自适应的结合不同尺度的特征。</li>
-<li>所以要解决两个问题：<ul>
-<li>如何来划分点集</li>
-<li>如何通过一个局部特征学习器来获得局部特征。</li>
-</ul>
+                <p>转载自：微信公众号 <strong>有三AI(yanyousan_ai)</strong></p>
+<p>Attention机制在近几年来在图像，自然语言处理等领域中都取得了重要的突破，被证明有益于提高模型的性能。Attention机制本身也是符合人脑和人眼的感知机制，这次我们主要以计算机视觉领域为例，讲述Attention机制的原理，应用以及模型的发展。</p>
+<h2 id="attention机制与显著图"><a href="#Attention机制与显著图" class="headerlink" title="Attention机制与显著图"></a><strong>Attention机制与显著图</strong></h2><h3 id="何为attention机制"><a href="#何为Attention机制" class="headerlink" title="何为Attention机制"></a><strong>何为Attention机制</strong></h3><p>所谓Attention机制，便是聚焦于局部信息的机制，比如图像中的某一个图像区域。随着任务的变化，注意力区域往往会发生变化。</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/what-is-attention.jpg" alt=""></p>
+<p>面对上面这样的一张图，如果你只是从整体来看，只看到了很多人头，但是你拉近一个一个仔细看就了不得了，都是天才科学家(中间的爱大佬)。</p>
+<p>图中除了人脸之外的信息其实都是无用的，也做不了什么任务，<strong>Attention机制便是要找到这些最有用的信息</strong>，可以想见最简单的场景就是从照片中检测人脸了。</p>
+<h3 id="基于attention的显著目标检测"><a href="#基于Attention的显著目标检测" class="headerlink" title="基于Attention的显著目标检测"></a><strong>基于Attention的显著目标检测</strong></h3><p>和注意力机制相伴而生的一个任务便是显著目标检测，即<strong>Salient Object Detection</strong>。它的输入是一张图，输出是一张概率图，概率越大的地方，代表是图像中重要目标的概率越大，即人眼关注的重点，一个典型的显著图如下：</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/typical-salient-image.jpg" alt=""></p>
+<p>右图就是左图的显著图，在头部位置概率最大，另外腿部，尾巴也有较大概率，这就是图中真正有用的信息。</p>
+<p>显著目标检测需要一个数据集，而这样的数据集的收集便是通过追踪多个实验者的眼球在一定时间内的注意力方向进行平均得到，典型的步骤如下：</p>
+<ol>
+<li><p>让被测试者观察图。</p>
 </li>
-</ul>
-<h2 id="pointnet的设计思路"><a href="#PointNet-的设计思路" class="headerlink" title="PointNet++的设计思路"></a>PointNet++的设计思路</h2><ul>
-<li>首先，根据度量空间中的某种度量方式将点集划分为有重合部分的一个个子区域。</li>
-<li>然后，提取出已经从其他小范围相邻的点捕获到了比较好的几何结构的局部特征。这些局部特征被聚合在一起进而形成更高级的特征。</li>
-<li>逐渐迭代聚合过程，直到产生相对于所有点集的特征。</li>
-</ul>
-<h2 id="pointnet-详细"><a href="#PointNet-详细" class="headerlink" title="PointNet++ 详细"></a>PointNet++ 详细</h2><h3 id="分层特征学习"><a href="#分层特征学习" class="headerlink" title="分层特征学习"></a>分层特征学习</h3><ul>
-<li><p>通过使用PointNet，将其作为一个特征提取器，使用分层的方式来迭代抽象出越来越大的区域</p>
+<li><p>用eye tracker记录眼睛的注意力位置。</p>
 </li>
-<li><p>分层结构的主要组成部分是一堆集合抽象层(set abstraction layers)，处理 $N \times (d + C)$ 的矩阵，其中$N$是点云数量，$d$是每个点的坐标系维度，$C$是额外的点的特征维度（比如颜色，法向量，亮度）,输出$N’ \times (d+C’)$ 的矩阵，其中$N’$是经过该层下采样后得到的点云数量，$C’$是新的能概括局部信息的特征维度，每一层中的点都被抽象为下一层更少的点，就是卷积那种赶脚。一个抽象层分为三部分：</p>
-<ul>
-<li>采样层-从点集中选择出一个子集，子集中每一个点都是一个局部区域的中心</li>
-</ul>
-<blockquote>
-<blockquote>
-<p>使用FPS方法得到一个点子集，每一个点都是距离子集中其他点最远的点。相比随机采样这种方法的收敛性更强，与CNN扫描（感受野）分布未知的向量空间相比，这种采样策略的感受野范围与数据是相互独立的，也就是不用在意数据的量。</p>
-</blockquote>
-</blockquote>
-<ul>
-<li>分组层-对子集中的每一个点搜索他们的近邻点，这样就组成了一个个局部区域。可能相互之间会有重叠(overlap) </li>
-</ul>
-<blockquote>
-<blockquote>
-<p>输入是$N \times (d + C)$ 的数据和大小为$N’ \times d$ 的中心点的坐标($N’$应该就是子集的数量，$d$是每个中心点的坐标系维度)。输出是一组组的点集，大小为$N’ \times K \times (d+C)$,其中$K$是每一个中心点邻域范围内的点的数量，每一组对应一个局部区域，$K$在不同组中可能是不同的，但是不影响，因为PointNet模块对于输入数量没啥限制，反正都是输出一个特征向量。</p>
-<p>在卷积中，图像的局部区域是通过kernel的size范围来确定的，在点云的抽样中，一个点的邻域范围是通过度量空间得到的。(也就是这一簇是以度量后进行的group)</p>
-<p>分组方式是使用了球体选择(ball query)，也就是给定一个以中心点为体心的球，给半径，然后再这个半径组成的球体内取不超过$K_{max}$ 个点组成一组。另外有种代替方案是KNN，但是球体选择这种方案的好处就是得到的局部近邻保证了一个固定尺度的区域，这样使得这个局部区域的特征更加泛化，这对于局部识别任务（比如点云语义分割）更合适。</p>
-</blockquote>
-</blockquote>
-<ul>
-<li>PointNet层(算是特征提取层)-使用一个mini-PointNet对局部区域进行编码得到一个特征向量</li>
-</ul>
-<blockquote>
-<blockquote>
-<p>对于分组层的输出，PointNet层将每一个group的中心点以及其周围的局部特征(从邻域点编码而来)进行抽象得到一个整体的局部区域，所以输出是$N’ \times (d+C’)$</p>
-<p>在这一层中，进行抽象前首先将邻域点的坐标变成相对于中心点的相对坐标：$x_i^{(j)}=x_i^{(j)}-\hat{x}^{j}$ ，其中$i=1,2…,K$,$j=1,2…,d$ 。然后$\hat{x}$是中心点的坐标。这样之后就可以使用PointNet作为一个基础模块来对一个group进行抽象得到下一层的一个输入点。 </p>
-</blockquote>
-</blockquote>
+<li><p>对所有测试者的注意力位置使用高斯滤波进行综合。</p>
 </li>
-</ul>
-<h3 id="对于非均匀采样密度的鲁棒性解决方案"><a href="#对于非均匀采样密度的鲁棒性解决方案" class="headerlink" title="对于非均匀采样密度的鲁棒性解决方案"></a>对于非均匀采样密度的鲁棒性解决方案</h3><p><img src="http://hexo.wangxuehui.site/PointNetPlusPlus/samplemethod.png" alt=""></p>
-<center>a是multi-scale grouping，b是multi-resolution grouping</center>
-
-<ul>
-<li>问题来源于点云在不同区域密度不同，即非均匀采样。在密集的区域中学到的特征可能对稀疏区域无法泛化，这样就会使得在稀疏点云中模型无法识别到精细的局部结构。</li>
-<li>最理想的当然是在密集区域可以尽可能的得到最精细的细节，但在采样不足的区域就是天方夜谭。因此比较好的方法就是扩大采集的尺度。</li>
-<li>所以本文提出了一种密度自适应的PointNet层，可以在输入的采样密度改变的时候学会结合区域多尺度下的特征，即是PointNet++。</li>
-<li>在PointNet++的set abstraction layers中，会提取多个尺度的局部点，然后把他们结合起来。为了group局部区域以及结合多个尺度的特征，提出了MSG和MRG两种方案。<ul>
-<li>Multi-scale grouping：最简单也有效的方式就是使用group layers来多次获得不同尺度的子集(也就是多个$N’$,但是每一个中心点对应有的$K$数量不同)，紧接着使用PointNet来提取多尺度子集的各自特征，然后把他们concat起来。形成了多尺度特征。</li>
-<li>Multi-resolution grouping：上边的方法是比较耗时的，因为对于每一种尺度PointNet layer都要对每个中心点进行处理一次。而中心点个数在特征层次比较低时数量是很多的，所以及其耗时。所以换一种又省时间，又可以根据点的分布特点来自适应的聚合信息的方法。即：在一些层$L_i$中，局部区域的特征是由两个特征拼合起来的。一个是对$L_{i-1}$层中几个中心点子集经过set abstraction layer得到的向量进行合并后的总特征向量，另一个是对这几个中心点集合的并集进行一起的PointNet得到的向量。比如在第1层中，1，2，3三个中心点集合在第2层中是一个集合，那第2层的输出特征就是1，2，3特征的汇总再加1，2，3三个集合所有点一起送入PointNet后得到的特征。 在点云稀疏时，第一个特征的依赖程度(或者说权重)应该低于第二个特征。因为第一个特征在计算时候点云很稀疏，抽样能力降低。而第二个特征因为是几个点集一起算，相当于在稀疏时扩大了区域。</li>
-</ul>
+<li><p>结果以0～1的概率进行记录。</p>
 </li>
-</ul>
-<h3 id="集合分割任务中点特征的传递问题"><a href="#集合分割任务中点特征的传递问题" class="headerlink" title="集合分割任务中点特征的传递问题"></a>集合分割任务中点特征的传递问题</h3><ul>
-<li>想解决的是在分割问题中，需要对每一个点都作出label的预测，但是set abstraction level是一种降采样。一种解决方式是将每一个点都当做一个中心点，但是这种方式对于计算资源的开销是巨大的。另一种方式是从降采样后的点中将特征传递到原始点集中。</li>
-<li>so提出了一种带有基于插值距离以及层级跳跃连接的分层的传播策略。<ul>
-<li>在特诊传递层中，会将特征从$N_l \times (d+C)$的点传递到$N_{l-1}$的点，其中$N_l$是set abstraction level $l$的输出点集size，$N_{l-1}$是输入点集size。通过将$N_l$的特征值$f$插值到$N_{l-1}$的坐标中来完成传播过程。</li>
-</ul>
-</li>
-</ul>
+</ol>
+<p>于是就能得到下面这样的图，第二行是眼球追踪结果，第三行就是显著目标概率图。</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/original-tracker-salient.jpg" alt=""></p>
+<p>上面讲述的都是空间上的注意力机制，即关注的是不同空间位置，而在CNN结构中，还有不同的特征通道，因此不同特征通道也有类似的原理，下面一起讲述。</p>
+<h2 id="attention模型架构"><a href="#Attention模型架构" class="headerlink" title="Attention模型架构"></a><strong>Attention模型架构</strong></h2><p>注意力机制的本质就是定位到感兴趣的信息，抑制无用信息，结果通常都是以概率图或者概率特征向量的形式展示，从原理上来说，主要分为<strong>空间注意力模型，通道注意力模型，空间和通道混合注意力模型三种，这里不区分soft和hard attention。</strong></p>
+<h3 id="空间注意力模型spatial-attention"><a href="#空间注意力模型-spatial-attention" class="headerlink" title="空间注意力模型(spatial attention)"></a><strong>空间注意力模型(spatial attention)</strong></h3><p>不是图像中所有的区域对任务的贡献都是同样重要的，只有任务相关的区域才是需要关心的，比如分类任务的主体，空间注意力模型就是寻找网络中最重要的部位进行处理。</p>
+<p>这里给大家介绍两个具有代表性的模型，第一个就是Google DeepMind提出的STN网络(Spatial Transformer Network[1])。它通过学习输入的形变，从而完成适合任务的预处理操作，是一种基于空间的Attention模型，网络结构如下：</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/stn.jpg" alt=""></p>
+<p>这里的Localization Net用于生成仿射变换系数，输入是<script type="math/tex">C \times H \times W</script>维的图像，输出是一个空间变换系数，它的大小根据要学习的变换类型而定，如果是仿射变换，则是一个6维向量。</p>
+<p>这样的一个网络要完成的效果如下图：</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/stn-result.jpg" alt=""></p>
+<p>即定位到目标的位置，然后进行旋转等操作，使得输入样本更加容易学习。这是一种一步调整的解决方案，当然还有很多迭代调整的方案，感兴趣可以去本文作者：<strong>有三</strong><a href="https://wx.zsxq.com/mweb/views/joingroup/join_group.html?group_id=822451554112" target="_blank" rel="noopener">知识星球</a>中阅读。</p>
+<p>相比于Spatial Transformer Networks 一步完成目标的定位和仿射变换调整，Dynamic Capacity Networks[2]则采用了两个子网络，分别是低性能的子网络(coarse model)和高性能的子网络(fine model)。低性能的子网络(coarse model)用于对全图进行处理，定位感兴趣区域，如下图中的操作$f_c$。高性能的子网络(fine model)则对感兴趣区域进行精细化处理，如下图的操作$f_f$。两者共同使用，可以获得更低的计算代价和更高的精度。</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/dcn.jpg" alt=""></p>
+<p>由于在大部分情况下我们感兴趣的区域只是图像中的一小部分，因此空间注意力的本质就是定位目标并进行一些变换或者获取权重。</p>
+<h3 id="通道注意力机制"><a href="#通道注意力机制" class="headerlink" title="通道注意力机制"></a><strong>通道注意力机制</strong></h3><p>对于输入2维图像的CNN来说，一个维度是图像的尺度空间，即长宽，另一个维度就是通道，因此基于通道的Attention也是很常用的机制。</p>
+<p>SENet(Sequeeze and Excitation Net)[3]是2017届ImageNet分类比赛的冠军网络，本质上是一个基于通道的Attention模型，它通过建模各个特征通道的重要程度，然后针对不同的任务增强或者抑制不同的通道，原理图如下:</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/SENet.jpg" alt=""></p>
+<p>在正常的卷积操作后分出了一个旁路分支，首先进行Squeeze操作(即图中$F_{sq}(\cdot)$，它将空间维度进行特征压缩，即每个二维的特征图变成一个实数，相当于具有全局感受野的池化操作，特征通道数不变。</p>
+<p>然后是Excitation操作(即图中的$F_{ex}(\cdot)$)，它通过参数$w$为每个特征通道生成权重，$w$被学习用来显式地建模特征通道间的相关性。在文章中，使用了一个2层bottleneck结构(先降维再升维)的全连接层+Sigmoid函数来实现。</p>
+<p>得到了每一个特征通道的权重之后，就将该权重应用于原来的每个特征通道，基于特定的任务，就可以学习到不同通道的重要性。</p>
+<p>将其机制应用于若干基准模型，在增加少量计算量的情况下，获得了更明显的性能提升。作为一种通用的设计思想，它可以被用于任何现有网络，具有较强的实践意义。而后SKNet[4]等方法将这样的通道加权的思想和Inception中的多分支网络结构进行结合，也实现了性能的提升。</p>
+<p>通道注意力机制的本质，在于建模了各个特征之间的重要性，对于不同的任务可以根据输入进行特征分配，简单而有效。</p>
+<h3 id="空间和通道注意力机制的融合"><a href="#空间和通道注意力机制的融合" class="headerlink" title="空间和通道注意力机制的融合"></a><strong>空间和通道注意力机制的融合</strong></h3><p>前述的Dynamic Capacity Network是从空间维度进行Attention，SENet是从通道维度进行Attention，自然也可以同时使用空间Attention和通道Attention机制。</p>
+<p>CBAM(Convolutional Block Attention Module)[5]是其中的代表性网络，结构如下：</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/CBAM.jpg" alt=""></p>
+<p>通道方向的Attention建模的是特征的重要性，结构如下：</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/channel-attention.jpg" alt=""></p>
+<p>同时使用最大pooling和均值pooling算法，然后经过几个MLP层获得变换结果，最后分别应用于两个通道，使用sigmoid函数得到通道的attention结果。</p>
+<p>空间方向的Attention建模的是空间位置的重要性，结构如下：</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/spacial-attention.jpg" alt=""></p>
+<p>首先将通道本身进行降维，分别获取最大池化和均值池化结果，然后拼接成一个特征图，再使用一个卷积层进行学习。  </p>
+<p>这两种机制，分别学习了通道的重要性和空间的重要性，还可以很容易地嵌入到任何已知的框架中。</p>
+<p>除此之外，还有很多的注意力机制相关的研究，比如<strong>残差注意力机制，多尺度注意力机制，递归注意力机制等。</strong></p>
+<h2 id="attention机制典型应用场景"><a href="#Attention机制典型应用场景" class="headerlink" title="Attention机制典型应用场景"></a><strong>Attention机制典型应用场景</strong></h2><p>从原理上来说，注意力机制在所有的计算机视觉任务中都能提升模型性能，但是有两类场景尤其受益。</p>
+<h3 id="细粒度分类"><a href="#细粒度分类" class="headerlink" title="细粒度分类"></a><strong>细粒度分类</strong></h3><p>关于细粒度分类的基础内容，可以回顾作者公众号的<a href="http://mp.weixin.qq.com/s?__biz=MzA3NDIyMjM1NA==&amp;mid=2649034832&amp;idx=2&amp;sn=5d66b2d6eec1b05bd6cc95bbd8b0dae1&amp;chksm=8712ae2db065273bc71cffc7decba2f7459f88a60d528f60379d8eb1a99d0b50bd59102ac211&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">往期文章</a>。</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/fine-image.jpg" alt=""></p>
+<p>我们知道细粒度分类任务中真正的难题在于如何定位到真正对任务有用的局部区域，如上示意图中的鸟的头部。Attention机制恰巧原理上非常合适，文[1],[6]中都使用了注意力机制，对模型的提升效果很明显。</p>
+<h3 id="显著目标检测缩略图生成自动构图"><a href="#显著目标检测-缩略图生成-自动构图" class="headerlink" title="显著目标检测/缩略图生成/自动构图"></a><strong>显著目标检测/缩略图生成/自动构图</strong></h3><p>我们又回到了开头，没错，Attention的本质就是重要/显著区域定位，所以在目标检测领域是非常有用的。</p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/object-detection.jpg" alt=""></p>
+<p><img src="http://hexo.wangxuehui.site/vision-attention/object-detection-2.jpg" alt=""></p>
+<p>上图展示了几个显著目标检测的结果，可以看出对于有显著目标的图，概率图非常聚焦于目标主体，在网络中添加注意力机制模块，可以进一步提升这一类任务的模型。</p>
+<p>除此之外，在视频分析，看图说话等任务中也比较重要。</p>
+<p>参考文献：</p>
+<blockquote>
+<p>[1] Jaderberg M, Simonyan K, Zisserman A. Spatial transformer networks[C]//Advances in neural information processing systems. 2015: 2017-2025.</p>
+<p>[2] Almahairi A, Ballas N, Cooijmans T, et al. Dynamic capacity networks[C]//International Conference on Machine Learning. 2016: 2549-2558.</p>
+<p>[3] Hu J, Shen L, Sun G. Squeeze-and-excitation networks[C]//Proceedings of the IEEE conference on computer vision and pattern recognition. 2018: 7132-7141.</p>
+<p>[4] Li X, Wang W, Hu X, et al. Selective Kernel Networks[J]. 2019.</p>
+<p>[5] Woo S, Park J, Lee J Y, et al. Cbam: Convolutional block attention module[C]//Proceedings of the European Conference on Computer Vision (ECCV). 2018: 3-19.</p>
+<p>[6] Fu J, Zheng H, Mei T. Look closer to see better: Recurrent attention convolutional neural network for fine-grained image recognition[C]//Proceedings of the IEEE conference on computer vision and pattern recognition. 2017: 4438-4446.</p>
+</blockquote>
 
                 
 
@@ -307,13 +297,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/PointCloud-architecture/" data-toggle="tooltip" data-placement="top" title="[阅读总结]PointCloud Basic Architecture总结梳理">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/conference-list/" data-toggle="tooltip" data-placement="top" title="[整理2020]2019年下半年起计算机视觉&人工智能&机器人相关方向顶级会议整理">Next Post &rarr;</a>
+                            <a href="/article/PointCloud-architecture/" data-toggle="tooltip" data-placement="top" title="[阅读总结]PointCloud Basic Architecture总结梳理">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -377,7 +363,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#从pointnet起源的反思"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;" class="headerlink" title="&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;"></a>&#x4ECE;PointNet&#x8D77;&#x6E90;&#x7684;&#x53CD;&#x601D;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-提出的背景"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#PointNet-&#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;" class="headerlink" title="PointNet++ &#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;"></a>PointNet++ &#x63D0;&#x51FA;&#x7684;&#x80CC;&#x666F;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-的设计简述"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><a href="#PointNet-&#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;" class="headerlink" title="PointNet++ &#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;"></a>PointNet++ &#x7684;&#x8BBE;&#x8BA1;&#x7B80;&#x8FF0;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet的设计思路"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><a href="#PointNet-&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;" class="headerlink" title="PointNet++&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;"></a>PointNet++&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x8DEF;</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#pointnet-详细"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"><a href="#PointNet-&#x8BE6;&#x7EC6;" class="headerlink" title="PointNet++ &#x8BE6;&#x7EC6;"></a>PointNet++ &#x8BE6;&#x7EC6;</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#分层特征学习"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text"><a href="#&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;" class="headerlink" title="&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;"></a>&#x5206;&#x5C42;&#x7279;&#x5F81;&#x5B66;&#x4E60;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于非均匀采样密度的鲁棒性解决方案"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text"><a href="#&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x5BF9;&#x4E8E;&#x975E;&#x5747;&#x5300;&#x91C7;&#x6837;&#x5BC6;&#x5EA6;&#x7684;&#x9C81;&#x68D2;&#x6027;&#x89E3;&#x51B3;&#x65B9;&#x6848;</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#集合分割任务中点特征的传递问题"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text"><a href="#&#x96C6;&#x5408;&#x5206;&#x5272;&#x4EFB;&#x52A1;&#x4E2D;&#x70B9;&#x7279;&#x5F81;&#x7684;&#x4F20;&#x9012;&#x95EE;&#x9898;" class="headerlink" title="&#x96C6;&#x5408;&#x5206;&#x5272;&#x4EFB;&#x52A1;&#x4E2D;&#x70B9;&#x7279;&#x5F81;&#x7684;&#x4F20;&#x9012;&#x95EE;&#x9898;"></a>&#x96C6;&#x5408;&#x5206;&#x5272;&#x4EFB;&#x52A1;&#x4E2D;&#x70B9;&#x7279;&#x5F81;&#x7684;&#x4F20;&#x9012;&#x95EE;&#x9898;</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#attention机制与显著图"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><a href="#Attention&#x673A;&#x5236;&#x4E0E;&#x663E;&#x8457;&#x56FE;" class="headerlink" title="Attention&#x673A;&#x5236;&#x4E0E;&#x663E;&#x8457;&#x56FE;"></a><strong>Attention&#x673A;&#x5236;&#x4E0E;&#x663E;&#x8457;&#x56FE;</strong></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#何为attention机制"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><a href="#&#x4F55;&#x4E3A;Attention&#x673A;&#x5236;" class="headerlink" title="&#x4F55;&#x4E3A;Attention&#x673A;&#x5236;"></a><strong>&#x4F55;&#x4E3A;Attention&#x673A;&#x5236;</strong></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#基于attention的显著目标检测"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><a href="#&#x57FA;&#x4E8E;Attention&#x7684;&#x663E;&#x8457;&#x76EE;&#x6807;&#x68C0;&#x6D4B;" class="headerlink" title="&#x57FA;&#x4E8E;Attention&#x7684;&#x663E;&#x8457;&#x76EE;&#x6807;&#x68C0;&#x6D4B;"></a><strong>&#x57FA;&#x4E8E;Attention&#x7684;&#x663E;&#x8457;&#x76EE;&#x6807;&#x68C0;&#x6D4B;</strong></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#attention模型架构"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><a href="#Attention&#x6A21;&#x578B;&#x67B6;&#x6784;" class="headerlink" title="Attention&#x6A21;&#x578B;&#x67B6;&#x6784;"></a><strong>Attention&#x6A21;&#x578B;&#x67B6;&#x6784;</strong></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#空间注意力模型spatial-attention"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"><a href="#&#x7A7A;&#x95F4;&#x6CE8;&#x610F;&#x529B;&#x6A21;&#x578B;-spatial-attention" class="headerlink" title="&#x7A7A;&#x95F4;&#x6CE8;&#x610F;&#x529B;&#x6A21;&#x578B;(spatial attention)"></a><strong>&#x7A7A;&#x95F4;&#x6CE8;&#x610F;&#x529B;&#x6A21;&#x578B;(spatial attention)</strong></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#通道注意力机制"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"><a href="#&#x901A;&#x9053;&#x6CE8;&#x610F;&#x529B;&#x673A;&#x5236;" class="headerlink" title="&#x901A;&#x9053;&#x6CE8;&#x610F;&#x529B;&#x673A;&#x5236;"></a><strong>&#x901A;&#x9053;&#x6CE8;&#x610F;&#x529B;&#x673A;&#x5236;</strong></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#空间和通道注意力机制的融合"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text"><a href="#&#x7A7A;&#x95F4;&#x548C;&#x901A;&#x9053;&#x6CE8;&#x610F;&#x529B;&#x673A;&#x5236;&#x7684;&#x878D;&#x5408;" class="headerlink" title="&#x7A7A;&#x95F4;&#x548C;&#x901A;&#x9053;&#x6CE8;&#x610F;&#x529B;&#x673A;&#x5236;&#x7684;&#x878D;&#x5408;"></a><strong>&#x7A7A;&#x95F4;&#x548C;&#x901A;&#x9053;&#x6CE8;&#x610F;&#x529B;&#x673A;&#x5236;&#x7684;&#x878D;&#x5408;</strong></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#attention机制典型应用场景"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><a href="#Attention&#x673A;&#x5236;&#x5178;&#x578B;&#x5E94;&#x7528;&#x573A;&#x666F;" class="headerlink" title="Attention&#x673A;&#x5236;&#x5178;&#x578B;&#x5E94;&#x7528;&#x573A;&#x666F;"></a><strong>Attention&#x673A;&#x5236;&#x5178;&#x578B;&#x5E94;&#x7528;&#x573A;&#x666F;</strong></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#细粒度分类"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text"><a href="#&#x7EC6;&#x7C92;&#x5EA6;&#x5206;&#x7C7B;" class="headerlink" title="&#x7EC6;&#x7C92;&#x5EA6;&#x5206;&#x7C7B;"></a><strong>&#x7EC6;&#x7C92;&#x5EA6;&#x5206;&#x7C7B;</strong></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#显著目标检测缩略图生成自动构图"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text"><a href="#&#x663E;&#x8457;&#x76EE;&#x6807;&#x68C0;&#x6D4B;-&#x7F29;&#x7565;&#x56FE;&#x751F;&#x6210;-&#x81EA;&#x52A8;&#x6784;&#x56FE;" class="headerlink" title="&#x663E;&#x8457;&#x76EE;&#x6807;&#x68C0;&#x6D4B;/&#x7F29;&#x7565;&#x56FE;&#x751F;&#x6210;/&#x81EA;&#x52A8;&#x6784;&#x56FE;"></a><strong>&#x663E;&#x8457;&#x76EE;&#x6807;&#x68C0;&#x6D4B;/&#x7F29;&#x7565;&#x56FE;&#x751F;&#x6210;/&#x81EA;&#x52A8;&#x6784;&#x56FE;</strong></span></a></li></ol></li></ol>
         
         </div>
       </aside>
@@ -397,11 +383,7 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#Papers" title="Papers">Papers</a>
-                        
                           <a class="tag" href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
-                        
-                          <a class="tag" href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
                         
                     </div>
                 </section>
