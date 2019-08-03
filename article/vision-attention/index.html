@@ -84,7 +84,7 @@
 
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="">
-	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen -->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen author-->
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
@@ -101,7 +101,7 @@
 </style>
 
 <header class="intro-header" >
-    <!-- Signature -->
+    <!-- Signature author -->
     <div id="signature">
         <div class="container">
             <div class="row">
@@ -116,9 +116,10 @@
                         <h1>[计算机视觉]计算机视觉中注意力(Attention)机制原理及其模型发展和应用</h1>
                         <h2 class="subheading">在微信公众号上看到的一篇关于Attention机制在视觉领域应用的小白科普文。</h2>
                         <span class="meta">
-                            Posted by Xuehui Wang on
+                            转载自：[微信公众号]-有三AI(yanyousan_ai) on
                             2019-08-03
                         </span>
+                     
                     </div>
                 
 
@@ -205,22 +206,21 @@
 </script>
 
 
-    <!-- Main Content -->
+    <!-- Main Content-layout.ejs -->
     <!-- Modify by Yu-Hsuan Yen -->
 
-<!-- Post Content -->
+<!-- Post Content archive -->
 <article>
     <div class="container">
         <div class="row">
 
-            <!-- Post Container -->
+            <!-- Post Container-->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>转载自：微信公众号 <strong>有三AI(yanyousan_ai)</strong></p>
-<p>Attention机制在近几年来在图像，自然语言处理等领域中都取得了重要的突破，被证明有益于提高模型的性能。Attention机制本身也是符合人脑和人眼的感知机制，这次我们主要以计算机视觉领域为例，讲述Attention机制的原理，应用以及模型的发展。</p>
+                <p>Attention机制在近几年来在图像，自然语言处理等领域中都取得了重要的突破，被证明有益于提高模型的性能。Attention机制本身也是符合人脑和人眼的感知机制，这次我们主要以计算机视觉领域为例，讲述Attention机制的原理，应用以及模型的发展。</p>
 <h2 id="attention机制与显著图"><a href="#Attention机制与显著图" class="headerlink" title="Attention机制与显著图"></a><strong>Attention机制与显著图</strong></h2><h3 id="何为attention机制"><a href="#何为Attention机制" class="headerlink" title="何为Attention机制"></a><strong>何为Attention机制</strong></h3><p>所谓Attention机制，便是聚焦于局部信息的机制，比如图像中的某一个图像区域。随着任务的变化，注意力区域往往会发生变化。</p>
 <p><img src="http://hexo.wangxuehui.site/vision-attention/what-is-attention.jpg" alt=""></p>
 <p>面对上面这样的一张图，如果你只是从整体来看，只看到了很多人头，但是你拉近一个一个仔细看就了不得了，都是天才科学家(中间的爱大佬)。</p>

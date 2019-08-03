@@ -2,44 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://wangxuehui.site/article/vision-attention/</loc>
+    <loc>https://wangxuehui.site/about/index.html</loc>
     
-    <lastmod>2019-08-03T03:58:13.050Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/article/PointCloud-architecture/</loc>
-    
-    <lastmod>2019-07-13T09:54:58.877Z</lastmod>
+    <lastmod>2019-08-03T16:30:01.042Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://wangxuehui.site/article/PointNetPlusPlus/</loc>
+    <loc>https://wangxuehui.site/tags/index.html</loc>
     
-    <lastmod>2019-06-03T04:59:36.140Z</lastmod>
+    <lastmod>2019-08-03T16:28:59.496Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wangxuehui.site/archive/index.html</loc>
+    
+    <lastmod>2019-08-03T16:28:17.317Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://wangxuehui.site/article/conference-list/</loc>
     
-    <lastmod>2019-05-18T02:51:49.696Z</lastmod>
+    <lastmod>2019-08-03T16:18:25.432Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://wangxuehui.site/article/PointNet/</loc>
     
-    <lastmod>2019-05-17T10:56:19.502Z</lastmod>
+    <lastmod>2019-08-03T16:17:48.608Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://wangxuehui.site/about/index.html</loc>
+    <loc>https://wangxuehui.site/article/vision-attention/</loc>
     
-    <lastmod>2019-05-08T08:58:32.261Z</lastmod>
+    <lastmod>2019-08-03T16:07:24.959Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wangxuehui.site/article/PointNetPlusPlus/</loc>
+    
+    <lastmod>2019-08-03T11:39:03.695Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wangxuehui.site/article/PointCloud-architecture/</loc>
+    
+    <lastmod>2019-08-03T11:38:03.850Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wangxuehui.site/article/travel-to-hk/</loc>
+    
+    <lastmod>2019-08-03T11:37:35.926Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wangxuehui.site/article/a-survey-SR/</loc>
+    
+    <lastmod>2019-08-03T11:37:14.597Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://wangxuehui.site/article/paper-DenseBody/</loc>
+    
+    <lastmod>2019-08-03T11:35:34.896Z</lastmod>
     
   </url>
   
@@ -54,41 +89,6 @@
     <loc>https://wangxuehui.site/cv-zh/index.html</loc>
     
     <lastmod>2019-05-07T18:17:26.029Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/article/a-survey-SR/</loc>
-    
-    <lastmod>2019-04-30T03:20:41.159Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/article/travel-to-hk/</loc>
-    
-    <lastmod>2019-04-27T10:10:52.380Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/tags/index.html</loc>
-    
-    <lastmod>2019-04-24T13:55:30.033Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/archive/index.html</loc>
-    
-    <lastmod>2019-04-24T13:54:52.325Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/article/paper-DenseBody/</loc>
-    
-    <lastmod>2019-03-31T09:31:42.795Z</lastmod>
     
   </url>
   
