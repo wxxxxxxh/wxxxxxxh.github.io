@@ -211,9 +211,9 @@
                 
                     <a href="#DeepLearning" title="DeepLearning" rel="6">DeepLearning</a>
                 
-                    <a href="#Papers" title="Papers" rel="4">Papers</a>
-                
                     <a href="#Travel" title="Travel" rel="1">Travel</a>
+                
+                    <a href="#Papers" title="Papers" rel="4">Papers</a>
                 
             </div>
 
@@ -313,13 +313,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview-tags">
-                     <a href="/article/a-survey-SR/">
+                     <a href="/article/vision-attention/">
                         <h2 class="post-title">
-                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
+                            [计算机视觉]计算机视觉中注意力(Attention)机制原理及其模型发展和应用
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
+                                在微信公众号上看到的一篇关于Attention机制在视觉领域应用的小白科普文。
                             </h3>
                         
                     </a>
@@ -332,13 +332,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview-tags">
-                     <a href="/article/vision-attention/">
+                     <a href="/article/a-survey-SR/">
                         <h2 class="post-title">
-                            [计算机视觉]计算机视觉中注意力(Attention)机制原理及其模型发展和应用
+                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                在微信公众号上看到的一篇关于Attention机制在视觉领域应用的小白科普文。
+                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
                             </h3>
                         
                     </a>
@@ -489,6 +489,32 @@
             </div>
             
             <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Travel">
+                    <span class="tag-text">Travel</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview-tags">
+                     <a href="/article/travel-to-hk/">
+                        <h2 class="post-title">
+                            [Travel]清明假期香港一日游
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                也是首次兼职代购的一日游，应该说一直在购，没有游
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Papers">
                     <span class="tag-text">Papers</span>
                 </span>
@@ -562,32 +588,6 @@
                         
                             <h3 class="post-subtitle">
                                 一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Travel">
-                    <span class="tag-text">Travel</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview-tags">
-                     <a href="/article/travel-to-hk/">
-                        <h2 class="post-title">
-                            [Travel]清明假期香港一日游
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                也是首次兼职代购的一日游，应该说一直在购，没有游
                             </h3>
                         
                     </a>
@@ -784,8 +784,24 @@
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat -->
 <img src="https://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<!-- Migrate from head to bottom, no longer block render and still work -->
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>
