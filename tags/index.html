@@ -1,7 +1,9 @@
+<!-- layout.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Head tag -->
+<!-- Head tag layout.ejs-->
+<!-- head.ejs -->
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,15 +22,15 @@
 
     <link rel="canonical" href="https://wangxuehui.site/tags/">
 
-    <!-- Bootstrap Core CSS -->
+    <!-- Bootstrap Core CSS head.ejs-->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-    <!-- Custom CSS --> 
+    <!-- Custom CSS head.ejs--> 
     <link rel="stylesheet" href="/css/beantech.min.css">
 
     <link rel="stylesheet" href="/css/donate.css">
     
-    <!-- Pygments Highlight CSS -->
+    <!-- Pygments Highlight CSS head.ejs-->
     <link rel="stylesheet" href="/css/highlight.css">
 
     <link rel="stylesheet" href="/css/widget.css">
@@ -39,7 +41,7 @@
 
     <link rel="stylesheet" href="/css/toc.css">
 
-    <!-- Custom Fonts -->
+    <!-- Custom Fonts head.ejs-->
     <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
     <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -62,7 +64,7 @@
     <!-- ga & ba script hoook -->
     <script></script>
 
-    <!-- Baidu Tongji -->
+    <!-- Baidu Tongji head.ejs-->
     
     <script>
         // dynamic User by Hux
@@ -79,7 +81,7 @@
     </script>
     
 
-    <!-- Baidu Sitemap -->
+    <!-- Baidu Sitemap head.ejs-->
     <script>
         (function(){
             var bp = document.createElement('script');
@@ -100,10 +102,11 @@
 </head>
 
 
-<!-- hack iOS CSS :active style -->
+<!-- hack iOS CSS :active style layout.ejs-->
 <body ontouchstart="">
-	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Modified by Yu-Hsuan Yen author-->
-<!-- Post Header -->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- header.ejs -->
+<!-- Modified by Yu-Hsuan Yen author header.ejs-->
+<!-- Post Header header.ejs-->
 <style type="text/css">
     header.intro-header{
         
@@ -118,8 +121,9 @@
     
 </style>
 
+<!-- header.ejs -->
 <header class="intro-header" >
-    <!-- Signature author -->
+    <!-- Signature author header.ejs-->
     <div id="signature">
         <div class="container">
             <div class="row">
@@ -140,10 +144,11 @@
 </header>
 
 	
-    <!-- Navigation -->
+    <!-- nav.ejs -->
+<!-- Navigation nav.ejs-->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Brand and toggle get grouped for better mobile display nav.ejs-->
         <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle">
                 <span class="sr-only">Toggle navigation</span>
@@ -154,7 +159,7 @@
             <a class="navbar-brand" href="/">王雪辉</a>
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Collect the nav links, forms, and other content for toggling nav.ejs-->
         <!-- Known Issue, found by Hux:
             <nav>'s height woule be hold on by its content.
             so, when navbar scale out, the <nav> will cover tags.
@@ -181,11 +186,12 @@
                 </ul>
             </div>
         </div>
-        <!-- /.navbar-collapse -->
+        <!-- /.navbar-collapse nav.ejs-->
     </div>
-    <!-- /.container -->
+    <!-- /.container nav.ejs-->
 </nav>
 <script>
+    // nav.ejs
     // Drop Bootstarp low-performance Navbar
     // Use customize navbar with high-quality material design animation
     // in high-perf jank-free CSS3 implementation
@@ -215,35 +221,61 @@
 </script>
 
 
-    <!-- Main Content-layout.ejs -->
+    <!-- Main Content-layout.ejs layout.ejs-->
     <!-- Main Content-tags.ejs -->
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 标签云 -->
+            <!-- 标签云 tags.ejs-->
             <div id='tag_cloud' class="tags">
                 
                     <a href="#Hexo" title="Hexo" rel="0">Hexo</a>
+                
+                    <a href="#Travel" title="Travel" rel="1">Travel</a>
                 
                     <a href="#Computer Vision" title="Computer Vision" rel="7">Computer Vision</a>
                 
                     <a href="#DeepLearning" title="DeepLearning" rel="6">DeepLearning</a>
                 
-                    <a href="#Papers" title="Papers" rel="4">Papers</a>
-                
-                    <a href="#Travel" title="Travel" rel="1">Travel</a>
-                
                     <a href="#Life" title="Life" rel="1">Life</a>
+                
+                    <a href="#Papers" title="Papers" rel="4">Papers</a>
                 
             </div>
 
-            <!-- 标签列表 -->
+            <!-- 标签列表 tags.ejs-->
 
             
             <div class="one-tag-list">
                 <span class="fa fa-tag listing-seperator" id="Hexo">
                     <span class="tag-text">Hexo</span>
                 </span>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Travel">
+                    <span class="tag-text">Travel</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview-tags">
+                     <a href="/article/travel-to-hk/">
+                        <h2 class="post-title">
+                            [Travel]清明假期香港一日游
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                也是首次兼职代购的一日游，应该说一直在购，没有游
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
                 
             </div>
             
@@ -314,13 +346,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview-tags">
-                     <a href="/article/a-survey-SR/">
+                     <a href="/article/PointNetPlusPlus/">
                         <h2 class="post-title">
-                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
+                            [论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
+                                PointNet++是PointNet的进化版，解决了点局部特征的获取问题，提出的set abstraction level很有意思，也竭尽可能的整理好整理清楚这种开山之作
                             </h3>
                         
                     </a>
@@ -333,13 +365,13 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview-tags">
-                     <a href="/article/PointNetPlusPlus/">
+                     <a href="/article/a-survey-SR/">
                         <h2 class="post-title">
-                            [论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets
+                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                PointNet++是PointNet的进化版，解决了点局部特征的获取问题，提出的set abstraction level很有意思，也竭尽可能的整理好整理清楚这种开山之作
+                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
                             </h3>
                         
                     </a>
@@ -454,25 +486,6 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview-tags">
-                     <a href="/article/a-survey-SR/">
-                        <h2 class="post-title">
-                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview-tags">
                      <a href="/article/PointNetPlusPlus/">
                         <h2 class="post-title">
                             [论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets
@@ -492,6 +505,25 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview-tags">
+                     <a href="/article/a-survey-SR/">
+                        <h2 class="post-title">
+                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview-tags">
                      <a href="/article/PointCloud-architecture/">
                         <h2 class="post-title">
                             [阅读总结]PointCloud Basic Architecture总结梳理
@@ -499,6 +531,32 @@
                         
                             <h3 class="post-subtitle">
                                 对自己阅读的五种论文进行一下总结，也在总结中对于点云处理的基础深度学习框架有了透彻的理解，不得不说写出这些文章的真的好天才啊，星星眼！
+                            </h3>
+                        
+                    </a>
+                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+                </div>
+                <hr>
+                
+            </div>
+            
+            <div class="one-tag-list">
+                <span class="fa fa-tag listing-seperator" id="Life">
+                    <span class="tag-text">Life</span>
+                </span>
+                
+                  <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+                 <div class="post-preview-tags">
+                     <a href="/article/typhoon-hz/">
+                        <h2 class="post-title">
+                            [生活]台风利奇马过后的杭州
+                        </h2>
+                        
+                            <h3 class="post-subtitle">
+                                硬刚利奇马后的杭州天倍儿蓝，云倍儿白！
                             </h3>
                         
                     </a>
@@ -556,25 +614,6 @@
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview-tags">
-                     <a href="/article/a-survey-SR/">
-                        <h2 class="post-title">
-                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview-tags">
                      <a href="/article/PointNetPlusPlus/">
                         <h2 class="post-title">
                             [论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets
@@ -589,51 +628,18 @@
                 </div>
                 <hr>
                 
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Travel">
-                    <span class="tag-text">Travel</span>
-                </span>
-                
                   <!-- <li class="listing-item">
                   <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
                   <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
                   </li> -->
                  <div class="post-preview-tags">
-                     <a href="/article/travel-to-hk/">
+                     <a href="/article/a-survey-SR/">
                         <h2 class="post-title">
-                            [Travel]清明假期香港一日游
+                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
                         </h2>
                         
                             <h3 class="post-subtitle">
-                                也是首次兼职代购的一日游，应该说一直在购，没有游
-                            </h3>
-                        
-                    </a>
-                    <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Life">
-                    <span class="tag-text">Life</span>
-                </span>
-                
-                  <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-                 <div class="post-preview-tags">
-                     <a href="/article/typhoon-hz/">
-                        <h2 class="post-title">
-                            [生活]台风利奇马过后的杭州
-                        </h2>
-                        
-                            <h3 class="post-subtitle">
-                                硬刚利奇马后的杭州天倍儿蓝，云倍儿白！
+                                一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
                             </h3>
                         
                     </a>
@@ -650,8 +656,8 @@
 </div>
 
 
-    <!-- Footer -->
-    <!-- Footer -->
+    <!-- Footer layout.ejs-->
+    <!-- Footer footer.ejs-->
 <footer>
     <div class="container">
         <div class="row">
@@ -660,25 +666,7 @@
                 
                 
                 
-                    <li>
-                        <a target="_blank" href="https://www.zhihu.com/people/sduuuu">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">知</i>
-                            </span>
-                        </a>
-                    </li>
-                
 
-                
-                    <li>
-                        <a target="_blank" href="http://weibo.com/5364025234">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
                 
 
                 
@@ -734,17 +722,17 @@
     </div>
 </footer>
 
-<!-- jQuery -->
+<!-- jQuery footer.ejs-->
 <script src="/js/jquery.min.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
+<!-- Bootstrap Core JavaScript footer.ejs-->
 <script src="/js/bootstrap.min.js"></script>
 
-<!-- Custom Theme JavaScript -->
+<!-- Custom Theme JavaScript footer.ejs-->
 <script src="/js/hux-blog.min.js"></script>
 
 
-<!-- async load function -->
+<!-- async load function footer.ejs-->
 <script>
     function async(u, c) {
       var d = document, t = 'script',
@@ -775,7 +763,7 @@
 -->
 
 
-<!-- jquery.tagcloud.js -->
+<!-- jquery.tagcloud.js footer.ejs-->
 <script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
@@ -789,7 +777,7 @@
     }
 </script>
 
-<!--fastClick.js -->
+<!--fastClick.js footer.ejs-->
 <script>
     async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
         var $nav = document.querySelector("nav");
@@ -798,7 +786,7 @@
 </script>
 
 
-<!-- Google Analytics -->
+<!-- Google Analytics footer.ejs-->
 
 
 <script>
@@ -818,7 +806,7 @@
 
 
 
-<!-- busuanzi -->
+<!-- busuanzi footer.ejs-->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
 
 
@@ -830,9 +818,9 @@
 	<a id="rocket" href="#top" class=""></a>
 	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
-<!-- Image to hack wechat -->
+<!-- Image to hack wechat layout.ejs-->
 <img src="https://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work -->
+<!-- Migrate from head to bottom, no longer block render and still work layout.ejs-->
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
