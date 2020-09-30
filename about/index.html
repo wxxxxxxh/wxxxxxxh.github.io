@@ -238,12 +238,12 @@
             ">
             
                 <h3 id="一句话"><a href="#一句话" class="headerlink" title="一句话"></a>一句话</h3><blockquote>
-<p>中山大学 CS 研一狗</p>
-<p><a href="http://wangxuehui.site/cv-zh/">个人简历</a></p>
-<p><a href="http://wangxuehui.site/cv-en/">Curriculum Vitae</a></p>
+<p>中山大学 CS 研三狗</p>
+<p><a href="https://cv.wangxuehui.site" target="_blank" rel="noopener">个人简历</a></p>
+<p><a href="https://cv.wangxuehui.site" target="_blank" rel="noopener">Curriculum Vitae</a></p>
 </blockquote>
 <h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><blockquote>
-<p>不纯粹的工科男，喜好思考人生，小到事情得失，大到人生路途，一直在追求自己的道</p>
+<p>不纯粹的工科男，喜好思考人生</p>
 <p>道之所在，虽千万人吾往矣</p>
 </blockquote>
 <h3 id="研究方向"><a href="#研究方向" class="headerlink" title="研究方向"></a>研究方向</h3><blockquote>
@@ -339,11 +339,11 @@
             
         
             
-            <a href="/tags/#Papers" title="Papers" rel="4">Papers</a>
+            <a href="/tags/#DeepLearning" title="DeepLearning" rel="6">DeepLearning</a>
             
         
             
-            <a href="/tags/#DeepLearning" title="DeepLearning" rel="6">DeepLearning</a>
+            <a href="/tags/#Papers" title="Papers" rel="4">Papers</a>
             
         
             
@@ -626,8 +626,24 @@
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat layout.ejs-->
 <img src="https://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work layout.ejs--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<!-- Migrate from head to bottom, no longer block render and still work layout.ejs-->
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>

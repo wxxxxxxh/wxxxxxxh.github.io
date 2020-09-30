@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wangxuehui.site/about/index.html</loc>
+    
+    <lastmod>2020-09-30T12:45:33.061Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://wangxuehui.site/article/typhoon-hz/</loc>
     
     <lastmod>2019-08-11T08:40:59.134Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://wangxuehui.site/article/conference-list/</loc>
     
     <lastmod>2019-08-11T07:20:32.931Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://wangxuehui.site/about/index.html</loc>
-    
-    <lastmod>2019-08-03T16:30:01.042Z</lastmod>
     
   </url>
   
