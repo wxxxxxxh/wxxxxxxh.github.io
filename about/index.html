@@ -275,34 +275,11 @@
                     
 
                     
-                        <!-- disqus 评论框 start page.ejs-->
-                        <div class="comment">
-                            <div id="lv-container" data-id="city" data-uid="MTAyMC80MzM4OS8xOTkzMA=="></div>
-                        </div>
-                        <!-- disqus 评论框 end page.ejs-->
-                    
 
                     
 
                     
 
-                    
-                    <!-- 来必力City版公共JS代码 start (一个网页只需插入一次) page.ejs-->
-                    <script type="text/javascript">
-                       (function(d, s) {
-                           var j, e = d.getElementsByTagName(s)[0];
-                    
-                           if (typeof LivereTower === 'function') { return; }
-                    
-                           j = d.createElement(s);
-                           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                           j.async = true;
-                    
-                           e.parentNode.insertBefore(j, e);
-                       })(document, 'script');
-                    </script>
-                    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
-                    <!-- 来必力City版 公共JS代码 end page.ejs-->
                     
 
                 
@@ -619,24 +596,8 @@
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
 <!-- Image to hack wechat layout.ejs-->
 <img src="https://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work layout.ejs-->
+<!-- Migrate from head to bottom, no longer block render and still work layout.ejs--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 
 </html>
