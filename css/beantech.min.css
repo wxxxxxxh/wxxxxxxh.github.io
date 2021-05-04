@@ -31,7 +31,7 @@
 }
 
 .sidebar-container a:hover,.sidebar-container a:active {
-	color: #0085a1!important;
+	color: #c63228!important;
 }
 
 .sidebar-container .tags a {
@@ -39,7 +39,7 @@
 }
 
 .sidebar-container .tags a:hover,.sidebar-container .tags a:active {
-	border-color: #0085a1;
+	border-color: #c63228;
 }
 
 .sidebar-container .short-about img {
@@ -86,7 +86,7 @@ a {
 }
 
 a:hover,a:focus {
-	color: #0085a1;
+	color: #c63228;
 }
 
 a img:hover,a img:focus {
@@ -822,8 +822,8 @@ form .row:first-child .floating-label-form-group {
 }
 
 .pager li>a:hover,.pager li>a:focus {
-	border: 1px solid #0085a1;
-	background-color: #0085a1;
+	border: 1px solid #c63228;
+	background-color: #c63228;
 	color: white;
 }
 

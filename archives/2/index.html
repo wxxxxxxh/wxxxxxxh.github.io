@@ -2,80 +2,64 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Head tag layout.ejs-->
-<!-- head.ejs -->
+<!-- Head.ejs tag produced by layout.ejs-->
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="记录生活与学习，半佛半火箭的研究僧，励志做一个牛哄哄的CV大佬">
-    <meta name="keyword"  content="日常与学习, 计算机视觉, 人工智能">
+    <meta name="description" content="记录生活与学习，励志做一个牛哄哄的CV大佬，不枉一场热爱">
+    <meta name="keyword"  content="Personal Life, Computer Vision, AI">
     <link rel="shortcut icon" href="/img/ironman-draw.png">
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          王雪辉 | Blog
+          Xuehui | Blog
         
     </title>
 
     <link rel="canonical" href="https://wangxuehui.site/archives/2/">
 
-    <!-- Bootstrap Core CSS head.ejs-->
+    <!-- Bootstrap Core CSS | head.ejs-->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-    <!-- Custom CSS head.ejs--> 
+    <!-- Customized CSS | head.ejs--> 
     <link rel="stylesheet" href="/css/beantech.min.css">
-
     <link rel="stylesheet" href="/css/donate.css">
-    
-    <!-- Pygments Highlight CSS head.ejs-->
+    <link rel="stylesheet" href="/css/widget.css">
+    <link rel="stylesheet" href="/css/rocket.css">
+    <link rel="stylesheet" href="/css/signature.css">
+    <link rel="stylesheet" href="/css/toc.css">
+    <style type="text/css">
+        header.intro-header{
+            
+                background-image: url('http://hexo.wangxuehui.site/home.jpg') 
+                /*config*/
+            
+        }
+        
+        #signature{
+            background-image: url('http://hexo.wangxuehui.site/BeanTechSign-white.png');
+        }
+        
+    </style>
+    <!-- Fonts | head.ejs-->
+    <link href="http://hexo.wangxuehui.site/statics/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Pygments Highlight CSS | head.ejs-->
     <link rel="stylesheet" href="/css/highlight.css">
 
-    <link rel="stylesheet" href="/css/widget.css">
-
-    <link rel="stylesheet" href="/css/rocket.css">
-
-    <link rel="stylesheet" href="/css/signature.css">
-
-    <link rel="stylesheet" href="/css/toc.css">
-
-    <!-- Custom Fonts head.ejs-->
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <!-- Scripts | head.ejs-->
+    <!-- Gitalk -->
     
-        <link rel="stylesheet" href="http://hexo.wangxuehui.site/gitalkcss.css">
-        <script src="http://hexo.wangxuehui.site/gitalk.min.js"></script>
+    <link rel="stylesheet" href="http://hexo.wangxuehui.site/gitalkcss.css">
+    <script src="http://hexo.wangxuehui.site/gitalk.min.js"></script>
     
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ga & ba script hoook -->
-    <script></script>
-
-    <!-- Baidu Tongji head.ejs-->
+    <!-- Baidu Analysis -->
     
     <script>
-        // dynamic User by Hux
         var _baId = '4f2eccee1de0964665ba04749f9826e9';
-
-        // Originial
         var _hmt = _hmt || [];
         (function() {
           var hm = document.createElement("script");
@@ -85,8 +69,8 @@
         })();
     </script>
     
-
-    <!-- Baidu Sitemap head.ejs-->
+    <!-- Baidu Sitemap -->
+    
     <script>
         (function(){
             var bp = document.createElement('script');
@@ -100,83 +84,77 @@
             var s = document.getElementsByTagName("script")[0];
             s.parentNode.insertBefore(bp, s);
         })();
+    </script>
+    
+    <!-- Navigation -->
+    <script>
+        var $body   = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+        $toggle.addEventListener('click', handleMagic)
+        function handleMagic(e){
+            if ($navbar.className.indexOf('in') > 0) {
+            // CLOSE
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function(){
+                    // prevent frequently toggle
+                    if($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                },400)
+            }else{
+            // OPEN
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
     </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-
-
 </head>
 
 
-<!-- hack iOS CSS :active style layout.ejs-->
+
 <body ontouchstart="">
-	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- header.ejs -->
-<!-- Modified by Yu-Hsuan Yen author header.ejs-->
-<!-- Post Header header.ejs-->
-<style type="text/css">
-    header.intro-header{
-        
-            background-image: url('http://hexo.wangxuehui.site/home.jpg') 
-            /*config*/
-        
-    }
-    
-    #signature{
-        background-image: url('http://hexo.wangxuehui.site/BeanTechSign-white.png');
-    }
-    
-</style>
-
-<!-- header.ejs -->
-<header class="intro-header" >
-    <!-- Signature author header.ejs-->
-    <div id="signature">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                
-                    <div class="site-heading">
-                        <h1>王雪辉</h1>
-                        <!--<hr class="small">-->
-                        <span class="subheading">半佛半火箭系的研究僧，记录日常和学习</span>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Header.ejs tag produced by layout.ejs-->
+    <!-- Author and title information | header.ejs-->
+    <header class="intro-header" >
+        <div id="signature">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+                        <div class="site-heading">
+                            <h1>Xuehui WANG</h1>
+                            <span class="subheading">A BLOG THAT RECORDS MY STUDY LIFE</span>
+                        </div>
+                    
                     </div>
-                
-
-
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-	
-    <!-- nav.ejs -->
-<!-- Navigation nav.ejs-->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display nav.ejs-->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">王雪辉</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling nav.ejs-->
-        <!-- Known Issue, found by Hux:
-            <nav>'s height woule be hold on by its content.
-            so, when navbar scale out, the <nav> will cover tags.
-            also mask any touch event of tags, unfortunately.
-        -->
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    
+    <!-- nav.ejs tag produced by layout.ejs-->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display | nav.ejs-->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Xuehui WANG</a>
+            </div>
+            <div id="wxhblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
                         <li>
                             <a href="/archive/">Archives</a>
                         </li>
@@ -186,540 +164,420 @@
                         <li>
                             <a href="/about/">About</a>
                         </li>
-                    
-                    
-                </ul>
+                        
+                    </ul>
+                </div>
             </div>
         </div>
-        <!-- /.navbar-collapse nav.ejs-->
-    </div>
-    <!-- /.container nav.ejs-->
-</nav>
-<script>
-    // nav.ejs
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
+    </nav>
 
-    $toggle.addEventListener('click', handleMagic)
-    function handleMagic(e){
-        if ($navbar.className.indexOf('in') > 0) {
-        // CLOSE
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        }else{
-        // OPEN
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
-    }
-</script>
-
-
-    <!-- Main Content-layout.ejs layout.ejs-->
-    <!-- Main Content page.ejs-->
-<div class="container">
-    <div class="row">
-        
-
-<!-- USE SIDEBAR page.ejs-->
-    <!-- Post Container2 page.ejs-->
-            <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
+    <!-- Main Content powered by layout.ejs-->
+    <!-- Posts List | page.ejs-->
+    <div class="container">
+        <div class="row">
             
-                <!-- Main Content-index.ejs -->
-
-
-<div class="post-preview">
-    <a href="/article/PointNet/" class="post-preview-banner">
-        
-            <img src="http://hexo.wangxuehui.site/cover-image/pointnet-cover.png" />
-        
-    </a>
-    <a href="/article/PointNet/">
-        <h2 class="post-title">
-            [论文阅读]PointNet: Deep Learning on Point Sets for 3D Classfication and Segmentation
-        </h2>
-    </a>
-    <h3 class="post-subtitle">
-        PointNet是一个比较经典的将点云输入深度神经网络来进行分割，分类的模型，对于无序化的点云有了自己的处理手段。
-    </h3>
-    <div class="post-content-preview">
-        Abstract点云，是一种无序的三维表达方式，之前的方法通常是将点云做变换为规则的3D体素（voxel）或者图像的集合来输入CNN等网络，但作者比较嫌弃之前的方法，因为这些方法很繁琐并且可能会......
-    </div>
-    
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Xuehui Wang on
-            2019-05-15
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
-            
-              <a href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
-            
-              <a href="/tags/#Papers" title="Papers">Papers</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/article/a-survey-SR/" class="post-preview-banner">
-        
-            <img src="http://hexo.wangxuehui.site/cover-image/SR-survey-cover.png" />
-        
-    </a>
-    <a href="/article/a-survey-SR/">
-        <h2 class="post-title">
-            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
-        </h2>
-    </a>
-    <h3 class="post-subtitle">
-        一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
-    </h3>
-    <div class="post-content-preview">
-        Deep Learning for Image Super-resolution: A Survey监督式SRSR框架
+                
+            <!-- USE SIDEBAR post-container | page.ejs-->
+            <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container">
+                                
+                <!-- This is a post | index.ejs -->
+                <div class="post-preview">
+                    <a href="/article/PointNet/" class="post-preview-banner">
+                        
+                        <img src="http://hexo.wangxuehui.site/cover-image/pointnet-cover.png" />
+                        
+                    </a>
+                    <a href="/article/PointNet/">
+                        <h2 class="post-title">
+                            [论文阅读]PointNet: Deep Learning on Point Sets for 3D Classfication and Segmentation
+                        </h2>
+                    </a>
+                    <h3 class="post-subtitle">
+                        PointNet是一个比较经典的将点云输入深度神经网络来进行分割，分类的模型，对于无序化的点云有了自己的处理手段。
+                    </h3>
+                    <div class="post-content-preview">
+                        Abstract点云，是一种无序的三维表达方式，之前的方法通常是将点云做变换为规则的3D体素（voxel）或者图像的集合来输入CNN等网络，但作者比较嫌弃之前的方法，因为这些方法很繁琐并且可能会......
+                    </div>
+                    
+                    <p class="post-meta" style="margin: 10px 0;">
+                        Posted by Xuehui Wang on 2019-05-15
+                    </p>
+                    <div class="tags">
+                        
+                        <a href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
+                        
+                        <a href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                        
+                        <a href="/tags/#Papers" title="Papers">Papers</a>
+                        
+                    </div>
+                    
+                </div>
+                <hr>
+                
+                <!-- This is a post | index.ejs -->
+                <div class="post-preview">
+                    <a href="/article/a-survey-SR/" class="post-preview-banner">
+                        
+                        <img src="http://hexo.wangxuehui.site/cover-image/SR-survey-cover.png" />
+                        
+                    </a>
+                    <a href="/article/a-survey-SR/">
+                        <h2 class="post-title">
+                            [论文阅读]Deep Learning for Image Super-Resolution: A Survey
+                        </h2>
+                    </a>
+                    <h3 class="post-subtitle">
+                        一篇介绍超分辨率(Super-Resolution)的文章。对论文内容做了主要的翻译与总结。希望可以让自己对这个新领域有更多的了解
+                    </h3>
+                    <div class="post-content-preview">
+                        Deep Learning for Image Super-resolution: A Survey监督式SRSR框架
 图二 监督式SR的常用框架结构 
 
 先上采样SR后上采样SR
 目的：解决先......
-    </div>
-    
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Xuehui Wang on
-            2019-04-26
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
-            
-              <a href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
-            
-              <a href="/tags/#Papers" title="Papers">Papers</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/article/travel-to-hk/" class="post-preview-banner">
-        
-            <img src="http://hexo.wangxuehui.site/cover-image/hk-cover.jpg" />
-        
-    </a>
-    <a href="/article/travel-to-hk/">
-        <h2 class="post-title">
-            [Travel]清明假期香港一日游
-        </h2>
-    </a>
-    <h3 class="post-subtitle">
-        也是首次兼职代购的一日游，应该说一直在购，没有游
-    </h3>
-    <div class="post-content-preview">
-        乱七八糟因为一点点自己的私事吧，感觉是有必要去一趟香港的，于是约了实验室的汉子（这一天还跟着他给他的小外甥买了两大包的纸尿裤！）就在清明节假期的第一天出发了！  
+                    </div>
+                    
+                    <p class="post-meta" style="margin: 10px 0;">
+                        Posted by Xuehui Wang on 2019-04-26
+                    </p>
+                    <div class="tags">
+                        
+                        <a href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
+                        
+                        <a href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                        
+                        <a href="/tags/#Papers" title="Papers">Papers</a>
+                        
+                    </div>
+                    
+                </div>
+                <hr>
+                
+                <!-- This is a post | index.ejs -->
+                <div class="post-preview">
+                    <a href="/article/travel-to-hk/" class="post-preview-banner">
+                        
+                        <img src="http://hexo.wangxuehui.site/cover-image/hk-cover.jpg" />
+                        
+                    </a>
+                    <a href="/article/travel-to-hk/">
+                        <h2 class="post-title">
+                            [Travel]清明假期香港一日游
+                        </h2>
+                    </a>
+                    <h3 class="post-subtitle">
+                        也是首次兼职代购的一日游，应该说一直在购，没有游
+                    </h3>
+                    <div class="post-content-preview">
+                        乱七八糟因为一点点自己的私事吧，感觉是有必要去一趟香港的，于是约了实验室的汉子（这一天还跟着他给他的小外甥买了两大包的纸尿裤！）就在清明节假期的第一天出发了！  
 其实现在过关什么的真的很方便了......
-    </div>
-    
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Xuehui Wang on
-            2019-04-10
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Travel" title="Travel">Travel</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/article/paper-DenseBody/" class="post-preview-banner">
-        
-            <img src="http://hexo.wangxuehui.site/cover-image/densebody-cover.png" />
-        
-    </a>
-    <a href="/article/paper-DenseBody/">
-        <h2 class="post-title">
-            [论文阅读]DenseBody: Directly Regressing Dense 3D Human Pose and Shape From a Single Color Image
-        </h2>
-    </a>
-    <h3 class="post-subtitle">
-        小小阅读笔记，关于人体姿态估计与人体形状估计，使用了单目图像直接端到端生成。
-    </h3>
-    <div class="post-content-preview">
-        摘要之前工作
+                    </div>
+                    
+                    <p class="post-meta" style="margin: 10px 0;">
+                        Posted by Xuehui Wang on 2019-04-10
+                    </p>
+                    <div class="tags">
+                        
+                        <a href="/tags/#Travel" title="Travel">Travel</a>
+                        
+                    </div>
+                    
+                </div>
+                <hr>
+                
+                <!-- This is a post | index.ejs -->
+                <div class="post-preview">
+                    <a href="/article/paper-DenseBody/" class="post-preview-banner">
+                        
+                        <img src="http://hexo.wangxuehui.site/cover-image/densebody-cover.png" />
+                        
+                    </a>
+                    <a href="/article/paper-DenseBody/">
+                        <h2 class="post-title">
+                            [论文阅读]DenseBody: Directly Regressing Dense 3D Human Pose and Shape From a Single Color Image
+                        </h2>
+                    </a>
+                    <h3 class="post-subtitle">
+                        小小阅读笔记，关于人体姿态估计与人体形状估计，使用了单目图像直接端到端生成。
+                    </h3>
+                    <div class="post-content-preview">
+                        摘要之前工作
 依赖于中间结果，比如身体分割，2D/3D的关节点，以及人体的轮廓掩码等，讲一个大任务分解为各种小任务，这样可以使用更多的2D标注数据。
 
 之前大多数的工作是建立一个带有学习参数的人......
-    </div>
-    
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Xuehui Wang on
-            2019-03-29
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
-            
-              <a href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
-            
-              <a href="/tags/#Papers" title="Papers">Papers</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
-
-
-<!-- Pager index.ejs-->
-
-<ul class="pager">
-    
-        <li class="previous">
-            <a href="/">&larr; Newer Posts</a>
-        </li>
-    
-    
-</ul>
-
+                    </div>
+                    
+                    <p class="post-meta" style="margin: 10px 0;">
+                        Posted by Xuehui Wang on 2019-03-29
+                    </p>
+                    <div class="tags">
+                        
+                        <a href="/tags/#Computer Vision" title="Computer Vision">Computer Vision</a>
+                        
+                        <a href="/tags/#DeepLearning" title="DeepLearning">DeepLearning</a>
+                        
+                        <a href="/tags/#Papers" title="Papers">Papers</a>
+                        
+                    </div>
+                    
+                </div>
+                <hr>
+                
+                <!-- Pager index.ejs-->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/">&larr; Newer Posts</a>
+                        </li>
+                    
+                    
+                </ul>
 
 
                 <br>
-
-                <!-- require APlayer page.ejs-->
+                <!-- require APlayer | page.ejs-->
                 
-
-                <!-- 如果开启评论功能 page.ejs-->
+                <!-- Comments | page.ejs-->
                 
             </div>
-
-          <!-- sidebar.ejs -->
-<!-- Sidebar Container sidebar.ejs-->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
-    
-        <!-- Featured Tags _widget/feature-tags.ejs-->
-
-<section>
-    <!-- no hr _widget/feature-tags.ejs-->
-    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-    <div class="tags">
-        
             
-        
-            
-            <a href="/tags/#Computer Vision" title="Computer Vision" rel="7">Computer Vision</a>
-            
-        
-            
-            <a href="/tags/#DeepLearning" title="DeepLearning" rel="6">DeepLearning</a>
-            
-        
-            
-            <a href="/tags/#Life" title="Life" rel="1">Life</a>
-            
-        
-            
-            <a href="/tags/#Papers" title="Papers" rel="4">Papers</a>
-            
-        
-            
-            <a href="/tags/#Travel" title="Travel" rel="1">Travel</a>
-            
-        
-    </div>
-</section>
-
-        <hr>
-    
-        <!-- Short About _widget/short-about.ejs-->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
-
-        
-            <img id = "avatar_pic" src="http://hexo.wangxuehui.site/person_head.jpg" />
-        
-
-        
-            <p>Stay hungry,Stay foolish</p>
-        
-
-        <!-- SNS Link widget/short-about.ejs-->
-        <ul class="list-inline">
-            
-            
-            
-
-            
-
-            
-
-            
-                <li>
-                    <a target="_blank"  href="https://github.com/wxxxxxxh">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-            
-            
-            
-            
-        </ul>
-    </div>
-</section>
-
-        <hr>
-    
-        <!--widget/recent-posts.ejs-->
-
-  <h5>RECENT POSTS</h3>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/article/typhoon-hz/">[生活]台风利奇马过后的杭州</a>
-        </li>
-      
-        <li>
-          <a href="/article/vision-attention/">[计算机视觉]计算机视觉中注意力(Attention)机制原理及其模型发展和应用</a>
-        </li>
-      
-        <li>
-          <a href="/article/PointCloud-architecture/">[阅读总结]PointCloud Basic Architecture总结梳理</a>
-        </li>
-      
-        <li>
-          <a href="/article/PointNetPlusPlus/">[论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets</a>
-        </li>
-      
-        <li>
-          <a href="/article/conference-list/">[整理2020]2019年下半年起计算机视觉&amp;人工智能&amp;机器人相关方向顶级会议整理</a>
-        </li>
-      
-    </ul>
-  </div>
-
-        <hr>
-    
-        <!-- Friends Blog _widget/friends-blog.ejs-->
-
-<h5>FRIENDS</h5>
-<ul class="list-inline">
-
-    
-        <li><a href="http://blog.csdn.net/huwh_" target="_blank">CSDN Blog 胡伟煌</a></li>
-    
-        <li><a href="http://www.carlib.net" target="_blank">无人系统研究所</a></li>
-    
-</ul>
-
-        <hr>
-    
-        <!--_widget/archive.ejs-->
-
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-
-        <hr>
-    
-</div>
-
-        
-    </div>
-</div>
-
-
-    <!-- Footer layout.ejs-->
-    <!-- Footer footer.ejs-->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
+            <!-- Sidebar Container | sidebar.ejs-->
+            <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container">
                 
+                <!-- Featured Tags _widget/feature-tags.ejs-->
                 
+                <section>
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        <a href="/tags/#Computer Vision" title="Computer Vision" rel="7">Computer Vision</a>
+                        
+                        
+                        
+                        <a href="/tags/#DeepLearning" title="DeepLearning" rel="6">DeepLearning</a>
+                        
+                        
+                        
+                        <a href="/tags/#Travel" title="Travel" rel="1">Travel</a>
+                        
+                        
+                        
+                        <a href="/tags/#Papers" title="Papers" rel="4">Papers</a>
+                        
+                        
+                        
+                        <a href="/tags/#Life" title="Life" rel="1">Life</a>
+                        
+                        
+                    </div>
+                </section>
                 
+                <hr>
+                
+                <!-- Short About _widget/short-about.ejs-->
+                <section class="visible-md visible-lg">
+                    <h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                        <img id = "avatar_pic" src="http://hexo.wangxuehui.site/person_head.jpg" />
+                        
+                        
+                        <p>Stay hungry,Stay foolish</p>
+                        
+                        <!-- SNS Link widget/short-about.ejs-->
+                        <ul class="list-inline">
+                            
+                            
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank"  href="https://github.com/wxxxxxxh">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                    </div>
+                </section>
 
+                <hr>
                 
-
+                <!--widget/recent-posts.ejs-->
                 
-
+                <h5>RECENT POSTS</h5>
+                <div class="widget">
+                    <ul>
+                        
+                        <li>
+                            <a href="/article/typhoon-hz/">[生活]台风利奇马过后的杭州</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/article/vision-attention/">[计算机视觉]计算机视觉中注意力(Attention)机制原理及其模型发展和应用</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/article/PointCloud-architecture/">[阅读总结]PointCloud Basic Architecture总结梳理</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/article/PointNetPlusPlus/">[论文阅读]PointNet++:Deep Hierarchical Feature Learning on Point Sets</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/article/conference-list/">[整理2020]2019年下半年起计算机视觉&amp;人工智能&amp;机器人相关方向顶级会议整理</a>
+                        </li>
+                        
+                    </ul>
+                </div>
                 
-                    <li>
-                        <a target="_blank"  href="https://github.com/wxxxxxxh">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
+                <hr>
                 
-
+                <!-- Friends Blog _widget/friends-blog.ejs-->
                 
-
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
                 </ul>
-                <p class="copyright text-muted">
-                    Copyright &copy; Xuehui Wang 2021 
-                    <br>
-                    Theme by <a href="http://www.huweihuang.com">胡伟煌</a> 
-                    <span style="display: inline-block; margin: 0 5px;">
-                        <i class="fa fa-heart"></i>
-                    </span> 
-                    re-Ported by <a href="http://wangxuehui.site">王雪辉</a> | 
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="91px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=huweihuang&repo=hexo-theme-huweihuang&type=star&count=true" >
-                    </iframe>
-                    <br>
-                    <span class="post-meta-item-icon">
-                        <i class="fa fa-eye"></i>
-                    </span>
-                    本站总访问量 
-                    <span id="busuanzi_value_site_pv">
-                        <i class="fa fa-spinner fa-spin"></i>
-                    </span> 
-                    次，
-                    总访问人数
-                    <span id="busuanzi_value_site_uv">
-                        <i class="fa fa-spinner fa-spin"></i>
-                    </span> 
-                    人
-                    <br>
-                    <a href="https://beian.miit.gov.cn">鲁ICP备18007290号-1</a> || 鲁公网安备 37100202000552号
-
-                </p>
+                
+                <hr>
+                
+                <!--_widget/archive.ejs-->
+                
+                <h5>ARCHIVES</h5>
+                <div class="widget">
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a><span class="archive-list-count">1</span></li></ul>
+                </div>
+                
+                <hr>
                 
             </div>
+            
         </div>
     </div>
-</footer>
-
-<!-- jQuery footer.ejs-->
-<script src="/js/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript footer.ejs-->
-<script src="/js/bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript footer.ejs-->
-<script src="/js/hux-blog.min.js"></script>
 
 
-<!-- async load function footer.ejs-->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
+    <!-- Footer powered by layout.ejs-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li>
+                            <a target="_blank"  href="https://github.com/wxxxxxxh">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        
+                        
+                    </ul>
+                    <p class="copyright text-muted">
+                        Copyright &copy; 2019 - 2021 
+                        <!--Theme by <a href="http://www.huweihuang.com">胡伟煌</a> 
+                        <span style="display: inline-block; margin: 0 5px;">
+                            <i class="fa fa-heart"></i>
+                        </span> 
+                        re-Ported by <a href="http://wangxuehui.site">王雪辉</a> | 
+                        <iframe
+                            style="margin-left: 2px; margin-bottom:-5px;"
+                            frameborder="0" scrolling="0" width="91px" height="20px"
+                            src="https://ghbtns.com/github-btn.html?user=huweihuang&repo=hexo-theme-huweihuang&type=star&count=true" >
+                        </iframe>-->
+                        <br>
+                        <span class="post-meta-item-icon">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                        本站总访问量 
+                        <span id="busuanzi_value_site_pv">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span> 
+                        次，
+                        总访问人数
+                        <span id="busuanzi_value_site_uv">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </span> 
+                        人
+                        <br>
+                        <a href="https://beian.miit.gov.cn">鲁ICP备18007290号-1</a> || 鲁公网安备 37100202000552号
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
-     so Huxblog drops it officially.
-
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
--->
-<!--
+    <!-- jQuery footer.ejs-->
+    <script src="/js/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript footer.ejs-->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Custom Theme JavaScript footer.ejs-->
+    <script src="/js/hux-blog.min.js"></script>
+    <!-- async load function footer.ejs-->
     <script>
-        async("https://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
-            hljs.initHighlightingOnLoad();
+        function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+        }
+    </script>
+    <!-- jquery.tagcloud.js footer.ejs-->
+    <script>
+        // only load tagcloud.js in tag.html
+        if($('#tag_cloud').length !== 0){
+            async("https://wangxuehui.site/js/jquery.tagcloud.js",function(){
+                $.fn.tagcloud.defaults = {
+                    //size: {start: 1, end: 1, unit: 'em'},
+                    color: {start: '#bbbbee', end: '#0085a1'},
+                };
+                $('#tag_cloud a').tagcloud();
+            })
+        }
+    </script>
+    <!--fastClick.js footer.ejs-->
+    <script>
+        async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+            var $nav = document.querySelector("nav");
+            if($nav) FastClick.attach($nav);
         })
     </script>
-    <link href="https://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
--->
-
-
-<!-- jquery.tagcloud.js footer.ejs-->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async("https://wangxuehui.site/js/jquery.tagcloud.js",function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
-
-<!--fastClick.js footer.ejs-->
-<script>
-    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
-        var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
-    })
-</script>
-
-
-<!-- Google Analytics footer.ejs-->
-
-
-<script>
-    // dynamic User by Hux
-    var _gaId = 'UA-XXXXXXXX-X';
-    var _gaDomain = 'yoursite';
-
-    // Originial
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', _gaId, _gaDomain);
-    ga('send', 'pageview');
-</script>
-
-
-
-<!-- busuanzi footer.ejs-->
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
+    <!-- Google Analytics footer.ejs-->
+    
+    <script>
+        // dynamic User by Hux
+        var _gaId = 'UA-XXXXXXXX-X';
+        var _gaDomain = 'yoursite';
+        // Originial
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', _gaId, _gaDomain);
+        ga('send', 'pageview');
+    </script>
+    
+    <!-- busuanzi footer.ejs-->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"> </script>
 
 
 
@@ -730,9 +588,9 @@
 	<a id="rocket" href="#top" class=""></a>
 	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
     <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
-<!-- Image to hack wechat layout.ejs-->
-<img src="https://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
-<!-- Migrate from head to bottom, no longer block render and still work layout.ejs-->
+    <!-- Image to hack wechat layout.ejs-->
+    <img src="https://wangxuehui.site/img/icon_wechat.png" width="0" height="0" />
+    <!-- Migrate from head to bottom, no longer block render and still work layout.ejs-->
 
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -751,5 +609,4 @@
 <!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
-
 </html>
